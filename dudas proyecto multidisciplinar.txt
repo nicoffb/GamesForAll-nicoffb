@@ -1,0 +1,18 @@
+front?qqya? project manager?
+rersumen de sg? Resumen del tema 4?
+
+
+si hago compra venta de segunda mano hago un carrito? tendria que hacer linea de venta?
+
+
+1-version de spring 2.7.8?
+2-Las dependendencias las de siempre?
+
+
+no usar eager, usar la alternativa (cual era?) : fetch tipo lazy y grafo de entidad
+
+
+
+Ahora el obtener todos no obtendrá todos , sino los del usuario logueado, por ejemplo Google Keep, como?
+
+
