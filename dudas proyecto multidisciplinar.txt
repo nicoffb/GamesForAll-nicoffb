@@ -16,3 +16,12 @@ no usar eager, usar la alternativa (cual era?) : fetch tipo lazy y grafo de enti
 Ahora el obtener todos no obtendrá todos , sino los del usuario logueado, por ejemplo Google Keep, como?
 
 
+
+1.atributos, relaciones, anotaciones
+
+
+2. Usuario dentro de una carpeta separada o como modelo general?  
+
+
+3. No usar ElementCollection sino AttributeConverter en los roles
+
