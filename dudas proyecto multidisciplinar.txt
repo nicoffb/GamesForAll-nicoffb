@@ -25,3 +25,5 @@ Ahora el obtener todos no obtendrá todos , sino los del usuario logueado, por e
 
 3. No usar ElementCollection sino AttributeConverter en los roles
 
+
+4. eL Postman de usuarios donde esta?
