@@ -1,10 +1,10 @@
 package com.salesianostriana.gamesforall.security.jwt.access;
 
+import com.salesianostriana.gamesforall.security.errorhandling.JwtTokenException;
+import com.salesianostriana.gamesforall.user.model.User;
+import com.salesianostriana.gamesforall.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import net.openwebinars.springboot.restjwt.security.errorhandling.JwtTokenException;
-import net.openwebinars.springboot.restjwt.user.model.User;
-import net.openwebinars.springboot.restjwt.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

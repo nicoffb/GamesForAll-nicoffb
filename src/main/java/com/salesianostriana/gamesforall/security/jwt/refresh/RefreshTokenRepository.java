@@ -1,6 +1,6 @@
 package com.salesianostriana.gamesforall.security.jwt.refresh;
 
-import net.openwebinars.springboot.restjwt.user.model.User;
+import com.salesianostriana.gamesforall.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 

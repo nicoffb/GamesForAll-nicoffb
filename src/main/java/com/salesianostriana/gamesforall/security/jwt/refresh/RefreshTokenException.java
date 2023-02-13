@@ -1,6 +1,6 @@
 package com.salesianostriana.gamesforall.security.jwt.refresh;
 
-import net.openwebinars.springboot.restjwt.security.errorhandling.JwtTokenException;
+import com.salesianostriana.gamesforall.security.errorhandling.JwtTokenException;
 
 public class RefreshTokenException extends JwtTokenException {
 

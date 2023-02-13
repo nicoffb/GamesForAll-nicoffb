@@ -1,7 +1,7 @@
 package com.salesianostriana.gamesforall.security.jwt.refresh;
 
+import com.salesianostriana.gamesforall.user.model.User;
 import lombok.RequiredArgsConstructor;
-import net.openwebinars.springboot.restjwt.user.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

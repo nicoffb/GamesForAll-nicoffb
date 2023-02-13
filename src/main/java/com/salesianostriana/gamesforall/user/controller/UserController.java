@@ -1,9 +1,11 @@
 package com.salesianostriana.gamesforall.user.controller;
 
-import com.salesianostriana.gamesforall.user.dto.CreateUserRequest;
-import com.salesianostriana.gamesforall.user.dto.JwtUserResponse;
-import com.salesianostriana.gamesforall.user.dto.LoginRequest;
-import com.salesianostriana.gamesforall.user.dto.UserResponse;
+import com.salesianostriana.gamesforall.security.jwt.access.JwtProvider;
+import com.salesianostriana.gamesforall.security.jwt.refresh.RefreshToken;
+import com.salesianostriana.gamesforall.security.jwt.refresh.RefreshTokenException;
+import com.salesianostriana.gamesforall.security.jwt.refresh.RefreshTokenRequest;
+import com.salesianostriana.gamesforall.security.jwt.refresh.RefreshTokenService;
+import com.salesianostriana.gamesforall.user.dto.*;
 import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.service.UserService;
 import lombok.RequiredArgsConstructor;

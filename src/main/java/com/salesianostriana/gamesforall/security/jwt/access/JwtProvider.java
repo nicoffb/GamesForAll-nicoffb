@@ -1,12 +1,12 @@
 package com.salesianostriana.gamesforall.security.jwt.access;
 
 
+import com.salesianostriana.gamesforall.security.errorhandling.JwtTokenException;
+import com.salesianostriana.gamesforall.user.model.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.java.Log;
-import net.openwebinars.springboot.restjwt.security.errorhandling.JwtTokenException;
-import net.openwebinars.springboot.restjwt.user.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
