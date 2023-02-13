@@ -2,7 +2,6 @@ package com.salesianostriana.gamesforall.security.jwt.refresh;
 
 import com.salesianostriana.gamesforall.user.model.User;
 import lombok.*;
-
 import org.hibernate.annotations.NaturalId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

@@ -24,7 +24,7 @@ public class Product {
     @GeneratedValue
     private Long id;
 
-    private String name;
+    private String title;
     private String description;
 
 //    @CreatedBy

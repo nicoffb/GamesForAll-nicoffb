@@ -1,7 +1,7 @@
 package com.salesianostriana.gamesforall.security;
 
+import com.salesianostriana.gamesforall.security.jwt.access.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
-import net.openwebinars.springboot.restjwt.security.jwt.access.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

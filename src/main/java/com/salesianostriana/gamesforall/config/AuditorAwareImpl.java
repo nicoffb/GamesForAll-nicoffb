@@ -1,6 +1,6 @@
 package com.salesianostriana.gamesforall.config;
 
-import net.openwebinars.springboot.restjwt.user.model.User;
+import com.salesianostriana.gamesforall.user.model.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

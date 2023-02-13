@@ -1,9 +1,10 @@
 package com.salesianostriana.gamesforall.product.controller;
 
+import com.salesianostriana.gamesforall.product.model.Product;
+import com.salesianostriana.gamesforall.product.repository.ProductRepository;
+import com.salesianostriana.gamesforall.product.service.ProductService;
+import com.salesianostriana.gamesforall.user.model.User;
 import lombok.RequiredArgsConstructor;
-import net.openwebinars.springboot.restjwt.note.model.Note;
-import net.openwebinars.springboot.restjwt.note.repo.NoteRepository;
-import net.openwebinars.springboot.restjwt.user.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,20 +17,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/note")
 @RequiredArgsConstructor
-public class NoteController {
+public class ProductController {
 
-    private final NoteRepository repository;
+    private final ProductService productService;
+    private final ProductRepository repository;
 
     @GetMapping("/")
-    public ResponseEntity<List<Note>> getAll(@AuthenticationPrincipal User user) {
-        // Utilizamos un método comun para devolver la respuesta de todos los List<Note>
-        //return buildResponseOfAList(repository.findAll());
-        return buildResponseOfAList(repository.findByAuthor(user.getId().toString()));
+    public List<Product> getAll(@AuthenticationPrincipal User user) {
+        //no debemos devolver ya responentity no? si no la clase directamente o el dto mejor?
+        return productService.findAll();
+        //return buildResponseOfAList(repository.findByAuthor(user.getId().toString()));
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Note> getById(@PathVariable Long id) {
+    public ResponseEntity<Product> getById(@PathVariable Long id) {
         /*
             El método ResponseEntity.of recibe como argumento un Optional<?> y devuelve
                 - 200 Ok si Optional.isPresent() == true
@@ -39,18 +41,18 @@ public class NoteController {
     }
 
 
-    @GetMapping("/author/{author}")
-    public ResponseEntity<List<Note>> getByAuthor(@PathVariable String author) {
-        // Utilizamos un método comun para devolver la respuesta de todos los List<Note>
-        return buildResponseOfAList(repository.findByAuthor(author));
-    }
+//    @GetMapping("/author/{author}")
+//    public ResponseEntity<List<Product>> getByAuthor(@PathVariable String author) {
+//        // Utilizamos un método comun para devolver la respuesta de todos los List<Note>
+//        return buildResponseOfAList(repository.findByAuthor(author));
+//    }
 
     /**
      * Este método sirve para devolver la respuesta de un List<Note>
      * @param list Lista que vendrá de una consulta en el repositorio
      * @return 404 si la lista está vacía, 200 OK si la lista tiene elementos
      */
-    private ResponseEntity<List<Note>> buildResponseOfAList(List<Note> list) {
+    private ResponseEntity<List<Product>> buildResponseOfAList(List<Product> list) {
 
         if (list.isEmpty())
             return ResponseEntity.notFound().build();
@@ -61,9 +63,9 @@ public class NoteController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Note> createNewNote(@RequestBody Note note) {
+    public ResponseEntity<Product> createNewNote(@RequestBody Product product) {
 
-        Note created = repository.save(note);
+        Product created = repository.save(product);
 
         URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -83,16 +85,16 @@ public class NoteController {
 
     @PreAuthorize("@noteRepository.findById(#id).orElse(new net.openwebinars.springboot.restjwt.note.model.Note()).author == authentication.principal.getId().toString()")
     @PutMapping("/{id}")
-    public ResponseEntity<Note> edit(@PathVariable Long id, @RequestBody Note edited) {
+    public ResponseEntity<Product> edit(@PathVariable Long id, @RequestBody Product edited) {
 
         return ResponseEntity.of(
                 repository.findById(id)
-                        .map(note -> {
-                            note.setTitle(edited.getTitle());
-                            note.setContent(edited.getContent());
+                        .map(product -> {
+                            product.setTitle(edited.getTitle());
+                            product.setDescription(edited.getDescription());
                             //note.setAuthor(edited.getAuthor());
-                            note.setImportant(edited.isImportant());
-                            return repository.save(note);
+                            //product.setImportant(edited.isImportant());
+                            return repository.save(product);
                         }));
 
 
