@@ -50,13 +50,14 @@ public class ProductService {
     public Optional<Product> findById2(Long id) {
         return repository.findById(id);
     }
-    //este se usa en songcontroller
+    //no usar preferiblemente
 
 
     public Product edit(Long id,Product edited){
         return repository.findById(id)
                 .map(product -> {
                     product.setTitle(edited.getTitle());
+                    product.setDescription(edited.getDescription());
                     return repository.save(product);
                 })
                 .orElseThrow(()->new ProductNotFoundException());

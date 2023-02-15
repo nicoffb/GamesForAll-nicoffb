@@ -27,6 +27,7 @@ public class ProductController {
         //no debemos devolver ya responentity no? si no la clase directamente o el dto mejor?
         return productService.findAll();
         //return buildResponseOfAList(repository.findByAuthor(user.getId().toString()));
+        //aplicar PAGEABLE
     }
 
 

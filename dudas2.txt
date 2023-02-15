@@ -1,0 +1,28 @@
+1-Aclarar el tipo de relacion reflexiva
+2-Gestionar las entidades con las anotaciones y las relaciones del modelo de datos
+Enum de categorias para asegurar que sea real y no haya equivoco creando o usando la categoria
+
+
+
+3-Aplicar pageables a la gestión centralizada de errores
+
+4-hacer consultas o filtros de categorias de productos
+
+5-Subgrafos y revisar las asociaciones lazy
+
+6-que es transacional?
+etiqueta que permite que en caso de un fallo no vaya hasta el final
+transaccion:cuando guardas algo en base de datos
+
+
+4-Validaciones
+
+
+jueves  a las 7
+
+viernes a las 6 
+
+sabado de 4 a 6
+
+
+
