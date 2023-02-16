@@ -2,6 +2,7 @@ package com.salesianostriana.gamesforall.product.service;
 
 import com.salesianostriana.gamesforall.exception.EmptyProductListException;
 import com.salesianostriana.gamesforall.exception.ProductNotFoundException;
+import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,19 +32,21 @@ public class ProductService {
     }
 
 //NUEVOS
-    public List<Product> findAll() {
+    public List<EasyProductDTO> findAll() {
         List<Product> result = repository.findAll();
+
+        List<EasyProductDTO> simple = result.stream().map(EasyProductDTO::of).toList();
 
         if (result.isEmpty()) {
             throw new EmptyProductListException();
         }
 
-        return result;
+        return simple;
 
     }
 
-    public Product findById(Long id) {
-        return repository.findById(id)
+    public EasyProductDTO findById(Long id) {
+        return repository.findById(id).map(EasyProductDTO::of)
                 .orElseThrow(() -> new ProductNotFoundException(id));
     }
 

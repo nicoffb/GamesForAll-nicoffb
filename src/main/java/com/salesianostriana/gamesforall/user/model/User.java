@@ -1,9 +1,7 @@
 package com.salesianostriana.gamesforall.user.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.salesianostriana.gamesforall.product.model.Product;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Parameter;
@@ -15,16 +13,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 @Entity
 @Table(name="user_entity")
 @EntityListeners(AuditingEntityListener.class)
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -57,6 +54,10 @@ public class User implements UserDetails {
     private String avatar;
 
     private String fullName;
+
+    private String genre;
+    //enum?
+
 
     @Builder.Default
     private boolean accountNonExpired = true;
@@ -115,4 +116,11 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
+
+
+    @Builder.Default
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Product> productos = new ArrayList<>();
 }

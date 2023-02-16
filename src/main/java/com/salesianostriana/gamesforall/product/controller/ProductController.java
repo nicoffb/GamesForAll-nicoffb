@@ -1,5 +1,6 @@
 package com.salesianostriana.gamesforall.product.controller;
 
+import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import com.salesianostriana.gamesforall.product.service.ProductService;
@@ -23,7 +24,7 @@ public class ProductController {
     private final ProductRepository repository;
 
     @GetMapping("/")
-    public List<Product> getAll(@AuthenticationPrincipal User user) {
+    public List<EasyProductDTO> getAll(@AuthenticationPrincipal User user) {
         //no debemos devolver ya responentity no? si no la clase directamente o el dto mejor?
         return productService.findAll();
         //return buildResponseOfAList(repository.findByAuthor(user.getId().toString()));
@@ -32,13 +33,13 @@ public class ProductController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getById(@PathVariable Long id) {
+    public EasyProductDTO getById(@PathVariable Long id) {
         /*
             El método ResponseEntity.of recibe como argumento un Optional<?> y devuelve
                 - 200 Ok si Optional.isPresent() == true
                 - 404 Not Found si Optional.isEmpty() == true
          */
-        return ResponseEntity.of(repository.findById(id));
+        return productService.findById(id);
     }
 
 

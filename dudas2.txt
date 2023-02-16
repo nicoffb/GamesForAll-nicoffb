@@ -25,4 +25,16 @@ viernes a las 6
 sabado de 4 a 6
 
 
+dudas hoy
+
+-cuando hacer unidireccional o bidireccional (cuando quiero acceder los datos desde una entidad lo puedo hacer con
+la otra como atributo si lapongo bidireccional, sino puedo acceder mediante consultas a la otra entidad).
+
+
+-Políticas de borrado
+
+-como accedo a la info de valoracion con consultas?
+
+-la gente ha hecho validaciones personalizadas?si
+
 
