@@ -19,6 +19,7 @@ public class Product {
     @Id
     @GeneratedValue
     private Long id;
+    //ponerlos uuid
 
     private String title;
     private String description;
@@ -28,12 +29,9 @@ public class Product {
     private double price;
 
 
-    private LocalDateTime publication_date;
-
-
-
     @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime publication_date = LocalDateTime.now();
+
 
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_USER"))

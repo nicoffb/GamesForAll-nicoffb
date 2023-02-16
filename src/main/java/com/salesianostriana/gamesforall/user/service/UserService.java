@@ -92,4 +92,8 @@ public class UserService {
         return passwordEncoder.matches(clearPassword, user.getPassword());
     }
 
+    public boolean userExists(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
 }

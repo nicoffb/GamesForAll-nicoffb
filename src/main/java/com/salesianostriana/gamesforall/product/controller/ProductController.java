@@ -34,8 +34,7 @@ public class ProductController {
                                        @PageableDefault(size = 3, page = 0) Pageable pageable) {
 
         return new PageDto<EasyProductDTO>(productService.findAll(pageable));
-        //devolver directamente como pagedto en el search , que haga la conversion en el servicio
-        //sin el new aquí
+        //devolver directamente como pagedto en el search , que haga la conversion en el servicio sin el new aquí
     }
 
     @GetMapping("/search")
