@@ -1,11 +1,17 @@
 package com.salesianostriana.gamesforall.product.controller;
 
 import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
+import com.salesianostriana.gamesforall.product.dto.PageDto;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import com.salesianostriana.gamesforall.product.service.ProductService;
+import com.salesianostriana.gamesforall.search.util.Extractor;
+import com.salesianostriana.gamesforall.search.util.SearchCriteria;
 import com.salesianostriana.gamesforall.user.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,12 +30,27 @@ public class ProductController {
     private final ProductRepository repository;
 
     @GetMapping("/")
-    public List<EasyProductDTO> getAll(@AuthenticationPrincipal User user) {
-        //no debemos devolver ya responentity no? si no la clase directamente o el dto mejor?
-        return productService.findAll();
-        //return buildResponseOfAList(repository.findByAuthor(user.getId().toString()));
-        //aplicar PAGEABLE
+    public PageDto<EasyProductDTO> getAll(@AuthenticationPrincipal User user ,
+                                       @PageableDefault(size = 3, page = 0) Pageable pageable) {
+
+        return new PageDto<EasyProductDTO>(productService.findAll(pageable));
+        //devolver directamente como pagedto en el search , que haga la conversion en el servicio
+        //sin el new aquí
     }
+
+    @GetMapping("/search")
+    public PageDto<EasyProductDTO> getByCriteria(@AuthenticationPrincipal User user ,@RequestParam(value = "search", defaultValue = "") String search,
+                                          @PageableDefault(size = 3, page = 0) Pageable pageable) {
+
+        List<SearchCriteria> params = Extractor.extractSearchCriteriaList(search);
+        PageDto<EasyProductDTO> products = productService.search(params, pageable);
+        // limpiar el más adelante
+        return products;
+
+    }
+
+
+
 
 
     @GetMapping("/{id}")

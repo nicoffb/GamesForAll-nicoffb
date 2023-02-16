@@ -38,3 +38,6 @@ la otra como atributo si lapongo bidireccional, sino puedo acceder mediante cons
 -la gente ha hecho validaciones personalizadas?si
 
 
+--bidireccional user con producto?
+--cada producto tendra una valoracion al usuario
+

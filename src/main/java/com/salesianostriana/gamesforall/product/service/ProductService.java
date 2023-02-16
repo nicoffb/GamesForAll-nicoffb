@@ -3,9 +3,15 @@ package com.salesianostriana.gamesforall.product.service;
 import com.salesianostriana.gamesforall.exception.EmptyProductListException;
 import com.salesianostriana.gamesforall.exception.ProductNotFoundException;
 import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
+import com.salesianostriana.gamesforall.product.dto.PageDto;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
+import com.salesianostriana.gamesforall.search.specifications.PSBuilder;
+import com.salesianostriana.gamesforall.search.util.SearchCriteria;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,16 +38,14 @@ public class ProductService {
     }
 
 //NUEVOS
-    public List<EasyProductDTO> findAll() {
-        List<Product> result = repository.findAll();
+    public Page<EasyProductDTO> findAll(Pageable pageable) {
+        Page<EasyProductDTO> pageProductDto = repository.findAll(pageable).map(EasyProductDTO::of);
 
-        List<EasyProductDTO> simple = result.stream().map(EasyProductDTO::of).toList();
-
-        if (result.isEmpty()) {
+        if (pageProductDto.isEmpty()) {
             throw new EmptyProductListException();
         }
 
-        return simple;
+        return pageProductDto;
 
     }
 
@@ -64,6 +68,16 @@ public class ProductService {
                     return repository.save(product);
                 })
                 .orElseThrow(()->new ProductNotFoundException());
+    }
+
+    public PageDto<EasyProductDTO> search(List<SearchCriteria> params, Pageable pageable){
+        PSBuilder psBuilder = new PSBuilder(params);
+
+        Specification<Product> spec = psBuilder.build();
+
+        Page<EasyProductDTO> pageProductDto = repository.findAll(spec, pageable).map(EasyProductDTO::of);
+
+        return new PageDto<>(pageProductDto);
     }
 
 
