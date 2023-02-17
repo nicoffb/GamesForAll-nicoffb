@@ -15,8 +15,8 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
-@RequestMapping(NoteErrorController.ERROR_PATH)
-public class NoteErrorController extends AbstractErrorController {
+@RequestMapping(ProductErrorController.ERROR_PATH)
+public class ProductErrorController extends AbstractErrorController {
 
     static final String ERROR_PATH = "/error";
 
@@ -24,7 +24,7 @@ public class NoteErrorController extends AbstractErrorController {
         return ERROR_PATH;
     }
 
-    public NoteErrorController(ErrorAttributes errorAttributes)  {
+    public ProductErrorController(ErrorAttributes errorAttributes)  {
         // De esta forma, no le permitimos añadir ningún ViewResolver que pueda hacer renderizar una página HTML.
         super(errorAttributes, Collections.emptyList());
     }

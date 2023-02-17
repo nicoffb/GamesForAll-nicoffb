@@ -17,6 +17,7 @@ public class BasicProductDTO {
     private String image;
     private double price;
     private LocalDateTime publication_date;
+    private String category;
 
     public static BasicProductDTO of(Product product){
         return BasicProductDTO.builder()
@@ -26,6 +27,18 @@ public class BasicProductDTO {
                 .image(product.getImage())
                 .price(product.getPrice())
                 .publication_date(product.getPublication_date())
+                .category(product.getCategory())
+                .build();
+    }
+
+
+    public Product toProduct(BasicProductDTO basicProductDTO){
+        return Product.builder()
+                .title(basicProductDTO.getTitle())
+                .description(basicProductDTO.getDescription())
+                .image(basicProductDTO.getImage())
+                .price(basicProductDTO.price)
+                .category(basicProductDTO.category)
                 .build();
     }
 }

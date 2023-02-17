@@ -32,6 +32,7 @@ public class Product {
     @Builder.Default
     private LocalDateTime publication_date = LocalDateTime.now();
 
+    private String category;
 
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_USER"))

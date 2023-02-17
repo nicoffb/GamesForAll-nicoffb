@@ -33,6 +33,8 @@ la otra como atributo si lapongo bidireccional, sino puedo acceder mediante cons
 
 -Políticas de borrado
 
+
+
 -como accedo a la info de valoracion con consultas?
 
 -la gente ha hecho validaciones personalizadas?si
@@ -42,8 +44,17 @@ la otra como atributo si lapongo bidireccional, sino puedo acceder mediante cons
 --cada producto tendra una valoracion al usuario
 
 
-DUDAS ALVARO
+dudas alvaro
 -hacer más excepciones?como usa la criteria general en vez de la de product?
 -tengo tipo lazy pero sin grafo de entidad, lo  aplico?
 -validaciones personalizadas
+
+dudas luismi-
+hago siempre uuid?
+
+@ENTITY queremos pintar una lista de String 
+metodo 1- ElementsCollections es la primera alternativa mierder
+metodo 2- no hacerle String si no hacer una entidad nueva
+metodo 3- crear tu propio Attribute converter<List<String>, String) y luego ponerle @Converter al atributo
+metodo 4-utilizar libreria hypersistence-utils(Vlad Michalcea)
 

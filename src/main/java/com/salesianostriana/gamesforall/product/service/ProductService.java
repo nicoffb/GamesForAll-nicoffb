@@ -2,6 +2,7 @@ package com.salesianostriana.gamesforall.product.service;
 
 import com.salesianostriana.gamesforall.exception.EmptyProductListException;
 import com.salesianostriana.gamesforall.exception.ProductNotFoundException;
+import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
 import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.dto.PageDto;
 import com.salesianostriana.gamesforall.product.model.Product;
@@ -15,7 +16,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -49,26 +49,6 @@ public class ProductService {
 
     }
 
-    public EasyProductDTO findById(Long id) {
-        return repository.findById(id).map(EasyProductDTO::of)
-                .orElseThrow(() -> new ProductNotFoundException(id));
-    }
-
-    public Optional<Product> findById2(Long id) {
-        return repository.findById(id);
-    }
-    //no usar preferiblemente
-
-
-    public Product edit(Long id,Product edited){
-        return repository.findById(id)
-                .map(product -> {
-                    product.setTitle(edited.getTitle());
-                    product.setDescription(edited.getDescription());
-                    return repository.save(product);
-                })
-                .orElseThrow(()->new ProductNotFoundException());
-    }
 
     public PageDto<EasyProductDTO> search(List<SearchCriteria> params, Pageable pageable){
         PSBuilder psBuilder = new PSBuilder(params);
@@ -77,8 +57,38 @@ public class ProductService {
 
         Page<EasyProductDTO> pageProductDto = repository.findAll(spec, pageable).map(EasyProductDTO::of);
 
+        if (pageProductDto.isEmpty()) {
+            throw new EmptyProductListException();
+        }
+
         return new PageDto<>(pageProductDto);
     }
+
+    public EasyProductDTO findById(Long id) {
+        return repository.findById(id).map(EasyProductDTO::of)
+                .orElseThrow(() -> new ProductNotFoundException(id));
+    }
+
+    public BasicProductDTO edit(Long id, BasicProductDTO editBasicProductDTO){
+        return repository.findById(id)
+                .map(product -> {
+                    product.setTitle(editBasicProductDTO.getTitle());
+                    product.setDescription(editBasicProductDTO.getDescription());
+                    product.setImage(editBasicProductDTO.getImage());
+                    product.setPrice(editBasicProductDTO.getPrice());
+                    product.setCategory(editBasicProductDTO.getCategory());
+                    repository.save(product);
+                    BasicProductDTO edited = BasicProductDTO.of(product);
+                    return edited;
+                })
+                .orElseThrow(()->new ProductNotFoundException());
+    }
+
+
+
+
+
+
 
 
 
