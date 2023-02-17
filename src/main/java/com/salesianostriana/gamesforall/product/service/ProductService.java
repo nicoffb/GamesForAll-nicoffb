@@ -9,19 +9,25 @@ import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import com.salesianostriana.gamesforall.search.specifications.PSBuilder;
 import com.salesianostriana.gamesforall.search.util.SearchCriteria;
+import com.salesianostriana.gamesforall.user.model.User;
+import com.salesianostriana.gamesforall.user.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository repository;
+
+    private UserRepository userRepository;
 
 
     public Product add(Product product) {
@@ -84,6 +90,19 @@ public class ProductService {
                 .orElseThrow(()->new ProductNotFoundException());
     }
 
+
+    public void addProductToFavorites(UUID userId, Long idProduct) {
+        // Buscamos el usuario y el producto
+
+        User user = userRepository.findById(userId).get(); //.orElseThrow(() -> UserIdNotFoundException) CREAR EXCEPCION SI NO SE ENCUENTRA AL USUARIO
+
+        Product product = repository.findById(idProduct)
+                .orElseThrow(() -> new ProductNotFoundException(idProduct));
+
+        // Agregamos el producto a la lista de favoritos del usuario
+        user.getFavorites().add(product);
+        userRepository.save(user);
+    }
 
 
 

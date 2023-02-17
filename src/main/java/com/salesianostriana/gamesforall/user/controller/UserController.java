@@ -1,5 +1,6 @@
 package com.salesianostriana.gamesforall.user.controller;
 
+import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.security.jwt.access.JwtProvider;
 import com.salesianostriana.gamesforall.security.jwt.refresh.RefreshToken;
 import com.salesianostriana.gamesforall.security.jwt.refresh.RefreshTokenException;
@@ -16,13 +17,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -131,4 +131,10 @@ public class UserController {
     }
 
     //OBTENER LOS PRODUCTOS DE UN USUARIO
+
+    @GetMapping("/{id}/favoritos")
+    public List<Product> showUserFavorites(@PathVariable UUID id) {
+        User user = userService.findById(id).get(); //como evito el get, poniendo una excepcion? //.orElseThrow(() -> UserIdNotFoundException)
+        return user.getFavorites();
+    }
 }

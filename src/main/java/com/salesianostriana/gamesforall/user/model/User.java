@@ -1,5 +1,6 @@
 package com.salesianostriana.gamesforall.user.model;
 
+
 import com.salesianostriana.gamesforall.product.model.Product;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -123,4 +124,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<Product> productos = new ArrayList<>();
+
+
+    @ManyToMany
+    @JoinTable(name = "usuario_producto_favorito",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "producto_id"))
+    private List<Product> favorites = new ArrayList<>();
 }
