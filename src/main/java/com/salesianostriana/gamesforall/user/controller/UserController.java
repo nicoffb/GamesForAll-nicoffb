@@ -130,5 +130,5 @@ public class UserController {
         return null;
     }
 
-
+    //OBTENER LOS PRODUCTOS DE UN USUARIO
 }

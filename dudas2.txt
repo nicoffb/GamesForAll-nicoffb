@@ -45,11 +45,13 @@ la otra como atributo si lapongo bidireccional, sino puedo acceder mediante cons
 
 
 dudas alvaro
+hacer: aplicar validación, crear Attribute converter, subir fichero (por ejemplo subir imagen de producto)
 -hacer más excepciones?como usa la criteria general en vez de la de product?
 -tengo tipo lazy pero sin grafo de entidad, lo  aplico?
 -validaciones personalizadas
 
 dudas luismi-
+que controladores deberia tener usuario?
 hago siempre uuid?
 
 @ENTITY queremos pintar una lista de String 
@@ -58,3 +60,9 @@ metodo 2- no hacerle String si no hacer una entidad nueva
 metodo 3- crear tu propio Attribute converter<List<String>, String) y luego ponerle @Converter al atributo
 metodo 4-utilizar libreria hypersistence-utils(Vlad Michalcea)
 
+¿que controladores uso?
+obtener todos los productos de un usuario por consulta o por controlador?subgrafo?
+porque usar subgrafo y no acceso a la lista de productos de usuario directamente?
+
+
+o haces entitygraph o hacer transasccional?

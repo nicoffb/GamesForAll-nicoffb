@@ -1,4 +1,4 @@
-package com.salesianostriana.gamesforall.valoracion.model;
+package com.salesianostriana.gamesforall.valoration.model;
 
 import lombok.*;
 
