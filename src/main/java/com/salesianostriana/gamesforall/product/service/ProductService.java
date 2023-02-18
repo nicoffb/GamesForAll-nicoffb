@@ -2,6 +2,8 @@ package com.salesianostriana.gamesforall.product.service;
 
 import com.salesianostriana.gamesforall.exception.EmptyProductListException;
 import com.salesianostriana.gamesforall.exception.ProductNotFoundException;
+import com.salesianostriana.gamesforall.exception.UserNotFoundException;
+import com.salesianostriana.gamesforall.files.service.StorageService;
 import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
 import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.dto.PageDto;
@@ -15,10 +17,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,10 +31,12 @@ public class ProductService {
 
     private final ProductRepository repository;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final StorageService storageService;
 
-
-    public Product add(Product product) {
+    @Transactional
+    public Product add(Product product, MultipartFile files) {
+        product.setImage(storageService.store(files));
         return repository.save(product);
     }
 
@@ -91,17 +97,36 @@ public class ProductService {
     }
 
 
-    public void addProductToFavorites(UUID userId, Long idProduct) {
+    public List<Product> addProductToFavorites(UUID userId, Long idProduct) {
         // Buscamos el usuario y el producto
 
-        User user = userRepository.findById(userId).get(); //.orElseThrow(() -> UserIdNotFoundException) CREAR EXCEPCION SI NO SE ENCUENTRA AL USUARIO
+        Optional<User> user = userRepository.findById(userId);
 
-        Product product = repository.findById(idProduct)
-                .orElseThrow(() -> new ProductNotFoundException(idProduct));
+        if (user.isEmpty()){
+            throw new UserNotFoundException(userId);
+        }else{
+            User found = user.get();
+            Optional<Product> product = repository.findById(idProduct);
+            if (product.isEmpty()){
+                throw new ProductNotFoundException(idProduct);
+            }else{
+                Product founded2 = product.get();
+                found.getFavorites().add(founded2);
+                userRepository.save(found);
+                return found.getFavorites();
+            }
+
+        }
+
+        //comprobar si están presentes con un if is present?
+        //.orElseThrow(() -> UserIdNotFoundException) CREAR EXCEPCION SI NO SE ENCUENTRA AL USUARIO
+
+//        Product product = repository.findById(idProduct)
+//                .orElseThrow(() -> new ProductNotFoundException(idProduct));
 
         // Agregamos el producto a la lista de favoritos del usuario
-        user.getFavorites().add(product);
-        userRepository.save(user);
+
+
     }
 
 

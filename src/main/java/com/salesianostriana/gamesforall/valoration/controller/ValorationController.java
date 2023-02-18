@@ -9,6 +9,7 @@ import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.search.util.Extractor;
 import com.salesianostriana.gamesforall.search.util.SearchCriteria;
 import com.salesianostriana.gamesforall.user.model.User;
+import com.salesianostriana.gamesforall.user.service.UserService;
 import com.salesianostriana.gamesforall.valoration.dto.ValorationDTO;
 import com.salesianostriana.gamesforall.valoration.dto.ValorationRequestDTO;
 import com.salesianostriana.gamesforall.valoration.model.Valoration;
@@ -32,36 +33,52 @@ import java.util.UUID;
 public class ValorationController {
 
     private final ValorationService valorationService;
+    private final UserService userService;
+
+
+    //quiero la puntuación media de los usuarios que le han valorado
+    //crear una valoración
+
 
     //quiero la lista de valoraciones de un usuario
-    //quiero la puntuación media de los usuarios que le han valorado
     @GetMapping("/")
     public PageDto<ValorationDTO> getByCriteria(@AuthenticationPrincipal User user , @RequestParam(value = "search", defaultValue = "") String search,
                                                  @PageableDefault(size = 3, page = 0) Pageable pageable) {
 
         List<SearchCriteria> params = Extractor.extractSearchCriteriaList(search);
-        PageDto<ValorationDTO> valorations = valorationService.findAll(params, pageable,user.getId());
+        PageDto<ValorationDTO> valorations = valorationService.findAllByReviewedUser(params, pageable,user.getId());
         // limpiar el más adelante
         return valorations;
 
     }
 
+
+
+
+
+
+
     @PostMapping("/{targetUser}")
     public ResponseEntity<ValorationDTO> createValoration (@RequestBody ValorationRequestDTO created, @AuthenticationPrincipal User user, @PathVariable UUID targetUser){
-
 
         Valoration valoration = created.toValoration(created);
 
         ValorationPK pk = new ValorationPK(user.getId(),targetUser);
-        Valoration valoration2 = new Valoration(pk,valoration.getScore(),valoration.getReview()); //esto ha montado un constructor en valoration
-        valorationService.add(valoration2);
+        valoration.setPK(pk);
+
+        valoration.setUserReview(user);
+        valoration.setReviewedUser(userService.findById(targetUser));
+
+        Valoration saved = valorationService.add(valoration);
 
         URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(valoration.getId()).toUri();
 
-        ValorationDTO converted = ValorationDTO.of(valoration);
+        ValorationDTO converted = ValorationDTO.of(saved);
+
+
         return ResponseEntity
                 .created(createdURI)
                 .body(converted);

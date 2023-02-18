@@ -26,26 +26,26 @@ public class Valoration {
     private String review;
 
     @ManyToOne
-    @MapsId("user_review_id")
-    @JoinColumn(name = "user_review_id", foreignKey = @ForeignKey(name = "FK_VALORATION_REVIEWER"))
+    //@MapsId("user_review_id")
+    @JoinColumn(name = "user_review", foreignKey = @ForeignKey(name = "FK_VALORATION_REVIEWER"))
     private User reviewer;
 
     @ManyToOne
-    @MapsId("reviewed_user_id")
-    @JoinColumn(name = "reviewed_user_id", foreignKey = @ForeignKey(name = "FK_VALORATION_REVIEWED"))
+    //@MapsId("reviewed_user_id")
+    @JoinColumn(name = "reviewed_user", foreignKey = @ForeignKey(name = "FK_VALORATION_REVIEWED"))
     private User reviewedUser;
 
-    public Valoration(ValorationPK pk, double score, String review) {
-    }
 
     public void setUserReview(User userReviewer) {
-        this.id.setUser_review_id(userReviewer.getId());
         this.reviewer = userReviewer;
     }
 
-    public void setReviewedUser(User reviewedUserN) {
-        this.id.setReviewed_user_id(reviewedUserN.getId());
+    public void setReviewedUser(User reviewedUser) {
         this.reviewedUser = reviewedUser;
+    }
+
+    public void setPK(ValorationPK valorationPK){
+        this.id = valorationPK;
     }
 
 }

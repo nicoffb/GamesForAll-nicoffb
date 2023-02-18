@@ -43,23 +43,33 @@ public class ValorationService {
 //        repository.deleteById(id); //no va porque validation no tiene id, sino clave compuesta
 //    }
 
-    public PageDto<ValorationDTO> findAll(List<SearchCriteria> params, Pageable pageable, UUID userId){
-        VABuilder vaBuilder = new VABuilder(params);
-
-        Specification<Valoration> spec = vaBuilder.build(); //no he hecho un ValorationSpecification, solo un VABuilder
-
-        //aqui devolvemos las valoraciones del id elegido pero sin criteria
-                                                                //aqui se cogen todas hayh que cambiarlo
-        Page<Valoration> pageValoration = repository.findAllByReviewedUserId(userId, spec, pageable);
-
-        if (pageValoration.isEmpty()) {
-            throw new EmptyProductListException();  //cambiar la excepcion a valoracion empty
-        }
-
-        Page<ValorationDTO> pageValorationDto = pageValoration.map(ValorationDTO::of);
-
-        return new PageDto<>(pageValorationDto);
-    }
+//    public PageDto<ValorationDTO> findAllByReviewedUser(List<SearchCriteria> params, Pageable pageable, UUID userId){
+//        VABuilder vaBuilder;
+//        Specification<Valoration> spec;
+//
+////        if (params.isEmpty()){
+////           spec = new ValorationSpecification("");
+////        }else {
+////            vaBuilder = new VABuilder(params);
+////
+////             spec = vaBuilder.build(); //no he hecho un ValorationSpecification, solo un VABuilder
+////
+////        }
+//
+//
+//
+//        //aqui devolvemos las valoraciones del id elegido pero sin criteria
+//                                                                //aqui se cogen todas hayh que cambiarlo
+//        Page<Valoration> pageValoration = repository.findAllByReviewedUserId(userId, spec, pageable);
+//
+//        if (pageValoration.isEmpty()) {
+//            throw new EmptyProductListException();  //cambiar la excepcion a valoracion empty
+//        }
+//
+//        Page<ValorationDTO> pageValorationDto = pageValoration.map(ValorationDTO::of);
+//
+//        return new PageDto<>(pageValorationDto);
+//    }
 
 
 

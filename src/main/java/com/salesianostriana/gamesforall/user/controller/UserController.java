@@ -1,6 +1,7 @@
 package com.salesianostriana.gamesforall.user.controller;
 
 import com.salesianostriana.gamesforall.product.model.Product;
+import com.salesianostriana.gamesforall.product.service.ProductService;
 import com.salesianostriana.gamesforall.security.jwt.access.JwtProvider;
 import com.salesianostriana.gamesforall.security.jwt.refresh.RefreshToken;
 import com.salesianostriana.gamesforall.security.jwt.refresh.RefreshTokenException;
@@ -32,6 +33,7 @@ public class UserController {
     private final AuthenticationManager authManager;
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
+    private final ProductService productService;
 
 
     @PostMapping("/auth/register")
@@ -129,12 +131,26 @@ public class UserController {
 
         return null;
     }
+    //SE PUEDE OPTIMIZAR EÑ CÓDIGO PASÁNDOLO AL SERVICIO
+
+
+
+
 
     //OBTENER LOS PRODUCTOS DE UN USUARIO
 
-    @GetMapping("/{id}/favoritos")
+    @GetMapping("/{id}/favoritos") //cambiar a autentication principal si solo vas a porder ver los tuyos favoritos
     public List<Product> showUserFavorites(@PathVariable UUID id) {
-        User user = userService.findById(id).get(); //como evito el get, poniendo una excepcion? //.orElseThrow(() -> UserIdNotFoundException)
+        User user = userService.findById(id);
+
+        //como evito el get, poniendo una excepcion? //.orElseThrow(() -> UserIdNotFoundException)
         return user.getFavorites();
     }
+
+    //hacer el controler de añadir a favoritos
+    @PostMapping("/{id}/favoritos")
+    public List<Product> addToFavorites (@PathVariable Long id, @AuthenticationPrincipal User user){
+       return  productService.addProductToFavorites(user.getId(), id);
+    }
+    //CAMBIAR A DTOS
 }

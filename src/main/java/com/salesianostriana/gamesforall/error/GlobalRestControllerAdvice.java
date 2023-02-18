@@ -29,7 +29,7 @@ public class GlobalRestControllerAdvice /*extends ResponseEntityExceptionHandler
     }*/
 
 
-    @ExceptionHandler({ProductNotFoundException.class, EmptyProductListException.class})
+    @ExceptionHandler({EntityNotFoundException.class})
     public ResponseEntity<?> handleNotFoundException(EntityNotFoundException exception, WebRequest request) {
         return buildApiError(exception.getMessage(), request, HttpStatus.NOT_FOUND);
     }

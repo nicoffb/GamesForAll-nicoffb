@@ -14,7 +14,7 @@ public class ValorationDTO {
 
 
     private double score;
-    private String review;
+    private String comment;
     private String reviewedUser;
     private String reviewer;
 
@@ -23,8 +23,8 @@ public class ValorationDTO {
         return ValorationDTO.builder()
                 .reviewedUser(valoration.getReviewedUser().getUsername())
                 .score(valoration.getScore())
-                .review(valoration.getReview())
-                .review(valoration.getReviewer().getUsername())
+                .comment(valoration.getReview())
+                .reviewer(valoration.getReviewer().getUsername())
                 .build();
     }
 

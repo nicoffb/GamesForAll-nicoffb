@@ -70,7 +70,7 @@ public class User implements UserDetails {
     @Builder.Default
     private boolean enabled = true;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @Convert(converter = RoleConverter.class)
     private Set<UserRole> roles;
 
     @CreatedDate

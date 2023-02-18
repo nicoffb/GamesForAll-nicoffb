@@ -46,22 +46,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (StringUtils.hasText(token) && jwtProvider.validateToken(token)) {
                 UUID userId = jwtProvider.getUserIdFromJwtToken(token);
 
-                Optional<User> result = userService.findById(userId);
-
-                if (result.isPresent()) {
-                    User user = result.get();
+                User result = userService.findById(userId);
 
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(
-                                    user,
+                                    result,
                                     null,
-                                    user.getAuthorities()
+                                    result.getAuthorities()
                             );
 
                     authentication.setDetails(new WebAuthenticationDetails(request));
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
+
 
             }
 

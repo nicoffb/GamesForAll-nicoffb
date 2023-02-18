@@ -16,8 +16,9 @@ import java.util.UUID;
 
 @Repository
 public interface ValorationRepository extends JpaRepository<Valoration, ValorationPK>, JpaSpecificationExecutor<Valoration> {
+
     @Query("SELECT v FROM Valoration v WHERE v.reviewedUser.id = :userId")
-    List<Valoration> findByReviewedUserId(@Param("userId") UUID userId);
+    List<Valoration> findByReviewedUserId2(@Param("userId") UUID userId);
 
     Page<Valoration> findAllByReviewedUserId(UUID userId, Specification<Valoration> spec, Pageable pageable);
 }

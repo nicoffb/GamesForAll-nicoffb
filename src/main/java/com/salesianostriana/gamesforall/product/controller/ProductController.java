@@ -1,5 +1,7 @@
 package com.salesianostriana.gamesforall.product.controller;
 
+import com.salesianostriana.gamesforall.files.service.StorageService;
+import com.salesianostriana.gamesforall.files.service.utils.MediaTypeUrlResource;
 import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
 import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.dto.PageDto;
@@ -10,11 +12,14 @@ import com.salesianostriana.gamesforall.search.util.Extractor;
 import com.salesianostriana.gamesforall.search.util.SearchCriteria;
 import com.salesianostriana.gamesforall.user.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -26,6 +31,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final StorageService storageService;
 
 
     @GetMapping("/")
@@ -60,11 +66,12 @@ public class ProductController {
 
 
     @PostMapping("/")
-    public ResponseEntity<BasicProductDTO> createNewProduct(@RequestBody ProductRequestDTO created) {
+    public ResponseEntity<BasicProductDTO> createNewProduct(@RequestPart("body") ProductRequestDTO created, @RequestPart("files") MultipartFile files) {
 
 
         Product product =created.toProduct(created); //estabien invocarlo con created?
-        productService.add(product);
+
+        productService.add(product,files);
 
         URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -100,29 +107,17 @@ public class ProductController {
     }
 
 
+    @GetMapping("/download/{filename:.+}")
+    public ResponseEntity<Resource> getFile(@PathVariable String filename){
+        MediaTypeUrlResource resource =
+                (MediaTypeUrlResource) storageService.loadAsResource(filename);
 
+        return ResponseEntity.status(HttpStatus.OK)
+                .header("Content-Type", resource.getType())
+                .body(resource);
+}
 
-//    @GetMapping("/author/{author}")
-//    public ResponseEntity<List<Product>> getByAuthor(@PathVariable String author) {
-//        // Utilizamos un método comun para devolver la respuesta de todos los List<Note>
-//        return buildResponseOfAList(repository.findByAuthor(author));
-//    }
-//
-//    /**
-//     * Este método sirve para devolver la respuesta de un List<Note>
-//     * @param list Lista que vendrá de una consulta en el repositorio
-//     * @return 404 si la lista está vacía, 200 OK si la lista tiene elementos
-//     */
-//    private ResponseEntity<List<Product>> buildResponseOfAList(List<Product> list) {
-//
-//        if (list.isEmpty())
-//            return ResponseEntity.notFound().build();
-//        else
-//            return ResponseEntity.ok(list);
-//
-//
-//    }
-
+//un controller para eliminar foto? y editar foto solo? o meterlo en el de editar producto
 
 
 }

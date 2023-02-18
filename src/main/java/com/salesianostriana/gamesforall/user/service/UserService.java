@@ -1,5 +1,6 @@
 package com.salesianostriana.gamesforall.user.service;
 
+import com.salesianostriana.gamesforall.exception.UserNotFoundException;
 import com.salesianostriana.gamesforall.user.dto.CreateUserRequest;
 import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.model.UserRole;
@@ -44,8 +45,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> findById(UUID id) {
-        return userRepository.findById(id);
+    public User findById(UUID id) {
+        return userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
     }
 
     public Optional<User> findByUsername(String username) {
