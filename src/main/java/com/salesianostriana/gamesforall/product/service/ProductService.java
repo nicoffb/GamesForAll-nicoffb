@@ -55,7 +55,7 @@ public class ProductService {
 
     }
 
-
+//COMPLETO
     public PageDto<EasyProductDTO> search(List<SearchCriteria> params, Pageable pageable){
         PSBuilder psBuilder = new PSBuilder(params);
 

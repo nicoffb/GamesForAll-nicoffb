@@ -2,6 +2,7 @@ package com.salesianostriana.gamesforall.user.model;
 
 
 import com.salesianostriana.gamesforall.product.model.Product;
+import com.salesianostriana.gamesforall.valoration.model.Valoration;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
@@ -131,4 +132,9 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "producto_id"))
     private List<Product> favorites = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "reviewedUser",fetch = FetchType.EAGER)
+    private List<Valoration> valoracionesRecibidas = new ArrayList<>();
+    //que politica de borrado vas a usar¿ tipo lazy
 }
