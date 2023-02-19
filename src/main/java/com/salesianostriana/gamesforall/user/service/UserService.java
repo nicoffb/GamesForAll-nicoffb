@@ -1,11 +1,20 @@
 package com.salesianostriana.gamesforall.user.service;
 
+import com.salesianostriana.gamesforall.exception.EmptyProductListException;
 import com.salesianostriana.gamesforall.exception.UserNotFoundException;
+import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
+import com.salesianostriana.gamesforall.product.dto.PageDto;
+import com.salesianostriana.gamesforall.product.model.Product;
+import com.salesianostriana.gamesforall.product.repository.ProductRepository;
+import com.salesianostriana.gamesforall.search.util.SearchCriteria;
 import com.salesianostriana.gamesforall.user.dto.CreateUserRequest;
 import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.model.UserRole;
 import com.salesianostriana.gamesforall.user.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +29,7 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
     public User createUser(CreateUserRequest createUserRequest, EnumSet<UserRole> roles) {
         User user =  User.builder()
@@ -97,4 +107,18 @@ public class UserService {
         return userRepository.existsByUsername(username);
     }
 
+
+//    public PageDto<EasyProductDTO> search(List<SearchCriteria> params, Pageable pageable){
+//        PSBuilder psBuilder = new PSBuilder(params);
+//
+//        Specification<Product> spec = psBuilder.build();
+//
+//        Page<EasyProductDTO> pageProductDto = productRepository.findAll(spec, pageable).map(EasyProductDTO::of);
+//
+//        if (pageProductDto.isEmpty()) {
+//            throw new EmptyProductListException();
+//        }
+//
+//        return new PageDto<>(pageProductDto);
+//    }
 }

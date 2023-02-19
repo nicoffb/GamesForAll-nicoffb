@@ -9,7 +9,8 @@ import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.dto.PageDto;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
-import com.salesianostriana.gamesforall.search.specifications.PSBuilder;
+import com.salesianostriana.gamesforall.search.specifications.GSBuilder;
+import com.salesianostriana.gamesforall.search.util.Extractor;
 import com.salesianostriana.gamesforall.search.util.SearchCriteria;
 import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.repo.UserRepository;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
@@ -33,6 +35,7 @@ public class ProductService {
 
     private final UserRepository userRepository;
     private final StorageService storageService;
+
 
     @Transactional
     public Product add(Product product, MultipartFile files) {
@@ -63,9 +66,9 @@ public class ProductService {
 
 //COMPLETO
     public PageDto<EasyProductDTO> search(List<SearchCriteria> params, Pageable pageable){
-        PSBuilder psBuilder = new PSBuilder(params);
+        GSBuilder gsBuilder = new GSBuilder(params,Product.class);
 
-        Specification<Product> spec = psBuilder.build();
+        Specification<Product> spec = gsBuilder.build();
 
         Page<EasyProductDTO> pageProductDto = repository.findAll(spec, pageable).map(EasyProductDTO::of);
 
@@ -128,10 +131,6 @@ public class ProductService {
 
 
     }
-
-
-
-
 
 
 

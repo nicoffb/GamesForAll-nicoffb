@@ -4,16 +4,25 @@ import com.salesianostriana.gamesforall.product.model.Product;
 import lombok.Builder;
 import lombok.Value;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 @Builder
 @Value
 public class ProductRequestDTO {
 
-
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String description;
-    private String image;
+
+    @NotNull
+    @Positive
     private double price;
     //la fecha se deberia poner sola cuando se crea
+    @NotBlank
     private String category;
 
 
@@ -21,7 +30,6 @@ public class ProductRequestDTO {
         return Product.builder()
                 .title(productRequestDTO.getTitle())
                 .description(productRequestDTO.getDescription())
-                .image(productRequestDTO.getImage())
                 .price(productRequestDTO.price)
                 .category(productRequestDTO.category)
                 .build();

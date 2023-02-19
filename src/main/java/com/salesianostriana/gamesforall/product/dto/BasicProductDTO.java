@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Builder
 @Value
 public class BasicProductDTO {
-
+//PONER VALIDACIONES PARA EL EDIT
 
     private Long id;
     private String title;

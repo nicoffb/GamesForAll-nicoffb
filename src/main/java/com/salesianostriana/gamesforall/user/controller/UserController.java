@@ -140,7 +140,7 @@ public class UserController {
 
 
     @GetMapping("/{id}/favoritos") //cambiar a autentication principal si solo vas a porder ver los tuyos favoritos
-    public List<Product> showUserFavorites(@PathVariable UUID id) {
+    public List<Product> getUserFavorites(@PathVariable UUID id) {
         User user = userService.findById(id);
 
         //como evito el get, poniendo una excepcion? //.orElseThrow(() -> UserIdNotFoundException)
@@ -157,4 +157,9 @@ public class UserController {
 
     //CREAR USUARIO
     //OBTENER LOS PRODUCTOS DE UN USUARIO
+
+//    @GetMapping("/user/{id}")
+//    public List<Product> getUserProducts(@PathVariable UUID id){
+//
+//    }
 }

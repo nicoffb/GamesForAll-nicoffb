@@ -24,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/product")
@@ -42,6 +43,7 @@ public class ProductController {
         //devolver directamente como pagedto en el search , que haga la conversion en el servicio sin el new aquí
     }
 
+    //buscar tooooodos
     @GetMapping("/search")
     public PageDto<EasyProductDTO> getByCriteria(@AuthenticationPrincipal User user ,@RequestParam(value = "search", defaultValue = "") String search,
                                           @PageableDefault(size = 3, page = 0) Pageable pageable) {
@@ -53,8 +55,20 @@ public class ProductController {
 
     }
 
+    @GetMapping("/search/{id}")
+    public PageDto<EasyProductDTO> getByCriteria2(@AuthenticationPrincipal User user , @RequestParam(value = "search", defaultValue = "") String search,
+                                                  @PageableDefault(size = 3, page = 0) Pageable pageable, @PathVariable UUID id) {
 
+        List<SearchCriteria> params = Extractor.extractSearchCriteriaList(search);
 
+        //user:userId
+        params.add(new SearchCriteria("user",":",id));
+
+        PageDto<EasyProductDTO> products = productService.search(params, pageable);
+        // limpiar el más adelante
+        return products;
+
+    }
 
 
     @GetMapping("/{id}")
@@ -118,6 +132,7 @@ public class ProductController {
 }
 
 //un controller para eliminar foto? y editar foto solo? o meterlo en el de editar producto
+
 
 
 }

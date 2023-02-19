@@ -1,26 +1,13 @@
 package com.salesianostriana.gamesforall.valoration.service;
 
 
-import com.salesianostriana.gamesforall.exception.EmptyProductListException;
-import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
-import com.salesianostriana.gamesforall.product.dto.PageDto;
-import com.salesianostriana.gamesforall.product.model.Product;
-import com.salesianostriana.gamesforall.search.specifications.PSBuilder;
-import com.salesianostriana.gamesforall.search.specifications.VABuilder;
-import com.salesianostriana.gamesforall.search.util.SearchCriteria;
-import com.salesianostriana.gamesforall.user.model.User;
-import com.salesianostriana.gamesforall.user.service.UserService;
-import com.salesianostriana.gamesforall.valoration.dto.ValorationDTO;
 import com.salesianostriana.gamesforall.valoration.model.Valoration;
-import com.salesianostriana.gamesforall.valoration.model.ValorationPK;
 import com.salesianostriana.gamesforall.valoration.repository.ValorationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -71,6 +58,9 @@ public class ValorationService {
 //        return new PageDto<>(pageValorationDto);
 //    }
 
+     public Page<Valoration> findReviewsById (UUID userId, Pageable pageable){
+       return repository.findReviewsById(userId, pageable);
+     }
 
 
 }

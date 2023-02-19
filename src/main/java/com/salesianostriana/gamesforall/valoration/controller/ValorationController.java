@@ -16,6 +16,7 @@ import com.salesianostriana.gamesforall.valoration.model.Valoration;
 import com.salesianostriana.gamesforall.valoration.model.ValorationPK;
 import com.salesianostriana.gamesforall.valoration.service.ValorationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -41,21 +42,14 @@ public class ValorationController {
 
 
     //quiero la lista de valoraciones de un usuario
-//    @GetMapping("/")
-//    public PageDto<ValorationDTO> getByCriteria(@AuthenticationPrincipal User user , @RequestParam(value = "search", defaultValue = "") String search,
-//                                                 @PageableDefault(size = 3, page = 0) Pageable pageable) {
-//
-//        List<SearchCriteria> params = Extractor.extractSearchCriteriaList(search);
-//        PageDto<ValorationDTO> valorations = valorationService.findAllByReviewedUser(params, pageable,user.getId());
-//        // limpiar el más adelante
-//        return valorations;
-//
-//    }
+    @GetMapping("/{userId}")
+    public PageDto<ValorationDTO> getByCriteria(@PathVariable UUID userId, @PageableDefault(size = 3, page = 0) Pageable pageable) {
 
+        Page<ValorationDTO> valorationList = valorationService.findReviewsById(userId,pageable).map(v->ValorationDTO.of(v));
 
+        return new PageDto<>(valorationList);
 
-
-
+    }
 
 
     @PostMapping("/{targetUser}")
@@ -83,6 +77,8 @@ public class ValorationController {
                 .created(createdURI)
                 .body(converted);
         //gestionar el fallo con bad request o manejo de errores
+
+        //cuando añado una valoracion se actualiza el valor del atributo media del usuario y lo guardas
     }
 
 

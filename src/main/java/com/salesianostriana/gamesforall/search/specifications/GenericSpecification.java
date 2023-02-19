@@ -3,6 +3,7 @@ package com.salesianostriana.gamesforall.search.specifications;
 
 
 import com.salesianostriana.gamesforall.search.util.SearchCriteria;
+import com.salesianostriana.gamesforall.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.data.jpa.domain.Specification;
@@ -53,6 +54,11 @@ public class GenericSpecification<T> implements Specification<T> {
                     return null;
             } else if (isTemporal(type)) {
                 return criteriaBuilder.equal(root.get(key), getTemporalValue(value, type));
+            }
+            //para que no pete cuando pongo uuid en los search criteria (cortesía de Alvaro ;) )
+            else if (isUser(type)) {
+                return criteriaBuilder.equal(root.join(key).get("id").as(String.class),value.toString());
+
             }else {
                 return criteriaBuilder.equal(root.<String>get(searchCriteria.getKey()), searchCriteria.getValue());
             }
@@ -109,5 +115,9 @@ public class GenericSpecification<T> implements Specification<T> {
     private boolean isValidBooleanValue(String val){
         return (val.equalsIgnoreCase("true")) || val.equalsIgnoreCase("1")
                 || val.equalsIgnoreCase("false") || val.equalsIgnoreCase("0");
+    }
+
+    private boolean isUser (Class cl){
+        return cl.isAssignableFrom(User.class);
     }
 }

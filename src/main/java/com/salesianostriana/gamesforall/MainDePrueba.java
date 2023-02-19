@@ -96,6 +96,7 @@ public class MainDePrueba {
                 .title("God of War")
                 .description("Un juego de aventura llena de emoción")
                 .image("hello.jpg")
+                .price(59.99)
                 .publication_date(LocalDateTime.of(2023,8,14,18,30))
                 .category("Aventura")
                 .user(user1)

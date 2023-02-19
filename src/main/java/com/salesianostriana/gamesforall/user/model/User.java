@@ -124,7 +124,7 @@ public class User implements UserDetails {
     @Builder.Default
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private List<Product> productos = new ArrayList<>();
+    private List<Product> productList = new ArrayList<>();
 
 
     @ManyToMany
