@@ -41,16 +41,16 @@ public class ValorationController {
 
 
     //quiero la lista de valoraciones de un usuario
-    @GetMapping("/")
-    public PageDto<ValorationDTO> getByCriteria(@AuthenticationPrincipal User user , @RequestParam(value = "search", defaultValue = "") String search,
-                                                 @PageableDefault(size = 3, page = 0) Pageable pageable) {
-
-        List<SearchCriteria> params = Extractor.extractSearchCriteriaList(search);
-        PageDto<ValorationDTO> valorations = valorationService.findAllByReviewedUser(params, pageable,user.getId());
-        // limpiar el más adelante
-        return valorations;
-
-    }
+//    @GetMapping("/")
+//    public PageDto<ValorationDTO> getByCriteria(@AuthenticationPrincipal User user , @RequestParam(value = "search", defaultValue = "") String search,
+//                                                 @PageableDefault(size = 3, page = 0) Pageable pageable) {
+//
+//        List<SearchCriteria> params = Extractor.extractSearchCriteriaList(search);
+//        PageDto<ValorationDTO> valorations = valorationService.findAllByReviewedUser(params, pageable,user.getId());
+//        // limpiar el más adelante
+//        return valorations;
+//
+//    }
 
 
 

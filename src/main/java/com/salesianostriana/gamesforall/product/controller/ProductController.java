@@ -1,7 +1,7 @@
 package com.salesianostriana.gamesforall.product.controller;
 
 import com.salesianostriana.gamesforall.files.service.StorageService;
-import com.salesianostriana.gamesforall.files.service.utils.MediaTypeUrlResource;
+import com.salesianostriana.gamesforall.files.utils.MediaTypeUrlResource;
 import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
 import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.dto.PageDto;

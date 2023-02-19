@@ -137,7 +137,7 @@ public class UserController {
 
 
 
-    //OBTENER LOS PRODUCTOS DE UN USUARIO
+
 
     @GetMapping("/{id}/favoritos") //cambiar a autentication principal si solo vas a porder ver los tuyos favoritos
     public List<Product> showUserFavorites(@PathVariable UUID id) {
@@ -153,4 +153,8 @@ public class UserController {
        return  productService.addProductToFavorites(user.getId(), id);
     }
     //CAMBIAR A DTOS
+
+
+    //CREAR USUARIO
+    //OBTENER LOS PRODUCTOS DE UN USUARIO
 }

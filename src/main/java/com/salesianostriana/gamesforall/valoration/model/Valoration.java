@@ -26,13 +26,13 @@ public class Valoration {
     private String review;
 
     @ManyToOne
-    //@MapsId("user_review_id")
-    @JoinColumn(name = "user_review", foreignKey = @ForeignKey(name = "FK_VALORATION_REVIEWER"))
+    @MapsId("user_review_id")
+    @JoinColumn(name = "user_review", foreignKey = @ForeignKey(name = "FK_VALORATION_REVIEWER"),columnDefinition = "uuid")
     private User reviewer;
 
     @ManyToOne
-    //@MapsId("reviewed_user_id")
-    @JoinColumn(name = "reviewed_user", foreignKey = @ForeignKey(name = "FK_VALORATION_REVIEWED"))
+    @MapsId("reviewed_user_id")
+    @JoinColumn(name = "reviewed_user", foreignKey = @ForeignKey(name = "FK_VALORATION_REVIEWED"),columnDefinition = "uuid")
     private User reviewedUser;
 
 

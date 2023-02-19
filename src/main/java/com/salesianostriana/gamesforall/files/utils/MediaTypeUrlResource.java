@@ -1,6 +1,6 @@
-package com.salesianostriana.gamesforall.files.service.utils;
+package com.salesianostriana.gamesforall.files.utils;
 
-import com.salesianostriana.gamesforall.files.service.exception.StorageException;
+import com.salesianostriana.gamesforall.files.exception.StorageException;
 import org.apache.tika.Tika;
 import org.springframework.core.io.UrlResource;
 

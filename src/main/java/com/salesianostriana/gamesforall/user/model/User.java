@@ -40,7 +40,7 @@ public class User implements UserDetails {
             parameters = {
                     @Parameter(
                             name = "uuid_gen_strategy_class",
-                            value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+                            value = "org.hibernate.id.uuid.CustomVersionFourStrategy"
                     )
             }
     )

@@ -1,8 +1,8 @@
 package com.salesianostriana.gamesforall.files.service;
 
 
-import com.salesianostriana.gamesforall.files.service.exception.StorageException;
-import com.salesianostriana.gamesforall.files.service.utils.MediaTypeUrlResource;
+import com.salesianostriana.gamesforall.files.exception.StorageException;
+import com.salesianostriana.gamesforall.files.utils.MediaTypeUrlResource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
 @Service
-public class FileSystemStorageService implements StorageService{
+public class FileSystemStorageService implements StorageService {
 
     @Value("${storage.location}")
     private String storageLocation;

@@ -1,0 +1,2 @@
+--hay que poner todas los atributos que estén en mayusculas siempre con barrabaja fullName = full_name
+--INSERT INTO valoration (user_review,reviewed_user, score, review)VALUES ('c0a80161-8666-1963-8186-6679c5b90003','c0a80161-8666-124d-8186-669252a40000', 4.5, 'Excelente servicio, lo recomiendo ampliamente');

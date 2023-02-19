@@ -1,4 +1,4 @@
-package com.salesianostriana.gamesforall.files.service.exception;
+package com.salesianostriana.gamesforall.files.exception;
 
 public class StorageException extends RuntimeException{
 
