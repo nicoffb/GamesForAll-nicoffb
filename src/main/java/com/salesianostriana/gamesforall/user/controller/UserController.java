@@ -162,4 +162,10 @@ public class UserController {
 //    public List<Product> getUserProducts(@PathVariable UUID id){
 //
 //    }
+
+    @GetMapping("/me")
+    public UserResponse getUser (@AuthenticationPrincipal User loggedUser){
+            return UserResponse.fromUser(loggedUser);
+
+    }
 }

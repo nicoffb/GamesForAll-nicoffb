@@ -88,7 +88,7 @@ public class SecurityConfig {
                                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         .and()
                                 .authorizeRequests()
-                                .antMatchers("/**").hasRole("USER")
+                                .antMatchers("/**").anonymous()
                                 //cuidado que he cambiado
                                 .antMatchers("/auth/register/admin").hasRole("ADMIN")
                                 .anyRequest().authenticated();
