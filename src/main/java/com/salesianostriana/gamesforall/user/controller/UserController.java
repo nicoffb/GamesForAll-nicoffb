@@ -21,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -164,7 +165,9 @@ public class UserController {
 //    }
 
     @GetMapping("/me")
-    public UserResponse getUser (@AuthenticationPrincipal User loggedUser){
+    public UserResponse getUser (@AuthenticationPrincipal User loggedUser, HttpServletRequest request){
+        String authToken = request.getHeader("Authorization");
+        System.out.println("User token: " + authToken);
             return UserResponse.fromUser(loggedUser);
 
     }
