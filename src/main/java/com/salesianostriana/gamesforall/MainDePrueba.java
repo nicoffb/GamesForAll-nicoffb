@@ -1,5 +1,6 @@
 package com.salesianostriana.gamesforall;
 
+import com.salesianostriana.gamesforall.product.model.PlatformEnum;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import com.salesianostriana.gamesforall.security.PasswordEncoderConfig;
@@ -33,8 +34,8 @@ public class MainDePrueba {
     public void run() {
 
         User user1 = User.builder()
-                .username("user1")
-                .password(passwordEncoder.encode("password1"))
+                .username("user")
+                .password(passwordEncoder.encode("1234"))
                 .fullName("Nicoffb")
                 .genre("MALE")
                 .roles(new HashSet<>(Arrays.asList(UserRole.USER,UserRole.ADMIN)))
@@ -96,13 +97,37 @@ public class MainDePrueba {
                 .title("God of War")
                 .description("Un juego de aventura llena de emoción")
                 .image("hello.jpg")
-                .price(59.99)
+                .price(30.00)
                 .publication_date(LocalDateTime.of(2023,8,14,18,30))
                 .category("Aventura")
+                .platform(PlatformEnum.PS5)
                 .user(user1)
                 .build();
 
-        productRepository.save(product1);
+        Product product2 = Product.builder()
+                .title("Zelda Breath of the Wild")
+                .description("El juego que revolucionó el mundo abierto")
+                .image("hello.jpg")
+                .price(59.99)
+                .publication_date(LocalDateTime.of(2022,8,14,18,30))
+                .category("Mundo abierto")
+                .platform(PlatformEnum.SWITCH)
+                .user(user2)
+                .build();
+
+        Product product3 = Product.builder()
+                .title("The Last of Us")
+                .description("Me he pasado este juego 3 veces de lo bueno que es")
+                .image("hello.jpg")
+                .price(10)
+                .publication_date(LocalDateTime.of(2023,2,14,18,30))
+                .category("Supervivencia")
+                .platform(PlatformEnum.PC)
+                .user(user2)
+                .build();
+
+
+        productRepository.saveAll(List.of(product1,product2,product3));
 
     }
 }

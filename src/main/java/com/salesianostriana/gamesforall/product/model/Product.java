@@ -19,7 +19,6 @@ public class Product {
     @Id
     @GeneratedValue
     private Long id;
-    //ponerlos uuid
 
     private String title;
     private String description;
@@ -33,6 +32,8 @@ public class Product {
     private LocalDateTime publication_date = LocalDateTime.now();
 
     private String category;
+
+    private PlatformEnum platform;
 
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_USER"))

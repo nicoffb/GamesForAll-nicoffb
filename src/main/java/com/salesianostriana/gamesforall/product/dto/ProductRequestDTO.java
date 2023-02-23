@@ -1,5 +1,6 @@
 package com.salesianostriana.gamesforall.product.dto;
 
+import com.salesianostriana.gamesforall.product.model.PlatformEnum;
 import com.salesianostriana.gamesforall.product.model.Product;
 import lombok.Builder;
 import lombok.Value;
@@ -21,17 +22,22 @@ public class ProductRequestDTO {
     @NotNull
     @Positive
     private double price;
-    //la fecha se deberia poner sola cuando se crea
+
     @NotBlank
     private String category;
+
+    //ANOTACION PERSONALIZADA
+    private String platform;
 
 
     public Product toProduct(ProductRequestDTO productRequestDTO){
         return Product.builder()
                 .title(productRequestDTO.getTitle())
                 .description(productRequestDTO.getDescription())
-                .price(productRequestDTO.price)
-                .category(productRequestDTO.category)
+                .price(productRequestDTO.getPrice())
+                .category(productRequestDTO.getCategory())
+                //conversión a Enum
+                .platform(PlatformEnum.fromString(productRequestDTO.getPlatform()))
                 .build();
     }
 

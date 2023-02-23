@@ -52,17 +52,7 @@ public class ProductService {
         repository.deleteById(id);
     }
 
-//NUEVOS
-    public Page<EasyProductDTO> findAll(Pageable pageable) {
-        Page<EasyProductDTO> pageProductDto = repository.findAll(pageable).map(EasyProductDTO::of);
 
-        if (pageProductDto.isEmpty()) {
-            throw new EmptyProductListException();
-        }
-
-        return pageProductDto;
-
-    }
 
 //COMPLETO
     public PageDto<EasyProductDTO> search(List<SearchCriteria> params, Pageable pageable){
@@ -79,8 +69,8 @@ public class ProductService {
         return new PageDto<>(pageProductDto);
     }
 
-    public EasyProductDTO findById(Long id) {
-        return repository.findById(id).map(EasyProductDTO::of)
+    public BasicProductDTO findById(Long id) {
+        return repository.findById(id).map(BasicProductDTO::of)
                 .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
@@ -92,6 +82,7 @@ public class ProductService {
                     product.setImage(editBasicProductDTO.getImage());
                     product.setPrice(editBasicProductDTO.getPrice());
                     product.setCategory(editBasicProductDTO.getCategory());
+                    //no quiero que el usuario pueda cambiar la plataforma
                     repository.save(product);
                     BasicProductDTO edited = BasicProductDTO.of(product);
                     return edited;

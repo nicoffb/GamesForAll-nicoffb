@@ -35,44 +35,22 @@ public class ProductController {
     private final StorageService storageService;
 
 
-    @GetMapping("/")
-    public PageDto<EasyProductDTO> getAll(@AuthenticationPrincipal User user ,
-                                       @PageableDefault(size = 3, page = 0) Pageable pageable) {
-
-        return new PageDto<EasyProductDTO>(productService.findAll(pageable));
-        //devolver directamente como pagedto en el search , que haga la conversion en el servicio sin el new aquí
-    }
-
     //buscar tooooodos
     @GetMapping("/search")
     public PageDto<EasyProductDTO> getByCriteria(@AuthenticationPrincipal User user ,@RequestParam(value = "search", defaultValue = "") String search,
-                                          @PageableDefault(size = 3, page = 0) Pageable pageable) {
+                                          @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
         List<SearchCriteria> params = Extractor.extractSearchCriteriaList(search);
         PageDto<EasyProductDTO> products = productService.search(params, pageable);
-        // limpiar el más adelante
+
         return products;
 
     }
 
-    @GetMapping("/search/{id}")
-    public PageDto<EasyProductDTO> getByCriteria2(@AuthenticationPrincipal User user , @RequestParam(value = "search", defaultValue = "") String search,
-                                                  @PageableDefault(size = 3, page = 0) Pageable pageable, @PathVariable UUID id) {
-
-        List<SearchCriteria> params = Extractor.extractSearchCriteriaList(search);
-
-        //user:userId
-        params.add(new SearchCriteria("user",":",id));
-
-        PageDto<EasyProductDTO> products = productService.search(params, pageable);
-        // limpiar el más adelante
-        return products;
-
-    }
 
 
     @GetMapping("/{id}")
-    public EasyProductDTO getById(@PathVariable Long id) {
+    public BasicProductDTO getById(@PathVariable Long id) {
 
         return productService.findById(id);
     }
@@ -101,23 +79,17 @@ public class ProductController {
         //gestionar el fallo con bad request o manejo de errores
     }
 
-   // @PreAuthorize("@noteRepository.findById(#id).orElse(new net.openwebinars.springboot.restjwt.note.model.Note()).author == authentication.principal.getId().toString()")
+
     @PutMapping("/{id}")
     public BasicProductDTO editProduct(@PathVariable Long id, @RequestBody BasicProductDTO edited) {
-        //editar en el servicio , no devuelve ResponseEntity, sino
         return productService.edit(id,edited);
-
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-
-        // Dejamos esta línea comentada para provocar un error 500 si eliminamos dos veces un mismo recurso
-        //if (repository.existsById(id))
         productService.deleteById(id);
 
         return ResponseEntity.noContent().build();
-
     }
 
 
