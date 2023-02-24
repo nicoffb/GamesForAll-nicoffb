@@ -90,10 +90,8 @@ public class ProductService {
                 .orElseThrow(()->new ProductNotFoundException());
     }
 
-
+    @Transactional
     public List<Product> addProductToFavorites(UUID userId, Long idProduct) {
-        // Buscamos el usuario y el producto
-
         Optional<User> user = userRepository.findById(userId);
 
         if (user.isEmpty()){
@@ -112,16 +110,27 @@ public class ProductService {
 
         }
 
-        //comprobar si están presentes con un if is present?
-        //.orElseThrow(() -> UserIdNotFoundException) CREAR EXCEPCION SI NO SE ENCUENTRA AL USUARIO
-
-//        Product product = repository.findById(idProduct)
-//                .orElseThrow(() -> new ProductNotFoundException(idProduct));
-
-        // Agregamos el producto a la lista de favoritos del usuario
-
-
     }
+
+    @Transactional
+    public List<Product> removeProductFromFavorites(UUID userId, Long idProduct) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            throw new UserNotFoundException(userId);
+        } else {
+            User found = user.get();
+            Optional<Product> product = repository.findById(idProduct);
+            if (product.isEmpty()) {
+                throw new ProductNotFoundException(idProduct);
+            } else {
+                Product founded2 = product.get();
+                found.getFavorites().remove(founded2);
+                userRepository.save(found);
+                return found.getFavorites();
+            }
+        }
+    }
+
 
 
 

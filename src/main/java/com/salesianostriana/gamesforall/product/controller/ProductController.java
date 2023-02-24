@@ -37,7 +37,7 @@ public class ProductController {
 
     //buscar tooooodos
     @GetMapping("/search")
-    public PageDto<EasyProductDTO> getByCriteria(@AuthenticationPrincipal User user ,@RequestParam(value = "search", defaultValue = "") String search,
+    public PageDto<EasyProductDTO> getByCriteria(@RequestParam(value = "search", defaultValue = "") String search,
                                           @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
         List<SearchCriteria> params = Extractor.extractSearchCriteriaList(search);

@@ -127,7 +127,7 @@ public class User implements UserDetails {
     private List<Product> productList = new ArrayList<>();
 
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "usuario_producto_favorito",
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "producto_id"))

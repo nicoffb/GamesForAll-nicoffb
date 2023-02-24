@@ -39,16 +39,6 @@ public class SecurityConfig {
                 http.getSharedObject(AuthenticationManagerBuilder.class);
 
 
-        // Versión 1
-        /*
-        AuthenticationManager authenticationManager =
-                authenticationManagerBuilder
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder)
-                        .and().build();
-        */
-
-        // Versión 2
         AuthenticationManager authenticationManager =
             authenticationManagerBuilder.authenticationProvider(authenticationProvider())
                     .build();
@@ -89,8 +79,8 @@ public class SecurityConfig {
                         .and()
                                 .authorizeRequests()
                                 .antMatchers("/**").hasRole("USER")
-                                //cuidado que he cambiado
                                 .antMatchers("/auth/register/admin").hasRole("ADMIN")
+                                .antMatchers("/product/dowload/**").permitAll()
                                 .anyRequest().authenticated();
 
 

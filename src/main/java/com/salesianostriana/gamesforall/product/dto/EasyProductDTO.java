@@ -26,4 +26,5 @@ public class EasyProductDTO {
                 .image(product.getImage())
                 .build();
     }
+
 }

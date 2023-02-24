@@ -1,5 +1,6 @@
 package com.salesianostriana.gamesforall.user.controller;
 
+import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.service.ProductService;
 import com.salesianostriana.gamesforall.security.jwt.access.JwtProvider;
@@ -24,7 +25,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -140,19 +141,30 @@ public class UserController {
 
 
 
-    @GetMapping("/{id}/favoritos") //cambiar a autentication principal si solo vas a porder ver los tuyos favoritos
-    public List<Product> getUserFavorites(@PathVariable UUID id) {
-        User user = userService.findById(id);
+    @GetMapping("/favorites")
+    public List<EasyProductDTO> getUserFavorites(@AuthenticationPrincipal User loggedUser) {
+        User user = userService.findById(loggedUser.getId());
 
-        //como evito el get, poniendo una excepcion? //.orElseThrow(() -> UserIdNotFoundException)
-        return user.getFavorites();
+        return user.getFavorites().stream()
+                .map(EasyProductDTO::of)
+                .collect(Collectors.toList());
     }
 
-    //hacer el controler de añadir a favoritos
-    @PostMapping("/{id}/favoritos")
-    public List<Product> addToFavorites (@PathVariable Long id, @AuthenticationPrincipal User user){
-       return  productService.addProductToFavorites(user.getId(), id);
+
+
+    @PostMapping("/favorites/{id}")
+    public void addToFavorites (@PathVariable Long id, @AuthenticationPrincipal User user){
+        productService.addProductToFavorites(user.getId(), id);
     }
+
+    @DeleteMapping("/favorites/{id}")
+    public void removeFromFavorites(@PathVariable Long id, @AuthenticationPrincipal User user){
+        productService.removeProductFromFavorites(user.getId(), id);
+    }
+
+
+
+
     //CAMBIAR A DTOS
 
 

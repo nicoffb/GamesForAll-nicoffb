@@ -3,6 +3,7 @@ package com.salesianostriana.gamesforall;
 import com.salesianostriana.gamesforall.product.model.PlatformEnum;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
+import com.salesianostriana.gamesforall.product.service.ProductService;
 import com.salesianostriana.gamesforall.security.PasswordEncoderConfig;
 import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.model.UserRole;
@@ -29,6 +30,7 @@ public class MainDePrueba {
     private final PasswordEncoder passwordEncoder;
     private final ValorationRepository valorationRepository;
     private final ProductRepository productRepository;
+    private final ProductService productService;
 
     @PostConstruct
     public void run() {
@@ -96,7 +98,7 @@ public class MainDePrueba {
         Product product1 = Product.builder()
                 .title("God of War")
                 .description("Un juego de aventura llena de emoción")
-                .image("hello.jpg")
+                .image("smash-bros.jpg")
                 .price(30.00)
                 .publication_date(LocalDateTime.of(2023,8,14,18,30))
                 .category("Aventura")
@@ -107,7 +109,7 @@ public class MainDePrueba {
         Product product2 = Product.builder()
                 .title("Zelda Breath of the Wild")
                 .description("El juego que revolucionó el mundo abierto")
-                .image("hello.jpg")
+                .image("smash-bros.jpg")
                 .price(59.99)
                 .publication_date(LocalDateTime.of(2022,8,14,18,30))
                 .category("Mundo abierto")
@@ -118,7 +120,7 @@ public class MainDePrueba {
         Product product3 = Product.builder()
                 .title("The Last of Us")
                 .description("Me he pasado este juego 3 veces de lo bueno que es")
-                .image("hello.jpg")
+                .image("smash-bros.jpg")
                 .price(10)
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
                 .category("Supervivencia")
@@ -128,6 +130,8 @@ public class MainDePrueba {
 
 
         productRepository.saveAll(List.of(product1,product2,product3));
+        productService.addProductToFavorites(user1.getId(),product3.getId());
+        productService.addProductToFavorites(user1.getId(),product2.getId());
 
     }
 }
