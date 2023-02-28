@@ -78,9 +78,9 @@ public class SecurityConfig {
                                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         .and()
                                 .authorizeRequests()
-                                .antMatchers("/**").hasRole("USER")
                                 .antMatchers("/auth/register/admin").hasRole("ADMIN")
-                                .antMatchers("/product/dowload/**").permitAll()
+                                .antMatchers("/product/download/**").permitAll()
+                                .antMatchers("/**").hasRole("USER")
                                 .anyRequest().authenticated();
 
 

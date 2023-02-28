@@ -98,7 +98,7 @@ public class MainDePrueba {
         Product product1 = Product.builder()
                 .title("God of War")
                 .description("Un juego de aventura llena de emoción")
-                .image("smash-bros.jpg")
+                .image("god-of-war.jpg")
                 .price(30.00)
                 .publication_date(LocalDateTime.of(2023,8,14,18,30))
                 .category("Aventura")
@@ -109,7 +109,7 @@ public class MainDePrueba {
         Product product2 = Product.builder()
                 .title("Zelda Breath of the Wild")
                 .description("El juego que revolucionó el mundo abierto")
-                .image("smash-bros.jpg")
+                .image("breath-of-the-wild.jpg")
                 .price(59.99)
                 .publication_date(LocalDateTime.of(2022,8,14,18,30))
                 .category("Mundo abierto")
@@ -120,7 +120,7 @@ public class MainDePrueba {
         Product product3 = Product.builder()
                 .title("The Last of Us")
                 .description("Me he pasado este juego 3 veces de lo bueno que es")
-                .image("smash-bros.jpg")
+                .image("the-last-of-us.jpg")
                 .price(10)
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
                 .category("Supervivencia")
@@ -128,8 +128,31 @@ public class MainDePrueba {
                 .user(user2)
                 .build();
 
+        Product product4 = Product.builder()
+                .title("Smash Brosh Ultimate")
+                .description("Lo vendo porque ya no me hace falta")
+                .image("smash-bros.jpg")
+                .price(59.99)
+                .publication_date(LocalDateTime.of(2022,8,14,18,30))
+                .category("Lucha")
+                .platform(PlatformEnum.SWITCH)
+                .user(user2)
+                .build();
 
-        productRepository.saveAll(List.of(product1,product2,product3));
+        Product product5 = Product.builder()
+                .title("The Witcher 3")
+                .description("Le he echado 1400 horas y no me canso, lo quiero lejos de mi")
+                .image("the-witcher-3.jpg")
+                .price(10)
+                .publication_date(LocalDateTime.of(2023,2,14,18,30))
+                .category("RPG")
+                .platform(PlatformEnum.PC)
+                .user(user2)
+                .build();
+
+
+
+        productRepository.saveAll(List.of(product1,product2,product3,product4,product5));
         productService.addProductToFavorites(user1.getId(),product3.getId());
         productService.addProductToFavorites(user1.getId(),product2.getId());
 

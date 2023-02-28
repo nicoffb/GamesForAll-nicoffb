@@ -10,7 +10,7 @@ public class UserNotFoundException extends EntityNotFoundException {
     }
 
     public UserNotFoundException(UUID id) {
-        super(String.format("El usuario con el id %d no se ha encontrado", id));
+        super(String.format("El usuario no se ha encontrado", id));
     }
 
 }
