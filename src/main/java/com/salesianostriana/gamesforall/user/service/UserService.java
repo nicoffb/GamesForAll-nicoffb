@@ -114,4 +114,9 @@ public class UserService {
         return favoriteProducts.map(EasyProductDTO::of);
     }
 
+    public Page<EasyProductDTO> getUserProducts(UUID userId, Pageable pageable) {
+        Page<Product> favoriteProducts = userRepository.findProductsByUser(userId, pageable);
+        return favoriteProducts.map(EasyProductDTO::of);
+    }
+
 }

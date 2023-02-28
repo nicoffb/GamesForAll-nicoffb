@@ -141,7 +141,14 @@ public class UserController {
 
 
 
+    @GetMapping("/myproducts")
+    public PageDto<EasyProductDTO> getUserProducts(@AuthenticationPrincipal User loggedUser, Pageable pageable) {
 
+        Page<EasyProductDTO> productspaged =  userService.getUserFavoriteProducts(loggedUser.getId(),pageable);
+
+        return  new PageDto<>(productspaged);
+
+    }
 
 
     @GetMapping("/favorites")
@@ -152,7 +159,6 @@ public class UserController {
        return  new PageDto<>(productspaged);
 
     }
-
 
 
     @PostMapping("/favorites/{id}")
@@ -166,18 +172,6 @@ public class UserController {
     }
 
 
-
-
-    //CAMBIAR A DTOS
-
-
-    //CREAR USUARIO
-    //OBTENER LOS PRODUCTOS DE UN USUARIO
-
-//    @GetMapping("/user/{id}")
-//    public List<Product> getUserProducts(@PathVariable UUID id){
-//
-//    }
 
     @GetMapping("/me")
     public UserResponse getUser (@AuthenticationPrincipal User loggedUser, HttpServletRequest request){
