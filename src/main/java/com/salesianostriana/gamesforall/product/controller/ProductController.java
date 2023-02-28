@@ -61,7 +61,7 @@ public class ProductController {
     public ResponseEntity<BasicProductDTO> createNewProduct(@RequestPart("body") ProductRequestDTO created, @RequestPart("files") MultipartFile files) {
 
 
-        Product product =created.toProduct(created); //estabien invocarlo con created?
+        Product product =created.toProduct(created);
 
         productService.add(product,files);
 

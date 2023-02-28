@@ -6,6 +6,7 @@ import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.dto.PageDto;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
+import com.salesianostriana.gamesforall.search.specifications.GSBuilder;
 import com.salesianostriana.gamesforall.search.util.SearchCriteria;
 import com.salesianostriana.gamesforall.user.dto.CreateUserRequest;
 import com.salesianostriana.gamesforall.user.model.User;
@@ -108,17 +109,9 @@ public class UserService {
     }
 
 
-//    public PageDto<EasyProductDTO> search(List<SearchCriteria> params, Pageable pageable){
-//        PSBuilder psBuilder = new PSBuilder(params);
-//
-//        Specification<Product> spec = psBuilder.build();
-//
-//        Page<EasyProductDTO> pageProductDto = productRepository.findAll(spec, pageable).map(EasyProductDTO::of);
-//
-//        if (pageProductDto.isEmpty()) {
-//            throw new EmptyProductListException();
-//        }
-//
-//        return new PageDto<>(pageProductDto);
-//    }
+    public Page<EasyProductDTO> getUserFavoriteProducts(UUID userId, Pageable pageable) {
+        Page<Product> favoriteProducts = userRepository.findFavoriteProductsByUserId(userId, pageable);
+        return favoriteProducts.map(EasyProductDTO::of);
+    }
+
 }

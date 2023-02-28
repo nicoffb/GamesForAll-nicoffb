@@ -136,5 +136,5 @@ public class User implements UserDetails {
     @Builder.Default
     @OneToMany(mappedBy = "reviewedUser",fetch = FetchType.EAGER)
     private List<Valoration> valoracionesRecibidas = new ArrayList<>();
-    //que politica de borrado vas a usar¿ tipo lazy
+
 }

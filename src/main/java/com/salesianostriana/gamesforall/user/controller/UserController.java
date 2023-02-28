@@ -1,6 +1,7 @@
 package com.salesianostriana.gamesforall.user.controller;
 
 import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
+import com.salesianostriana.gamesforall.product.dto.PageDto;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.service.ProductService;
 import com.salesianostriana.gamesforall.security.jwt.access.JwtProvider;
@@ -12,6 +13,8 @@ import com.salesianostriana.gamesforall.user.dto.*;
 import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -142,12 +145,12 @@ public class UserController {
 
 
     @GetMapping("/favorites")
-    public List<EasyProductDTO> getUserFavorites(@AuthenticationPrincipal User loggedUser) {
-        User user = userService.findById(loggedUser.getId());
+    public PageDto<EasyProductDTO> getUserFavorites(@AuthenticationPrincipal User loggedUser, Pageable pageable) {
 
-        return user.getFavorites().stream()
-                .map(EasyProductDTO::of)
-                .collect(Collectors.toList());
+        Page<EasyProductDTO> productspaged =  userService.getUserFavoriteProducts(loggedUser.getId(),pageable);
+
+       return  new PageDto<>(productspaged);
+
     }
 
 
