@@ -1,3 +1,10 @@
+
+Datos de usuario con rol de USER/ADMIN
+Usuario: user
+Contraseña: 1234
+
+
+
 GAMES FOR ALL 
 
 Es una aplicación para la compra/venta de videojuegos de segunda mano.
@@ -13,11 +20,6 @@ versión de flutter : Flutter 3.8.0-17.0.pre.5 • channel master
 
 Perfil de producción activado, realizar el comando docker compose up e iniciar la aplicación.
 
-
-
-Datos de usuario con rol de USER/ADMIN
-Usuario: user
-Contraseña: 1234
 
 
 
