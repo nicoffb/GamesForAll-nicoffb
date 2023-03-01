@@ -1,5 +1,6 @@
 package com.salesianostriana.gamesforall.user.controller;
 
+import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
 import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.dto.PageDto;
 import com.salesianostriana.gamesforall.product.model.Product;
@@ -12,7 +13,14 @@ import com.salesianostriana.gamesforall.security.jwt.refresh.RefreshTokenService
 import com.salesianostriana.gamesforall.user.dto.*;
 import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -140,17 +148,47 @@ public class UserController {
 
 
 
-
+    @Operation(summary = "Obtiene todos los productos de forma paginada del usuario autenticado")
+    @PageableAsQueryParam
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado productos",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = EasyProductDTO.class)))
+                    }),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado productos",
+                    content = @Content(schema = @Schema(implementation = com.salesianostriana.gamesforall.exception.EmptyProductListException.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "La búsqueda es incorrecta",
+                    content = @Content)
+    })
     @GetMapping("/myproducts")
     public PageDto<EasyProductDTO> getUserProducts(@AuthenticationPrincipal User loggedUser, Pageable pageable) {
 
-        Page<EasyProductDTO> productspaged =  userService.getUserFavoriteProducts(loggedUser.getId(),pageable);
+        Page<EasyProductDTO> productspaged =  userService.getUserProducts(loggedUser.getId(),pageable);
 
         return  new PageDto<>(productspaged);
 
     }
 
-
+    @Operation(summary = "Obtiene todos los productos favoritos de forma paginada del usuario registrado")
+    @PageableAsQueryParam
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado productos",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = EasyProductDTO.class)))
+                    }),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado productos",
+                    content = @Content(schema = @Schema(implementation = com.salesianostriana.gamesforall.exception.EmptyProductListException.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "La búsqueda es incorrecta",
+                    content = @Content)
+    })
     @GetMapping("/favorites")
     public PageDto<EasyProductDTO> getUserFavorites(@AuthenticationPrincipal User loggedUser, Pageable pageable) {
 
@@ -161,11 +199,40 @@ public class UserController {
     }
 
 
+
+    @Operation(summary = "Se crea un nuevo favorito en la lista de favoritos del usuario logeado a partir de un producto dado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha creado el favorito",
+                    content = {}),
+            @ApiResponse(responseCode = "400",
+                    description = "Los datos no son válidos",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado",
+                    content = @Content),
+            @ApiResponse(responseCode = "401",
+                    description = "Full authentication is required to access this resource",
+                    content = @Content)
+    })
     @PostMapping("/favorites/{id}")
     public void addToFavorites (@PathVariable Long id, @AuthenticationPrincipal User user){
         productService.addProductToFavorites(user.getId(), id);
     }
 
+
+    @Operation(summary = "Borra un favorito dado del usuario registrado a partir de un id dado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Se ha borrado el producto con éxito",
+                    content = {}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado el producto",
+                    content = @Content(schema = @Schema(implementation = com.salesianostriana.gamesforall.exception.ProductNotFoundException.class))),
+            @ApiResponse(responseCode = "401",
+                    description = "Full authentication is required to access this resource",
+                    content = @Content),
+    })
     @DeleteMapping("/favorites/{id}")
     public void removeFromFavorites(@PathVariable Long id, @AuthenticationPrincipal User user){
         productService.removeProductFromFavorites(user.getId(), id);
