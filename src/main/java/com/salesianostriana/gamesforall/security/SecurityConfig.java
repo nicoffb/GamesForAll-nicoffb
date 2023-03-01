@@ -78,9 +78,9 @@ public class SecurityConfig {
                                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         .and()
                                 .authorizeRequests()
-                                .antMatchers("/auth/register/admin").hasRole("ADMIN")
                                 .antMatchers("/product/download/**").permitAll()
                                 .antMatchers("/**").hasRole("USER")
+                                .antMatchers("/auth/register/admin").hasRole("ADMIN")
                                 .anyRequest().authenticated();
 
 
@@ -95,7 +95,11 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web -> web.ignoring().antMatchers("/h2-console/**", "/auth/register", "/auth/login", "/refreshtoken"));
+        return (web -> web.ignoring().antMatchers("/h2-console/**", "/auth/register", "/auth/login", "/refreshtoken", "/v3/api-docs/**",
+                "/swagger-ui/**",
+                "/swagger-ui.html",
+                "/swagger-resources/**"
+        ));
     }
 
 

@@ -10,21 +10,28 @@ import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.service.ProductService;
 import com.salesianostriana.gamesforall.search.util.Extractor;
 import com.salesianostriana.gamesforall.search.util.SearchCriteria;
-import com.salesianostriana.gamesforall.user.model.User;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/product")
@@ -35,7 +42,22 @@ public class ProductController {
     private final StorageService storageService;
 
 
-    //buscar tooooodos
+    @Operation(summary = "Obtiene todos los productos de forma paginada y con criterios")
+    @PageableAsQueryParam
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado productos",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = EasyProductDTO.class)))
+                    }),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado productos",
+                    content = @Content(schema = @Schema(implementation = com.salesianostriana.gamesforall.exception.EmptyProductListException.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "La búsqueda es incorrecta",
+                    content = @Content)
+    })
     @GetMapping("/search")
     public PageDto<EasyProductDTO> getByCriteria(@RequestParam(value = "search", defaultValue = "") String search,
                                           @PageableDefault(size = 5, page = 0) Pageable pageable) {
@@ -48,7 +70,22 @@ public class ProductController {
     }
 
 
-
+    @Operation(summary = "Obtiene el producto a partir de un id dado")
+    @PageableAsQueryParam
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado productos",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = BasicProductDTO.class)))
+                    }),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado el producto",
+                    content = @Content(schema = @Schema(implementation = com.salesianostriana.gamesforall.exception.ProductNotFoundException.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "La búsqueda es incorrecta",
+                    content = @Content)
+    })
     @GetMapping("/{id}")
     public BasicProductDTO getById(@PathVariable Long id) {
 
@@ -56,13 +93,25 @@ public class ProductController {
     }
 
 
-
+    @Operation(summary = "Se crea un nuevo producto")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha creado el producto",
+                    content = {@Content(schema = @Schema(implementation = BasicProductDTO.class))}),
+            @ApiResponse(responseCode = "400",
+                    description = "Los datos no son válidos",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado",
+                    content = @Content),
+            @ApiResponse(responseCode = "401",
+                    description = "Full authentication is required to access this resource",
+                    content = @Content)
+    })
     @PostMapping("/")
     public ResponseEntity<BasicProductDTO> createNewProduct(@RequestPart("body") ProductRequestDTO created, @RequestPart("files") MultipartFile files) {
 
-
         Product product =created.toProduct(created);
-
         productService.add(product,files);
 
         URI createdURI = ServletUriComponentsBuilder
@@ -76,15 +125,46 @@ public class ProductController {
                 .created(createdURI)
                 .body(converted);
 
-        //gestionar el fallo con bad request o manejo de errores
     }
 
 
+
+    @Operation(summary = "Edita un producto")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha editado el producto",
+                    content = {@Content(schema = @Schema(implementation = BasicProductDTO.class))}),
+            @ApiResponse(responseCode = "400",
+                    description = "Los datos no son válidos",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado el producto",
+                    content = @Content),
+            @ApiResponse(responseCode = "401",
+                    description = "Full authentication is required to access this resource",
+                    content = @Content),
+    })
     @PutMapping("/{id}")
     public BasicProductDTO editProduct(@PathVariable Long id, @RequestBody BasicProductDTO edited) {
         return productService.edit(id,edited);
     }
 
+
+
+
+
+    @Operation(summary = "Borra un producto a partir de un id dado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Se ha borrado el producto con éxito",
+                    content = {}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado el producto",
+                    content = @Content(schema = @Schema(implementation = com.salesianostriana.gamesforall.exception.ProductNotFoundException.class))),
+            @ApiResponse(responseCode = "401",
+                    description = "Full authentication is required to access this resource",
+                    content = @Content),
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         productService.deleteById(id);
@@ -103,7 +183,7 @@ public class ProductController {
                 .body(resource);
 }
 
-//un controller para eliminar foto? y editar foto solo? o meterlo en el de editar producto
+
 
 
 

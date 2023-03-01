@@ -1,13 +1,8 @@
 package com.salesianostriana.gamesforall.valoration.controller;
 
 
-import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
-import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.dto.PageDto;
-import com.salesianostriana.gamesforall.product.dto.ProductRequestDTO;
-import com.salesianostriana.gamesforall.product.model.Product;
-import com.salesianostriana.gamesforall.search.util.Extractor;
-import com.salesianostriana.gamesforall.search.util.SearchCriteria;
+
 import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.service.UserService;
 import com.salesianostriana.gamesforall.valoration.dto.ValorationDTO;
@@ -15,7 +10,14 @@ import com.salesianostriana.gamesforall.valoration.dto.ValorationRequestDTO;
 import com.salesianostriana.gamesforall.valoration.model.Valoration;
 import com.salesianostriana.gamesforall.valoration.model.ValorationPK;
 import com.salesianostriana.gamesforall.valoration.service.ValorationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -37,11 +39,22 @@ public class ValorationController {
     private final UserService userService;
 
 
-    //quiero la puntuación media de los usuarios que le han valorado
-    //crear una valoración
-
-
-    //quiero la lista de valoraciones de un usuario
+    @Operation(summary = "Obtiene todos las valoraciones de un usuario de forma paginada a partir de su uuid")
+    @PageableAsQueryParam
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado las valoraciones",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation =ValorationDTO.class)))
+                    }),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado el usuario",
+                    content = @Content(schema = @Schema(implementation = com.salesianostriana.gamesforall.exception.UserNotFoundException.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "La búsqueda es incorrecta",
+                    content = @Content)
+    })
     @GetMapping("/{userId}")
     public PageDto<ValorationDTO> getByCriteria(@PathVariable UUID userId, @PageableDefault(size = 3, page = 0) Pageable pageable) {
 
@@ -52,6 +65,21 @@ public class ValorationController {
     }
 
 
+    @Operation(summary = "Se crea una valoración del usuario registrado hacia el usuario dado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha creado la valoración",
+                    content = {@Content(schema = @Schema(implementation = ValorationDTO.class))}),
+            @ApiResponse(responseCode = "400",
+                    description = "Los datos no son válidos",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado el usuario",
+                    content = @Content(schema = @Schema(implementation = com.salesianostriana.gamesforall.exception.UserNotFoundException.class))),
+            @ApiResponse(responseCode = "401",
+                    description = "Full authentication is required to access this resource",
+                    content = @Content)
+    })
     @PostMapping("/{targetUser}")
     public ResponseEntity<ValorationDTO> createValoration (@RequestBody ValorationRequestDTO created, @AuthenticationPrincipal User user, @PathVariable UUID targetUser){
 
@@ -76,9 +104,6 @@ public class ValorationController {
         return ResponseEntity
                 .created(createdURI)
                 .body(converted);
-        //gestionar el fallo con bad request o manejo de errores
-
-        //cuando añado una valoracion se actualiza el valor del atributo media del usuario y lo guardas
     }
 
 

@@ -97,7 +97,7 @@ public class MainDePrueba {
 
         Product product1 = Product.builder()
                 .title("God of War")
-                .description("Un juego de aventura llena de emoción")
+                .description("Lo vendo porque ya no me hace falta")
                 .image("god-of-war.jpg")
                 .price(30.00)
                 .publication_date(LocalDateTime.of(2023,8,14,18,30))
@@ -108,7 +108,7 @@ public class MainDePrueba {
 
         Product product2 = Product.builder()
                 .title("Zelda Breath of the Wild")
-                .description("El juego que revolucionó el mundo abierto")
+                .description("Le he echado 1400 horas y no me canso, lo quiero lejos de mi ")
                 .image("breath-of-the-wild.jpg")
                 .price(59.99)
                 .publication_date(LocalDateTime.of(2022,8,14,18,30))
@@ -119,7 +119,7 @@ public class MainDePrueba {
 
         Product product3 = Product.builder()
                 .title("The Last of Us")
-                .description("Me he pasado este juego 3 veces de lo bueno que es")
+                .description("Una aventura grande y llena de emoción")
                 .image("the-last-of-us.jpg")
                 .price(10.00)
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
@@ -130,7 +130,7 @@ public class MainDePrueba {
 
         Product product4 = Product.builder()
                 .title("Smash Brosh Ultimate")
-                .description("Lo vendo porque ya no me hace falta")
+                .description("Me he pasado este juego 3 veces de lo bueno que es")
                 .image("smash-bros.jpg")
                 .price(39.99)
                 .publication_date(LocalDateTime.of(2022,8,14,18,30))
@@ -141,7 +141,7 @@ public class MainDePrueba {
 
         Product product5 = Product.builder()
                 .title("The Witcher 3")
-                .description("Le he echado 1400 horas y no me canso, lo quiero lejos de mi")
+                .description("El juego que revolucionó el mundo abierto")
                 .image("the-witcher-3.jpg")
                 .price(9.99)
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
