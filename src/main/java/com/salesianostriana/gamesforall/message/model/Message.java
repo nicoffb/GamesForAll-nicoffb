@@ -28,20 +28,20 @@ public class Message {
 
     @ManyToOne
     @MapsId("emisor_id")
-    @JoinColumn(name = "emisor", foreignKey = @ForeignKey(name = "FK_VALORATION_EMISOR"),columnDefinition = "uuid")
+    @JoinColumn(name = "emisor", foreignKey = @ForeignKey(name = "FK_MESSAGE_EMISOR"),columnDefinition = "uuid")
     private User emisor;
 
     @ManyToOne
     @MapsId("receptor_id")
-    @JoinColumn(name = "receptor", foreignKey = @ForeignKey(name = "FK_VALORATION_RECEPTOR"),columnDefinition = "uuid")
+    @JoinColumn(name = "receptor", foreignKey = @ForeignKey(name = "FK_MESSAGE_RECEPTOR"),columnDefinition = "uuid")
     private User receptor;
 
 
-    public void setUserReview(User emisorUser) {
+    public void setEmisorUser(User emisorUser) {
         this.emisor = emisorUser;
     }
 
-    public void setReviewedUser(User receptorUser) {
+    public void setReceptorUser(User receptorUser) {
         this.receptor = receptorUser;
     }
 

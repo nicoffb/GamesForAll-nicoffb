@@ -79,12 +79,16 @@ public class MainDePrueba {
                 .id(new MessagePK(user1.getId(),user2.getId()))
                 .comment("Estoy interesado en tu juego")
                 .message_date(LocalDateTime.of(2023,12,12,12,12))
+                .emisor(user1)
+                .receptor(user2)
                 .build();
 
         Message message2 = Message.builder()
                 .id(new MessagePK(user2.getId(),user1.getId()))
                 .comment("¿Cuanto estas dispuesto a pagar?")
                 .message_date(LocalDateTime.of(2023,11,11,11,11))
+                .emisor(user2)
+                .receptor(user1)
                 .build();
 
         messageRepository.saveAll(List.of(message1,message2));

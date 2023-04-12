@@ -13,9 +13,9 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface MessageRepository extends JpaRepository<Message, MessagePK>, JpaSpecificationExecutor<Message> {
+public interface MessageRepository extends JpaRepository<Message,MessagePK>, JpaSpecificationExecutor<Message> {
 
-    @Query("SELECT v FROM Message v WHERE v.receptor.id = :userId")
+    @Query("SELECT m FROM Message m WHERE m.receptor.id = :userId")
     Page<Message> findMessagesById(UUID userId, Pageable pageable);
 
 }

@@ -1,6 +1,8 @@
 package com.salesianostriana.gamesforall.message.controller;
 
 
+import com.salesianostriana.gamesforall.message.model.Message;
+import com.salesianostriana.gamesforall.message.model.MessagePK;
 import com.salesianostriana.gamesforall.message.service.MessageService;
 import com.salesianostriana.gamesforall.product.dto.PageDto;
 
@@ -36,11 +38,11 @@ public class MessageController {
     private final UserService userService;
 
 
-    @Operation(summary = "Obtiene todos las valoraciones de un usuario de forma paginada a partir de su uuid")
+    @Operation(summary = "Obtiene todos los mensajes de un usuario de forma paginada a partir de su uuid")
     @PageableAsQueryParam
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Se han encontrado las valoraciones",
+                    description = "Se han encontrado los mensajes",
                     content = {
                             @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = MessageDTO.class)))
@@ -55,7 +57,7 @@ public class MessageController {
     @GetMapping("/{userId}")
     public PageDto<MessageDTO> getByCriteria(@PathVariable UUID userId, @PageableDefault(size = 3, page = 0) Pageable pageable) {
 
-        Page<MessageDTO> messageList = messageService.findMessagesById(userId,pageable).map(v-> MessageDTO.of(v));
+        Page<MessageDTO> messageList = messageService.findMessagesById(userId,pageable).map(m-> MessageDTO.of(m));
 
         return new PageDto<>(messageList);
 
@@ -80,20 +82,20 @@ public class MessageController {
     @PostMapping("/{targetUser}")
     public ResponseEntity<MessageDTO> createValoration (@RequestBody MessageRequestDTO created, @AuthenticationPrincipal User user, @PathVariable UUID targetUser){
 
-        Valoration valoration = created.toValoration(created);
+        Message message = created.toMessage(created);
 
-        ValorationPK pk = new ValorationPK(user.getId(),targetUser);
-        valoration.setPK(pk);
+        MessagePK pk = new MessagePK(user.getId(),targetUser);
+        message.setPK(pk);
 
-        valoration.setUserReview(user);
-        valoration.setReviewedUser(userService.findById(targetUser));
+        message.setEmisorUser(user);
+        message.setReceptorUser(userService.findById(targetUser));
 
-        Valoration saved = valorationService.add(valoration);
+        Message saved = messageService.add(message);
 
         URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(valoration.getId()).toUri();
+                .buildAndExpand(message.getId()).toUri();
 
         MessageDTO converted = MessageDTO.of(saved);
 
