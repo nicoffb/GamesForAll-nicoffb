@@ -1,8 +1,8 @@
 package com.salesianostriana.gamesforall.user.model;
 
 
+import com.salesianostriana.gamesforall.message.model.Message;
 import com.salesianostriana.gamesforall.product.model.Product;
-import com.salesianostriana.gamesforall.valoration.model.Valoration;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
@@ -134,7 +134,7 @@ public class User implements UserDetails {
     private List<Product> favorites = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "reviewedUser",fetch = FetchType.EAGER)
-    private List<Valoration> valoracionesRecibidas = new ArrayList<>();
+    @OneToMany(mappedBy = "emisor",fetch = FetchType.EAGER)
+    private List<Message> recievedMessages = new ArrayList<>();
 
 }

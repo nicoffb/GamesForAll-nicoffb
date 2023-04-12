@@ -4,14 +4,12 @@ import com.salesianostriana.gamesforall.product.model.PlatformEnum;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import com.salesianostriana.gamesforall.product.service.ProductService;
-import com.salesianostriana.gamesforall.security.PasswordEncoderConfig;
 import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.model.UserRole;
 import com.salesianostriana.gamesforall.user.repo.UserRepository;
-import com.salesianostriana.gamesforall.user.service.UserService;
-import com.salesianostriana.gamesforall.valoration.model.Valoration;
-import com.salesianostriana.gamesforall.valoration.model.ValorationPK;
-import com.salesianostriana.gamesforall.valoration.repository.ValorationRepository;
+import com.salesianostriana.gamesforall.message.model.Message;
+import com.salesianostriana.gamesforall.message.model.MessagePK;
+import com.salesianostriana.gamesforall.message.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -28,7 +26,7 @@ public class MainDePrueba {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final ValorationRepository valorationRepository;
+    private final MessageRepository messageRepository;
     private final ProductRepository productRepository;
     private final ProductService productService;
 
@@ -77,23 +75,19 @@ public class MainDePrueba {
         userRepository.saveAll(List.of(user1,user2,user3));
 
 
-        Valoration valoration1 = Valoration.builder()
-                .id(new ValorationPK(user1.getId(),user2.getId()))
-                .score(6.7)
-                .review("Juegazo como la copa de un pino")
-                .reviewedUser(user2)
-                .reviewer(user1)
+        Message message1 = Message.builder()
+                .id(new MessagePK(user1.getId(),user2.getId()))
+                .comment("Estoy interesado en tu juego")
+                .message_date(LocalDateTime.of(2023,12,12,12,12))
                 .build();
 
-        Valoration valoration2 = Valoration.builder()
-                .id(new ValorationPK(user2.getId(),user1.getId()))
-                .score(9.3)
-                .review("El peor juego que he jugado nunca")
-                .reviewedUser(user1)
-                .reviewer(user2)
+        Message message2 = Message.builder()
+                .id(new MessagePK(user2.getId(),user1.getId()))
+                .comment("¿Cuanto estas dispuesto a pagar?")
+                .message_date(LocalDateTime.of(2023,11,11,11,11))
                 .build();
 
-        valorationRepository.saveAll(List.of(valoration1,valoration2));
+        messageRepository.saveAll(List.of(message1,message2));
 
         Product product1 = Product.builder()
                 .title("God of War")

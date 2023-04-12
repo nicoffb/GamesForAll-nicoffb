@@ -1,0 +1,55 @@
+package com.salesianostriana.gamesforall.message.model;
+
+
+import com.salesianostriana.gamesforall.user.model.User;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name="messages")
+@EntityListeners(AuditingEntityListener.class)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Message {
+
+    @EmbeddedId
+    @Builder.Default
+    private MessagePK id = new MessagePK();
+
+    private String comment;
+
+    private LocalDateTime message_date;
+
+    @ManyToOne
+    @MapsId("emisor_id")
+    @JoinColumn(name = "emisor", foreignKey = @ForeignKey(name = "FK_VALORATION_EMISOR"),columnDefinition = "uuid")
+    private User emisor;
+
+    @ManyToOne
+    @MapsId("receptor_id")
+    @JoinColumn(name = "receptor", foreignKey = @ForeignKey(name = "FK_VALORATION_RECEPTOR"),columnDefinition = "uuid")
+    private User receptor;
+
+
+    public void setUserReview(User emisorUser) {
+        this.emisor = emisorUser;
+    }
+
+    public void setReviewedUser(User receptorUser) {
+        this.receptor = receptorUser;
+    }
+
+    public void setPK(MessagePK messagePK){
+        this.id = messagePK;
+    }
+
+}
+
+
+
