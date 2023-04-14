@@ -1,7 +1,11 @@
 package com.salesianostriana.gamesforall;
 
-import com.salesianostriana.gamesforall.product.model.PlatformEnum;
+import com.salesianostriana.gamesforall.product.model.Category;
+import com.salesianostriana.gamesforall.product.model.Platform;
+import com.salesianostriana.gamesforall.product.model.StateEnum;
 import com.salesianostriana.gamesforall.product.model.Product;
+import com.salesianostriana.gamesforall.product.repository.CategoryRepository;
+import com.salesianostriana.gamesforall.product.repository.PlatformRepository;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import com.salesianostriana.gamesforall.product.service.ProductService;
 import com.salesianostriana.gamesforall.user.model.User;
@@ -29,6 +33,9 @@ public class MainDePrueba {
     private final MessageRepository messageRepository;
     private final ProductRepository productRepository;
     private final ProductService productService;
+
+    private final PlatformRepository platformRepository;
+    private final CategoryRepository categoryRepository;
 
     @PostConstruct
     public void run() {
@@ -93,14 +100,30 @@ public class MainDePrueba {
 
         messageRepository.saveAll(List.of(message1,message2));
 
+        Platform platform1 = new Platform(1L,"PS5");
+        Platform platform2 = new Platform(2L,"XBOX");
+        Platform platform3 = new Platform(3L,"SWITCH");
+        Platform platform4 = new Platform(4L,"PC");
+
+        platformRepository.saveAll(List.of(platform1,platform2,platform3,platform4));
+
+        Category category1 = new Category(1L,"Horror");
+        Category category2 = new Category(2L,"Aventura");
+        Category category3 = new Category(3L,"Ciencia Ficción");
+        Category category4 = new Category(4L,"Arcade");
+        Category category5 = new Category(5L,"Simulación");
+        Category category6 = new Category(6L,"Lucha");
+
+        categoryRepository.saveAll(List.of(category1,category2,category3,category4,category5,category6));
+
         Product product1 = Product.builder()
                 .title("God of War")
                 .description("Lo vendo porque ya no me hace falta")
                 .image("god-of-war.jpg")
                 .price(30.00)
                 .publication_date(LocalDateTime.of(2023,8,14,18,30))
-                .category("Aventura")
-                .platform(PlatformEnum.PS5)
+                .platform(platform1)
+                .state(StateEnum.SinAbrir)
                 .user(user1)
                 .build();
 
@@ -110,8 +133,9 @@ public class MainDePrueba {
                 .image("breath-of-the-wild.jpg")
                 .price(59.99)
                 .publication_date(LocalDateTime.of(2022,8,14,18,30))
-                .category("Mundo abierto")
-                .platform(PlatformEnum.SWITCH)
+                .platform(platform3)
+                //.category("Mundo abierto")
+                .state(StateEnum.Usado)
                 .user(user2)
                 .build();
 
@@ -121,8 +145,8 @@ public class MainDePrueba {
                 .image("the-last-of-us.jpg")
                 .price(10.00)
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
-                .category("Supervivencia")
-                .platform(PlatformEnum.PC)
+               // .category("Supervivencia")
+                .state(StateEnum.ComoNuevo)
                 .user(user2)
                 .build();
 
@@ -132,8 +156,8 @@ public class MainDePrueba {
                 .image("smash-bros.jpg")
                 .price(39.99)
                 .publication_date(LocalDateTime.of(2022,8,14,18,30))
-                .category("Lucha")
-                .platform(PlatformEnum.SWITCH)
+               // .category("Lucha")
+                .state(StateEnum.Usado)
                 .user(user2)
                 .build();
 
@@ -143,8 +167,8 @@ public class MainDePrueba {
                 .image("the-witcher-3.jpg")
                 .price(9.99)
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
-                .category("RPG")
-                .platform(PlatformEnum.PC)
+               // .category("RPG")
+                .state(StateEnum.SinAbrir)
                 .user(user2)
                 .build();
 

@@ -1,6 +1,5 @@
 package com.salesianostriana.gamesforall.product.dto;
 
-import com.salesianostriana.gamesforall.product.model.PlatformEnum;
 import com.salesianostriana.gamesforall.product.model.Product;
 import lombok.Builder;
 import lombok.Value;
@@ -9,20 +8,20 @@ import lombok.Value;
 @Value
 public class EasyProductDTO {
 
-
+    private Long id;
     private String title;
     private String description;
     private double price;
-    private String platform;
+    private String state;
     private String image;
 
     public static EasyProductDTO of(Product product){
         return EasyProductDTO.builder()
+                .id(product.getId())
                 .title(product.getTitle())
                 .description(product.getDescription())
                 .price(product.getPrice())
-                //pasamos a String
-                .platform(product.getPlatform().getDisplayName())
+                .state(product.getState().getValue())
                 .image(product.getImage())
                 .build();
     }

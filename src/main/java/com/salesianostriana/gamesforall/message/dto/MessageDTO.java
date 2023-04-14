@@ -1,5 +1,6 @@
 package com.salesianostriana.gamesforall.message.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.salesianostriana.gamesforall.message.model.Message;
 
 import lombok.Builder;
@@ -14,7 +15,8 @@ public class MessageDTO {
 
 
     private String comment;
-    private LocalDateTime message_date;  //posibilidad de que sea String para no hacer las conversiones en la vista y que de menos problemas
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime message_date;
     private String emisorUser;
     private String receptorUser;
 

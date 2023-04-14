@@ -8,6 +8,7 @@ import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
 import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.dto.PageDto;
 import com.salesianostriana.gamesforall.product.model.Product;
+import com.salesianostriana.gamesforall.product.model.StateEnum;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import com.salesianostriana.gamesforall.search.specifications.GSBuilder;
 import com.salesianostriana.gamesforall.search.util.Extractor;
@@ -81,8 +82,8 @@ public class ProductService {
                     product.setDescription(editBasicProductDTO.getDescription());
                     product.setImage(editBasicProductDTO.getImage());
                     product.setPrice(editBasicProductDTO.getPrice());
-                    product.setCategory(editBasicProductDTO.getCategory());
-                    //no quiero que el usuario pueda cambiar la plataforma
+                   // product.setCategory(editBasicProductDTO.getCategory());
+                    product.setState(StateEnum.fromString(editBasicProductDTO.getState()));
                     repository.save(product);
                     BasicProductDTO edited = BasicProductDTO.of(product);
                     return edited;

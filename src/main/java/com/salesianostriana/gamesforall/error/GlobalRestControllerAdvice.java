@@ -3,8 +3,7 @@ package com.salesianostriana.gamesforall.error;
 
 import com.salesianostriana.gamesforall.error.model.impl.ApiErrorImpl;
 import com.salesianostriana.gamesforall.error.model.impl.ApiValidationSubError;
-import com.salesianostriana.gamesforall.exception.EmptyProductListException;
-import com.salesianostriana.gamesforall.exception.ProductNotFoundException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
 
 
 @RestControllerAdvice
-public class GlobalRestControllerAdvice /*extends ResponseEntityExceptionHandler*/ {
+public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
 
-    /*@Override
+    @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return buildApiError(ex.getMessage(), request, status);
-    }*/
+    }
 
 
     @ExceptionHandler({EntityNotFoundException.class})
