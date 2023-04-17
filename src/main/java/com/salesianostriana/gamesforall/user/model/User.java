@@ -3,6 +3,7 @@ package com.salesianostriana.gamesforall.user.model;
 
 import com.salesianostriana.gamesforall.message.model.Message;
 import com.salesianostriana.gamesforall.product.model.Product;
+import com.salesianostriana.gamesforall.trade.model.Trade;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
@@ -134,7 +135,12 @@ public class User implements UserDetails {
     private List<Product> favorites = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "emisor",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "emisor")
     private List<Message> recievedMessages = new ArrayList<>();
+
+    //venta
+    @Builder.Default
+    @OneToMany(mappedBy = "seller")
+    private List<Trade> trades = new ArrayList<>();
 
 }

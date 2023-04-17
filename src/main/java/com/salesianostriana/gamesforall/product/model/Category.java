@@ -27,5 +27,7 @@ public class Category {
 //    private List<Product> categorizedProducts;
 
 
-
+    public Category(String genre) {
+        this.genre = genre;
+    }
 }

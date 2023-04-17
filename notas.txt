@@ -1,0 +1,9 @@
+los long dan fallo si los asigno yo y se generan automaticamente, y si lo dejo automaticamente no se repiten
+quiero tener listas del 1 al 10 para cada id en cada objeto
+
+
+
+id_emisor
+id_vendedor
+
+eso que son tipo usuario o tipo UUID?

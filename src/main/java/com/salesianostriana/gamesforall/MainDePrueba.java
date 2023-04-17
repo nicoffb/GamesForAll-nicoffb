@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Component
@@ -107,14 +108,16 @@ public class MainDePrueba {
 
         platformRepository.saveAll(List.of(platform1,platform2,platform3,platform4));
 
-        Category category1 = new Category(1L,"Horror");
-        Category category2 = new Category(2L,"Aventura");
-        Category category3 = new Category(3L,"Ciencia Ficción");
-        Category category4 = new Category(4L,"Arcade");
-        Category category5 = new Category(5L,"Simulación");
-        Category category6 = new Category(6L,"Lucha");
+        Category category1 = new Category("Horror");
+        Category category2 = new Category("Aventura");
+        Category category3 = new Category("Ciencia Ficción");
+        Category category4 = new Category("Arcade");
+        Category category5 = new Category("Simulación");
+        Category category6 = new Category("Lucha");
+        Category category7 = new Category("MMORPG");
+        Category category8 = new Category("RPG");
 
-        categoryRepository.saveAll(List.of(category1,category2,category3,category4,category5,category6));
+        categoryRepository.saveAll(List.of(category1,category2,category3,category4,category5,category6,category7,category8));
 
         Product product1 = Product.builder()
                 .title("God of War")
@@ -123,6 +126,7 @@ public class MainDePrueba {
                 .price(30.00)
                 .publication_date(LocalDateTime.of(2023,8,14,18,30))
                 .platform(platform1)
+                .categories(new HashSet<>(Arrays.asList(category1,category2)))
                 .state(StateEnum.SinAbrir)
                 .user(user1)
                 .build();
@@ -134,7 +138,7 @@ public class MainDePrueba {
                 .price(59.99)
                 .publication_date(LocalDateTime.of(2022,8,14,18,30))
                 .platform(platform3)
-                //.category("Mundo abierto")
+                .categories(Set.of(category2, category8))
                 .state(StateEnum.Usado)
                 .user(user2)
                 .build();
@@ -145,7 +149,7 @@ public class MainDePrueba {
                 .image("the-last-of-us.jpg")
                 .price(10.00)
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
-               // .category("Supervivencia")
+                .categories(Set.of(category1))
                 .state(StateEnum.ComoNuevo)
                 .user(user2)
                 .build();

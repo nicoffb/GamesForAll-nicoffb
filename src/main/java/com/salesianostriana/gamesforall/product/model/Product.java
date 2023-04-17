@@ -38,13 +38,13 @@ public class Product {
 
     private StateEnum state;
 
-    @ManyToOne
+    @ManyToOne //eager
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_USER"))
     private User user;
 
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_PLATAFORM"))
+    @ManyToOne //eager
+    @JoinColumn(name = "platform_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_PLATAFORM"))
     private Platform platform;
 
 
