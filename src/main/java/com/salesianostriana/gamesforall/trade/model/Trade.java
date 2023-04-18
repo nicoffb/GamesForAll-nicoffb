@@ -1,13 +1,14 @@
 package com.salesianostriana.gamesforall.trade.model;
 
+import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.user.model.User;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.UUID;
+
+
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -23,14 +24,12 @@ public class Trade {
     private Long id;
 
     @ManyToOne
-    @MapsId("seller_id")
-    @JoinColumn(name = "seller", foreignKey = @ForeignKey(name = "FK_TRADE_SELLER"),columnDefinition = "uuid")
-    private UUID seller;
+    @JoinColumn(name = "seller_id", foreignKey = @ForeignKey(name = "FK_TRADE_SELLER"),columnDefinition = "uuid")
+    private User seller;
 
     @ManyToOne
-    @MapsId("buyer_id")
-    @JoinColumn(name = "buyer", foreignKey = @ForeignKey(name = "FK_TRADE_BUYER"),columnDefinition = "uuid")
-    private UUID buyer;
+    @JoinColumn(name = "buyer_id", foreignKey = @ForeignKey(name = "FK_TRADE_BUYER"),columnDefinition = "uuid")
+    private User buyer;
 
 
     //private double price;  podria hacer que el precio fuera el del producto + el del envio
@@ -46,6 +45,9 @@ public class Trade {
 
     private boolean sending;
 
+    @OneToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
 
 
 }

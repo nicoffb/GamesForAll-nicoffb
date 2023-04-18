@@ -7,3 +7,6 @@ id_emisor
 id_vendedor
 
 eso que son tipo usuario o tipo UUID?
+
+
+columndefinition messages uuid

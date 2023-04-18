@@ -1,15 +1,16 @@
-package com.salesianostriana.gamesforall.product.model;
+package com.salesianostriana.gamesforall.shipping.model;
 
+import com.salesianostriana.gamesforall.product.model.Category;
+import com.salesianostriana.gamesforall.product.model.Platform;
+import com.salesianostriana.gamesforall.product.model.StateEnum;
 import com.salesianostriana.gamesforall.trade.model.Trade;
 import com.salesianostriana.gamesforall.user.model.User;
 import lombok.*;
+import net.bytebuddy.asm.Advice;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,7 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Product {
+public class Shipping {
 
     @Id
     @GeneratedValue
@@ -28,16 +29,18 @@ public class Product {
     private String title;
     private String description;
 
-    private String image;
-
-    private double price;
-
+    private String location;
 
     @Builder.Default
-    private LocalDateTime publication_date = LocalDateTime.now();
+    private LocalDateTime preparation_period = LocalDateTime.now();
 
 
-    private StateEnum state;
+
+    private LocalDateTime sending_date;
+
+    private LocalDateTime delivery_date;
+
+
 
     @ManyToOne //eager
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_USER"))

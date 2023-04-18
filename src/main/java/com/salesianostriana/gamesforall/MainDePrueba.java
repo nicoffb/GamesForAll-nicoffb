@@ -8,6 +8,8 @@ import com.salesianostriana.gamesforall.product.repository.CategoryRepository;
 import com.salesianostriana.gamesforall.product.repository.PlatformRepository;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import com.salesianostriana.gamesforall.product.service.ProductService;
+import com.salesianostriana.gamesforall.trade.model.Trade;
+import com.salesianostriana.gamesforall.trade.repository.TradeRepository;
 import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.model.UserRole;
 import com.salesianostriana.gamesforall.user.repo.UserRepository;
@@ -37,6 +39,8 @@ public class MainDePrueba {
 
     private final PlatformRepository platformRepository;
     private final CategoryRepository categoryRepository;
+
+    private final TradeRepository tradeRepository;
 
     @PostConstruct
     public void run() {
@@ -181,6 +185,19 @@ public class MainDePrueba {
         productRepository.saveAll(List.of(product1,product2,product3,product4,product5));
         productService.addProductToFavorites(user1.getId(),product3.getId());
         productService.addProductToFavorites(user1.getId(),product2.getId());
+
+        Trade trade1 = Trade.builder()
+                .buyer(user1)
+                .seller(user2)
+                .score(9.9)
+                .review("buen vendedor")
+                //.trade_date()
+                .sending(true)
+                .product(product1)
+                .build();
+
+        tradeRepository.saveAll(List.of(trade1));
+
 
     }
 }
