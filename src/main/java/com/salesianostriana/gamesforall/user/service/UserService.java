@@ -39,6 +39,7 @@ public class UserService {
                 .avatar(createUserRequest.getAvatar())
                 .fullName(createUserRequest.getFullName())
                 .roles(roles)
+                .address(createUserRequest.getAddress())
                 .build();
 
         return userRepository.save(user);

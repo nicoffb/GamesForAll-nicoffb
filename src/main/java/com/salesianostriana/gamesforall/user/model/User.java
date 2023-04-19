@@ -59,7 +59,8 @@ public class User implements UserDetails {
     private String fullName;
 
     private String genre;
-    //enum?
+
+    private String address;
 
 
     @Builder.Default
@@ -79,8 +80,6 @@ public class User implements UserDetails {
 
     @Builder.Default
     private LocalDateTime lastPasswordChangeAt = LocalDateTime.now();
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

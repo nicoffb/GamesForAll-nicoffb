@@ -1,6 +1,7 @@
 package com.salesianostriana.gamesforall.trade.model;
 
 import com.salesianostriana.gamesforall.product.model.Product;
+import com.salesianostriana.gamesforall.shipping.model.Shipping;
 import com.salesianostriana.gamesforall.user.model.User;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -34,6 +35,7 @@ public class Trade {
 
     //private double price;  podria hacer que el precio fuera el del producto + el del envio
 
+    private double finalPrice;
 
     private double score;
 
@@ -45,9 +47,15 @@ public class Trade {
 
     private boolean sending;
 
+
     @OneToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
+
+
+    @OneToOne
+    @JoinColumn(name = "shipping_id", referencedColumnName = "id")
+    private Shipping shipping;
 
 
 }

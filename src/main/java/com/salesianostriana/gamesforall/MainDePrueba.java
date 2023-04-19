@@ -8,6 +8,8 @@ import com.salesianostriana.gamesforall.product.repository.CategoryRepository;
 import com.salesianostriana.gamesforall.product.repository.PlatformRepository;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import com.salesianostriana.gamesforall.product.service.ProductService;
+import com.salesianostriana.gamesforall.shipping.model.Shipping;
+import com.salesianostriana.gamesforall.shipping.repository.ShippingRepository;
 import com.salesianostriana.gamesforall.trade.model.Trade;
 import com.salesianostriana.gamesforall.trade.repository.TradeRepository;
 import com.salesianostriana.gamesforall.user.model.User;
@@ -39,7 +41,7 @@ public class MainDePrueba {
 
     private final PlatformRepository platformRepository;
     private final CategoryRepository categoryRepository;
-
+    private final ShippingRepository shippingRepository;
     private final TradeRepository tradeRepository;
 
     @PostConstruct
@@ -50,6 +52,7 @@ public class MainDePrueba {
                 .password(passwordEncoder.encode("1234"))
                 .fullName("Nicoffb")
                 .genre("MALE")
+                .address("La Macarena, Sevilla")
                 .roles(new HashSet<>(Arrays.asList(UserRole.USER,UserRole.ADMIN)))
                 .accountNonExpired(true)
                 .accountNonLocked(true)
@@ -129,10 +132,12 @@ public class MainDePrueba {
                 .image("god-of-war.jpg")
                 .price(30.00)
                 .publication_date(LocalDateTime.of(2023,8,14,18,30))
+                .shipping_available(true)
                 .platform(platform1)
                 .categories(new HashSet<>(Arrays.asList(category1,category2)))
                 .state(StateEnum.SinAbrir)
                 .user(user1)
+                .sold(true)
                 .build();
 
         Product product2 = Product.builder()
@@ -141,10 +146,12 @@ public class MainDePrueba {
                 .image("breath-of-the-wild.jpg")
                 .price(59.99)
                 .publication_date(LocalDateTime.of(2022,8,14,18,30))
+                .shipping_available(false)
                 .platform(platform3)
                 .categories(Set.of(category2, category8))
                 .state(StateEnum.Usado)
                 .user(user2)
+                .sold(true)
                 .build();
 
         Product product3 = Product.builder()
@@ -186,17 +193,39 @@ public class MainDePrueba {
         productService.addProductToFavorites(user1.getId(),product3.getId());
         productService.addProductToFavorites(user1.getId(),product2.getId());
 
+        Shipping shipping1 = Shipping.builder()
+                .preparation_period("2023-05-04 --- 2023-05-06")
+                .sending_date(LocalDateTime.of(2023,5,6,18,30))
+                .delivery_date(LocalDateTime.of(2023,5,20,18,30))
+                .location("la macarena sevilla")
+                .build();
+
+        shippingRepository.saveAll(List.of(shipping1));
+
+
+
         Trade trade1 = Trade.builder()
                 .buyer(user1)
                 .seller(user2)
-                .score(9.9)
+                .finalPrice(20)
+                .score(5.0)
                 .review("buen vendedor")
-                //.trade_date()
                 .sending(true)
+                .product(product1)
+                .shipping(shipping1)
+                .build();
+
+        Trade trade2 = Trade.builder()
+                .buyer(user2)
+                .seller(user1)
+                .finalPrice(10)
+                .score(2.0)
+                .review("vendedor inútil")
+                .sending(false)
                 .product(product1)
                 .build();
 
-        tradeRepository.saveAll(List.of(trade1));
+        tradeRepository.saveAll(List.of(trade1,trade2));
 
 
     }

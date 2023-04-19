@@ -61,7 +61,12 @@ public class ProductService {
 
         Specification<Product> spec = gsBuilder.build();
 
-        Page<EasyProductDTO> pageProductDto = repository.findAll(spec, pageable).map(EasyProductDTO::of);
+       // Page<EasyProductDTO> pageProductDto = repository.findAll(spec, pageable).map(EasyProductDTO::of);
+
+        //La clase "Specification" de Spring Data permite definir criterios de búsqueda (predicados) de manera programática y combinarlos con operadores lógicos
+        //En las especificaciones de Spring Data, "root", "query" y "cb" son parámetros que se utilizan para construir los criterios de búsqueda (predicados) y generar la consulta final.
+        Page<EasyProductDTO> pageProductDto = repository.findAll(Specification.where(spec).and((root, query, cb) -> cb.isFalse(root.get("sold"))), pageable).map(EasyProductDTO::of);
+
 
         if (pageProductDto.isEmpty()) {
             throw new EmptyProductListException();

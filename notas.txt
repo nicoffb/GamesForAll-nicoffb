@@ -3,10 +3,13 @@ quiero tener listas del 1 al 10 para cada id en cada objeto
 
 
 
-id_emisor
-id_vendedor
-
-eso que son tipo usuario o tipo UUID?
+reglas, no mas puntuacion que del 1 al 5
 
 
-columndefinition messages uuid
+
+modificar contraseña
+
+plantearme el se cree un chat nuevo por cada producto distinto
+
+
+validaciones distintas a las que tengo

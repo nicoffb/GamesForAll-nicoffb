@@ -19,9 +19,12 @@ public class CreateUserRequest {
     private String username;
 
     @StrongPassword
+    //FIELDVALUEMATCH?
     private String password;
     private String verifyPassword;
     private String avatar;
     private String fullName;
+
+    private String address;
 
 }

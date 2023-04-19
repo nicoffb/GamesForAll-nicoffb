@@ -39,6 +39,11 @@ public class Product {
 
     private StateEnum state;
 
+    private boolean shipping_available;
+
+    private boolean sold;
+
+
     @ManyToOne //eager
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_USER"))
     private User user;
