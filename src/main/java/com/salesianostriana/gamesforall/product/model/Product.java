@@ -66,6 +66,7 @@ public class Product {
     @OneToOne(mappedBy = "product")
     private Trade trade;
 
+
     //HELPERS PLATAFORMAS
 //
 //    public void addToPlatform(Platform p) {

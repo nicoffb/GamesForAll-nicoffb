@@ -88,6 +88,8 @@ public class ProductService {
                     product.setImage(editBasicProductDTO.getImage());
                     product.setPrice(editBasicProductDTO.getPrice());
                    // product.setCategory(editBasicProductDTO.getCategory());
+                    product.setSold(editBasicProductDTO.isSold());
+                    product.setShipping_available(editBasicProductDTO.isShipping_available());
                     product.setState(StateEnum.fromString(editBasicProductDTO.getState()));
                     repository.save(product);
                     BasicProductDTO edited = BasicProductDTO.of(product);

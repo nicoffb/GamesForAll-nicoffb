@@ -52,7 +52,7 @@ public class MainDePrueba {
                 .password(passwordEncoder.encode("1234"))
                 .fullName("Nicoffb")
                 .genre("MALE")
-                .address("La Macarena, Sevilla")
+                .address("Tomares, Sevilla")
                 .roles(new HashSet<>(Arrays.asList(UserRole.USER,UserRole.ADMIN)))
                 .accountNonExpired(true)
                 .accountNonLocked(true)
@@ -66,6 +66,7 @@ public class MainDePrueba {
                 .password(passwordEncoder.encode("password2"))
                 .fullName("Filomeno")
                 .genre("MALE")
+                .address("La Macarena, Sevilla")
                 .roles(new HashSet<>(Arrays.asList(UserRole.USER)))
                 .accountNonExpired(true)
                 .accountNonLocked(true)
@@ -76,6 +77,7 @@ public class MainDePrueba {
 
         User user3 = User.builder()
                 .username("user3")
+                .address("Sevilla Este")
                 .password(passwordEncoder.encode("password3"))
                 .fullName("Mortadelo")
                 .genre("MALE")
@@ -161,6 +163,7 @@ public class MainDePrueba {
                 .price(10.00)
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
                 .categories(Set.of(category1))
+                .platform(platform4)
                 .state(StateEnum.ComoNuevo)
                 .user(user2)
                 .build();
@@ -171,7 +174,7 @@ public class MainDePrueba {
                 .image("smash-bros.jpg")
                 .price(39.99)
                 .publication_date(LocalDateTime.of(2022,8,14,18,30))
-               // .category("Lucha")
+                .platform(platform3)
                 .state(StateEnum.Usado)
                 .user(user2)
                 .build();
@@ -182,7 +185,7 @@ public class MainDePrueba {
                 .image("the-witcher-3.jpg")
                 .price(9.99)
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
-               // .category("RPG")
+                .platform(platform4)
                 .state(StateEnum.SinAbrir)
                 .user(user2)
                 .build();
@@ -225,7 +228,23 @@ public class MainDePrueba {
                 .product(product1)
                 .build();
 
-        tradeRepository.saveAll(List.of(trade1,trade2));
+        Trade trade3 = Trade.builder()
+                .buyer(user3)
+                .seller(user1)
+                .finalPrice(20)
+                .score(3.0)
+                .review("regulero")
+                .sending(true)
+                .product(product1)
+                .shipping(shipping1)
+                .build();
+
+        tradeRepository.saveAll(List.of(trade1,trade2,trade3));
+
+        //Puntuacion del vendedor
+       // product1.getUser().getTrades().get().getScore();
+
+        product1.getUser().getAddress();
 
 
     }

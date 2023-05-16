@@ -1,5 +1,7 @@
 package com.salesianostriana.gamesforall.product.dto;
 
+import com.salesianostriana.gamesforall.product.model.Category;
+import com.salesianostriana.gamesforall.product.model.Platform;
 import com.salesianostriana.gamesforall.product.model.StateEnum;
 import com.salesianostriana.gamesforall.product.model.Product;
 import lombok.Builder;
@@ -8,6 +10,7 @@ import lombok.Value;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.Set;
 
 @Builder
 @Value
@@ -30,13 +33,23 @@ public class ProductRequestDTO {
     private String state;
 
 
+    private Long idPlatform;
+
+  //  private Set<Category> categoria;
+
+
     public Product toProduct(ProductRequestDTO productRequestDTO){
+
+
+      // Platform platform = plat.find(Platform.class, productRequestDTO.getIdPlatform());
+
+
         return Product.builder()
                 .title(productRequestDTO.getTitle())
                 .description(productRequestDTO.getDescription())
                 .price(productRequestDTO.getPrice())
-                //.category(productRequestDTO.getCategory())
                 .state(StateEnum.fromString(productRequestDTO.getState()))
+               // .platform(productRequestDTO.get)
                 .build();
     }
 
