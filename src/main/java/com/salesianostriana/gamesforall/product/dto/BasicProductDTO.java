@@ -28,9 +28,10 @@ public class BasicProductDTO {
     private boolean shipping_available;
     private boolean sold;
     private String platform;
-    private Set<String> category;
+    private Set<Category> category;
     private String address;
     private double userScore;
+    //posibilidad de cargar un dto de usuario dentro
 
     public static BasicProductDTO of(Product product){
 
@@ -57,9 +58,9 @@ public class BasicProductDTO {
                 .shipping_available(product.isShipping_available())
                 .sold(product.isSold())
                 .platform(product.getPlatform().getPlatformName())
-                .category(genres)
+                .category(product.getCategories())
                 .address(product.getUser().getAddress())
-                .userScore(userScore)
+                .userScore(product.getUser().getTrades().stream().filter(p -> p.getSeller().equals(product.getUser())).mapToDouble(p -> p.getScore()).average().orElse(0))
                 .build();
     }
 

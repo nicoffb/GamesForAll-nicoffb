@@ -15,3 +15,11 @@ plantearme el se cree un chat nuevo por cada producto distinto
 validaciones distintas a las que tengo
 
 setear las categorias en el editar producto
+
+
+
+
+
+
+
+hacer DTO  de categoria y plataforma, quizas controller
