@@ -49,7 +49,7 @@ class _ProductListState extends State<ProductList> {
           }
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
+              crossAxisCount: 2,
               mainAxisSpacing:
                   16.0, // agrega un espacio vertical entre las tarjetas
               crossAxisSpacing:

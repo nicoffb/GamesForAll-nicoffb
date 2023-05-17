@@ -83,7 +83,7 @@ class ProductCard extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      '${product.description}',
+                      '${product.state}',
                       style: TextStyle(
                           fontSize: 18,
                           color: Color.fromARGB(255, 255, 255, 255),
