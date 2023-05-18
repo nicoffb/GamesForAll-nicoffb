@@ -60,7 +60,7 @@ public class ProductController {
     })
     @GetMapping("/search")
     public PageDto<EasyProductDTO> getByCriteria(@RequestParam(value = "search", defaultValue = "") String search,
-                                          @PageableDefault(size = 5, page = 0) Pageable pageable) {
+                                          @PageableDefault(size = 15, page = 0) Pageable pageable) {
 
         List<SearchCriteria> params = Extractor.extractSearchCriteriaList(search);
         PageDto<EasyProductDTO> products = productService.search(params, pageable);

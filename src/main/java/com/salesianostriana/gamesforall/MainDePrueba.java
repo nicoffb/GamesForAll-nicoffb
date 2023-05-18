@@ -139,7 +139,7 @@ public class MainDePrueba {
                 .categories(new HashSet<>(Arrays.asList(category1,category2)))
                 .state(StateEnum.SinAbrir)
                 .user(user1)
-                .sold(true)
+                .sold(false)
                 .build();
 
         Product product2 = Product.builder()
@@ -153,7 +153,7 @@ public class MainDePrueba {
                 .categories(Set.of(category2, category8))
                 .state(StateEnum.Usado)
                 .user(user2)
-                .sold(true)
+                .sold(false)
                 .build();
 
         Product product3 = Product.builder()
@@ -165,6 +165,7 @@ public class MainDePrueba {
                 .categories(Set.of(category1))
                 .platform(platform4)
                 .state(StateEnum.ComoNuevo)
+                .sold(false)
                 .user(user2)
                 .build();
 
@@ -176,6 +177,7 @@ public class MainDePrueba {
                 .publication_date(LocalDateTime.of(2022,8,14,18,30))
                 .platform(platform3)
                 .state(StateEnum.Usado)
+                .sold(false)
                 .user(user2)
                 .build();
 
@@ -187,12 +189,71 @@ public class MainDePrueba {
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
                 .platform(platform4)
                 .state(StateEnum.SinAbrir)
+                .sold(false)
                 .user(user2)
                 .build();
 
+        Product product6 = Product.builder()
+                .title("Ejemplo")
+                .description("Ejemplo de descripción")
+                .image("not-found.jpg")
+                .price(9.99)
+                .publication_date(LocalDateTime.of(2023,2,14,18,30))
+                .platform(platform4)
+                .state(StateEnum.SinAbrir)
+                .sold(false)
+                .user(user1)
+                .build();
 
+        Product product7 = Product.builder()
+                .title("Ejemplo")
+                .description("Ejemplo de descripción")
+                .image("not-found.jpg")
+                .price(9.99)
+                .publication_date(LocalDateTime.of(2023,2,14,18,30))
+                .platform(platform4)
+                .state(StateEnum.SinAbrir)
+                .sold(false)
+                .user(user1)
+                .build();
 
-        productRepository.saveAll(List.of(product1,product2,product3,product4,product5));
+        Product product8 = Product.builder()
+                .title("Ejemplo")
+                .description("Ejemplo de descripción")
+                .image("not-found.jpg")
+                .price(9.99)
+                .publication_date(LocalDateTime.of(2023,2,14,18,30))
+                .platform(platform4)
+                .state(StateEnum.SinAbrir)
+                .sold(false)
+                .user(user1)
+                .build();
+
+        Product product9 = Product.builder()
+                .title("Ejemplo")
+                .description("Ejemplo de descripción")
+                .image("not-found.jpg")
+                .price(9.99)
+                .publication_date(LocalDateTime.of(2023,2,14,18,30))
+                .platform(platform4)
+                .state(StateEnum.SinAbrir)
+                .sold(false)
+                .user(user1)
+                .build();
+
+        Product product10 = Product.builder()
+                .title("Ejemplo")
+                .description("Ejemplo de descripción")
+                .image("not-found.jpg")
+                .price(9.99)
+                .publication_date(LocalDateTime.of(2023,2,14,18,30))
+                .platform(platform4)
+                .state(StateEnum.SinAbrir)
+                .sold(false)
+                .user(user1)
+                .build();
+
+        productRepository.saveAll(List.of(product1,product2,product3,product4,product5, product6, product7, product8,product9,product10));
         productService.addProductToFavorites(user1.getId(),product3.getId());
         productService.addProductToFavorites(user1.getId(),product2.getId());
 
@@ -225,7 +286,7 @@ public class MainDePrueba {
                 .score(2.0)
                 .review("vendedor inútil")
                 .sending(false)
-                .product(product1)
+                .product(product2)
                 .build();
 
         Trade trade3 = Trade.builder()
@@ -235,8 +296,10 @@ public class MainDePrueba {
                 .score(3.0)
                 .review("regulero")
                 .sending(true)
-                .product(product1)
-                .shipping(shipping1)
+                .product(product3)
+               //esto da error
+                // al tener dos trades con el mismo shipping
+                //al tener dos trades con el mismo producto
                 .build();
 
         tradeRepository.saveAll(List.of(trade1,trade2,trade3));

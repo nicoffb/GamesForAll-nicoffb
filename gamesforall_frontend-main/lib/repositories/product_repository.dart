@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
 
+import '../models/product_detail_response.dart';
 import '../models/product_page_response.dart';
 import '../rest/rest_client.dart';
 
@@ -38,5 +39,16 @@ class ProductRepository {
         ProductPageResponse.fromJson(jsonDecode(jsonResponse));
 
     return pagedProducts;
+  }
+
+
+   // Método para obtener un producto por su ID
+  Future<ProductDetailsResponse> getProductById(int id) async {
+    String urlString = '/product/$id';
+
+    var jsonResponse = await server.get(urlString);
+    ProductDetailsResponse product = ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
+
+    return product;
   }
 }

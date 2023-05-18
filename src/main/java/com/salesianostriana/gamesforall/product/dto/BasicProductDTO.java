@@ -1,5 +1,6 @@
 package com.salesianostriana.gamesforall.product.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.salesianostriana.gamesforall.product.model.Category;
 import com.salesianostriana.gamesforall.product.model.StateEnum;
 import com.salesianostriana.gamesforall.product.model.Product;
@@ -23,12 +24,13 @@ public class BasicProductDTO {
     private String description;
     private String image;
     private double price;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDateTime publication_date;
     private String state;
     private boolean shipping_available;
     private boolean sold;
     private String platform;
-    private Set<Category> category;
+    private Set<String> category;
     private String address;
     private double userScore;
     //posibilidad de cargar un dto de usuario dentro
@@ -39,13 +41,12 @@ public class BasicProductDTO {
 //
 //        String soldStatus = product.isSold() ? "Vendido" : "Sin vender";
 
+        //double userScore = getUserScoreSum(product.getUser());
+
         Set<String> genres = new HashSet<>();
         for (Category category : product.getCategories()) {
             genres.add(category.getGenre());
         }
-
-        double userScore = getUserScoreSum(product.getUser());
-
 
         return BasicProductDTO.builder()
                 .id(product.getId())
@@ -58,7 +59,7 @@ public class BasicProductDTO {
                 .shipping_available(product.isShipping_available())
                 .sold(product.isSold())
                 .platform(product.getPlatform().getPlatformName())
-                .category(product.getCategories())
+                .category(genres)
                 .address(product.getUser().getAddress())
                 .userScore(product.getUser().getTrades().stream().filter(p -> p.getSeller().equals(product.getUser())).mapToDouble(p -> p.getScore()).average().orElse(0))
                 .build();
@@ -75,15 +76,5 @@ public class BasicProductDTO {
     }
 
 
-//    public Product toProduct(BasicProductDTO basicProductDTO){
-//        return Product.builder()
-//                .title(basicProductDTO.getTitle())
-//                .description(basicProductDTO.getDescription())
-//                .image(basicProductDTO.getImage())
-//                .price(basicProductDTO.getPrice())
-//                .publication_date(basicProductDTO.getPublication_date())
-//                .category(basicProductDTO.getCategory())
-//                .state(basicProductDTO.getState())
-//                .build();
-//    }
+
 }

@@ -1,16 +1,32 @@
 import 'package:flutter/material.dart';
 
 import '../models/product_response.dart';
+import '../pages/product_details_page.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({Key? key, required this.product}) : super(key: key);
 
   final ProductResponse product;
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
+
+       child: InkWell(
+        onTap: () {
+          // Redirigir a la página de detalle con el ID del producto
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                 builder: (context) => ProductDetailsPage(productId: product.id),
+            ),
+          );
+        },
+
+
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
@@ -109,6 +125,7 @@ class ProductCard extends StatelessWidget {
           ],
         ),
       ),
+       )
     );
   }
 }

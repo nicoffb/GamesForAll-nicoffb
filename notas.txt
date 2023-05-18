@@ -18,8 +18,18 @@ setear las categorias en el editar producto
 
 
 
+DUDAS ALV.
+1-Listas infinitas
+2-si pongo false todos los sold me da error 500
+3- el metodo para encontrar solo los que son SOLD = FALSE no funciona sin los dos primers True, da error 400
+4-transformar el sold y shipping en SI O NO en la vista de detalles del producto
+5-cuales en el json. response  hago required?
+6- transformar a go route
+
+7-obtener las categorias de un producto con el DTO
 
 
 
 
-hacer DTO  de categoria y plataforma, quizas controller
+DUDAS  COLEGIO
+hacer DTO  de categoria y plataforma o los puedo poner asi directamente pasados a String?

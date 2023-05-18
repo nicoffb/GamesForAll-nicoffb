@@ -116,8 +116,8 @@ public class UserService {
     }
 
     public Page<EasyProductDTO> getUserProducts(UUID userId, Pageable pageable) {
-        Page<Product> favoriteProducts = userRepository.findProductsByUser(userId, pageable);
-        return favoriteProducts.map(EasyProductDTO::of);
+        Page<Product> myProducts = userRepository.findProductsByUser(userId, pageable);
+        return myProducts.map(EasyProductDTO::of);
     }
 
 }
