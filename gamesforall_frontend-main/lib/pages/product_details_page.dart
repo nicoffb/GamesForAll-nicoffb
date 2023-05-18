@@ -7,12 +7,14 @@ import '../repositories/product_repository.dart';
 class ProductDetailsPage extends StatelessWidget {
   final int productId;
 
-  const ProductDetailsPage({Key? key, required this.productId}) : super(key: key);
+  const ProductDetailsPage({Key? key, required this.productId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final ProductRepository repository = ProductRepository();
-    final Future<ProductDetailsResponse> productFuture = repository.getProductById(productId);
+    final Future<ProductDetailsResponse> productFuture =
+        repository.getProductById(productId);
 
     return Scaffold(
       appBar: AppBar(
@@ -67,12 +69,12 @@ class ProductDetailsPage extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Disponibilidad de envío: ${product.shippingAvailable ?? 'No disponible'}',
+                    'Disponibilidad de envío: ${product.shippingAvailable! ? 'No disponible' : 'Disponible'}',
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Vendido: ${product.sold ?? 'No disponible'}',
+                    'Vendido: ${product.sold! ? 'Vendido' : 'En venta'}',
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 8),

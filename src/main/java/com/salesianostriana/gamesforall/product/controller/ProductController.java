@@ -11,6 +11,7 @@ import com.salesianostriana.gamesforall.product.service.ProductService;
 import com.salesianostriana.gamesforall.search.util.Extractor;
 import com.salesianostriana.gamesforall.search.util.SearchCriteria;
 
+import com.salesianostriana.gamesforall.user.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -25,6 +26,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -60,7 +62,7 @@ public class ProductController {
     })
     @GetMapping("/search")
     public PageDto<EasyProductDTO> getByCriteria(@RequestParam(value = "search", defaultValue = "") String search,
-                                          @PageableDefault(size = 15, page = 0) Pageable pageable) {
+                                          @PageableDefault(size = 6, page = 0) Pageable pageable) {
 
         List<SearchCriteria> params = Extractor.extractSearchCriteriaList(search);
         PageDto<EasyProductDTO> products = productService.search(params, pageable);
@@ -109,9 +111,11 @@ public class ProductController {
                     content = @Content)
     })
     @PostMapping("/")
-    public ResponseEntity<BasicProductDTO> createNewProduct(@RequestPart("body") ProductRequestDTO created, @RequestPart("files") MultipartFile files) {
+    public ResponseEntity<BasicProductDTO> createNewProduct(@RequestPart("body") ProductRequestDTO created, @RequestPart("files") MultipartFile files,@AuthenticationPrincipal User loggedUser) {
+
 
         Product product =created.toProduct(created);
+        product.setUser(loggedUser);
         productService.add(product,files);
 
         URI createdURI = ServletUriComponentsBuilder
@@ -120,6 +124,7 @@ public class ProductController {
                 .buildAndExpand(product.getId()).toUri();
 
         BasicProductDTO converted = BasicProductDTO.of(product);
+
 
         return ResponseEntity
                 .created(createdURI)

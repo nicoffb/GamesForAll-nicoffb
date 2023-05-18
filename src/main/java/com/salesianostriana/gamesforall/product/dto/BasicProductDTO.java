@@ -2,17 +2,17 @@ package com.salesianostriana.gamesforall.product.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.salesianostriana.gamesforall.product.model.Category;
-import com.salesianostriana.gamesforall.product.model.StateEnum;
+
 import com.salesianostriana.gamesforall.product.model.Product;
-import com.salesianostriana.gamesforall.trade.model.Trade;
-import com.salesianostriana.gamesforall.user.model.User;
+
 import lombok.Builder;
 import lombok.Value;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
+
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Builder
 @Value
@@ -29,23 +29,32 @@ public class BasicProductDTO {
     private String state;
     private boolean shipping_available;
     private boolean sold;
-    private String platform;
-    private Set<String> category;
+    //private String platform;
+
+
+    //private Set<Category> category;
+   // private Set<String> category;
+
+   // private User user;
+
+    private String userName;
     private String address;
     private double userScore;
-    //posibilidad de cargar un dto de usuario dentro
+
+    private PlatformDTO platform;
+
+    private Set<CategoryDTO> categories;
+
 
     public static BasicProductDTO of(Product product){
 
-//        String shippingStatus = product.isShipping_available() ? "Envío disponible" : "Sin envío";
-//
-//        String soldStatus = product.isSold() ? "Vendido" : "Sin vender";
-
-        //double userScore = getUserScoreSum(product.getUser());
-
         Set<String> genres = new HashSet<>();
+
+        if(product.getCategories()!= null){
+
         for (Category category : product.getCategories()) {
             genres.add(category.getGenre());
+        }
         }
 
         return BasicProductDTO.builder()
@@ -58,22 +67,25 @@ public class BasicProductDTO {
                 .state(product.getState().getValue())
                 .shipping_available(product.isShipping_available())
                 .sold(product.isSold())
-                .platform(product.getPlatform().getPlatformName())
-                .category(genres)
+
+                //cambiar a entidad
+                .platform(product.getPlatform().of)
+
+                .categories(product.getCategories().stream().map(c-> c.of).collect(Collectors.toSet()))
+
+                //dejar categorias sin dto pero con lazy
+                //.categories(product.getCategories().)
+
+                //.user(product.getUser()) Da lazy
                 .address(product.getUser().getAddress())
-                .userScore(product.getUser().getTrades().stream().filter(p -> p.getSeller().equals(product.getUser())).mapToDouble(p -> p.getScore()).average().orElse(0))
+                //CUIDADO QUE USERNAME ES NUEVO y NO ESTÁ EN EL FRONT
+                .userName(product.getUser().getUsername())
+                //esto pide grafo de entidad si sale a partir del createProduct
+                //.userScore(product.getUser().getTrades().stream().filter(p -> p.getSeller().equals(product.getUser())).mapToDouble(p -> p.getScore()).average().orElse(0))
                 .build();
     }
 
-    private static double getUserScoreSum(User user) {
-        double sum = 0.0;
-        for (Trade trade : user.getTrades()) {
-            if (trade.getSeller().equals(user)) {
-                sum += trade.getScore();
-            }
-        }
-        return sum;
-    }
+
 
 
 

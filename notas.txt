@@ -20,10 +20,11 @@ setear las categorias en el editar producto
 
 DUDAS ALV.
 1-Listas infinitas
-2-si pongo false todos los sold me da error 500
-3- el metodo para encontrar solo los que son SOLD = FALSE no funciona sin los dos primers True, da error 400
-4-transformar el sold y shipping en SI O NO en la vista de detalles del producto
-5-cuales en el json. response  hago required?
+
+5-linea 43 de UserResponse
+6-LINEA 72 DE BasicDTO userscore inicializacion lazy , le paso un usuarioResponse que no tiene método To
+
+
 6- transformar a go route
 
 7-obtener las categorias de un producto con el DTO

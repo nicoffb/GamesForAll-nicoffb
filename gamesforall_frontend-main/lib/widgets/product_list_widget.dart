@@ -70,8 +70,8 @@ class _ProductListState extends State<ProductList> {
               );
             },
             itemCount: state.hasReachedMax
-                ? state.products.length
-                : state.products.length + 1,
+                ? state.products.length - 1
+                : state.products.length,
             controller: scrollController,
           );
 

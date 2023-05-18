@@ -206,11 +206,13 @@ class AuthorizationInterceptor implements InterceptorContract {
 
   @override
   Future<RequestData> interceptRequest({required RequestData data}) async {
-    try {
-      var token = await _localStorageService.getFromDisk("user_token");
-      data.headers["Authorization"] = "Bearer " + token;
-    } catch (e) {
-      print(e);
+    if (!data.url.endsWith("/login")) {
+      try {
+        var token = await _localStorageService.getFromDisk("user_token");
+        data.headers["Authorization"] = "Bearer " + token;
+      } catch (e) {
+        print(e);
+      }
     }
 
     return Future.value(data);

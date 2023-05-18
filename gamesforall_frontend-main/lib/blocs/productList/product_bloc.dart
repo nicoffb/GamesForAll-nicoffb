@@ -46,24 +46,22 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         final productPage =
             await productRepository.getProductList(0, productType: productType);
         return emit(state.copyWith(
-          status: ProductStatus.success,
-          products: productPage.content,
-          hasReachedMax: productPage.content!.length < 10 ? true : false,
-        ));
+            status: ProductStatus.success,
+            products: productPage.content,
+            hasReachedMax:
+                productPage.currentPage! + 1 >= productPage.totalPages!));
       }
 
       numPage++;
       final productPage = await productRepository.getProductList(numPage,
           productType: productType);
-      productPage.content!.length < 10 || productPage.content!.isEmpty
-          ? emit(state.copyWith(hasReachedMax: true))
-          : emit(
-              state.copyWith(
-                status: ProductStatus.success,
-                products: List.of(state.products)..addAll(productPage.content!),
-                hasReachedMax: false,
-              ),
-            );
+      emit(
+        state.copyWith(
+            status: ProductStatus.success,
+            products: List.of(state.products)..addAll(productPage.content!),
+            hasReachedMax:
+                productPage.currentPage! + 1 >= productPage.totalPages!),
+      );
     } catch (e) {
       print(e);
       emit(state.copyWith(status: ProductStatus.failure));

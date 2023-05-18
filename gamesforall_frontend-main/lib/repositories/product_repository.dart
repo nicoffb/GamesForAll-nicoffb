@@ -24,7 +24,7 @@ class ProductRepository {
 
     switch (productType) {
       case ProductType.search:
-        urlString = '/product/search/?page=$page';
+        urlString = '/product/search/?page=$page&search=sold:false';
         break;
       case ProductType.favorites:
         urlString = '/favorites/?page=$page';
@@ -41,13 +41,13 @@ class ProductRepository {
     return pagedProducts;
   }
 
-
-   // Método para obtener un producto por su ID
+  // Método para obtener un producto por su ID
   Future<ProductDetailsResponse> getProductById(int id) async {
     String urlString = '/product/$id';
 
     var jsonResponse = await server.get(urlString);
-    ProductDetailsResponse product = ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
+    ProductDetailsResponse product =
+        ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
 
     return product;
   }

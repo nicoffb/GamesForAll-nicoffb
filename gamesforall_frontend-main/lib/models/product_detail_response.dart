@@ -62,7 +62,7 @@ class ProductDetailsResponse {
     data['shipping_available'] = this.shippingAvailable;
     data['sold'] = this.sold;
     data['platform'] = this.platform;
-    
+
     // if (this.category != null) {
     //   data['category'] = this.category!.map((v) => v.toJson()).toList();
     // }
@@ -91,26 +91,6 @@ class ProductDetailsResponse {
 //     return data;
 //   }
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class ProductResponse {
   late int id;
@@ -143,7 +123,8 @@ class ProductResponse {
     publicationDate = json['publicationDate'];
     state = json['state'];
     platform = json['platform'];
-    category = json['category'] != null ? List<String>.from(json['category']) : null;
+    category =
+        json['category'] != null ? List<String>.from(json['category']) : null;
     description = json['description'];
   }
 

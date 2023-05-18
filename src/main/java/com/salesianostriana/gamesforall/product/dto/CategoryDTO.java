@@ -15,11 +15,18 @@ public class CategoryDTO {
     private String genre;
 
 
-    public static CategoryDTO of(Category category) {
+    public CategoryDTO of(Category category) {
 
         return CategoryDTO.builder()
                 .id(category.getId())
                 .genre(category.getGenre())
+                .build();
+    }
+
+    public Category toCategory (){
+        return Category.builder()
+                .id(id)
+                .genre(genre)
                 .build();
     }
 

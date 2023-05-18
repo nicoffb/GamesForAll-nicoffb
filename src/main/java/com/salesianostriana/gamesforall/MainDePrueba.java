@@ -201,7 +201,7 @@ public class MainDePrueba {
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
                 .platform(platform4)
                 .state(StateEnum.SinAbrir)
-                .sold(false)
+                .sold(true)
                 .user(user1)
                 .build();
 
@@ -213,7 +213,7 @@ public class MainDePrueba {
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
                 .platform(platform4)
                 .state(StateEnum.SinAbrir)
-                .sold(false)
+                .sold(true)
                 .user(user1)
                 .build();
 
@@ -225,7 +225,7 @@ public class MainDePrueba {
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
                 .platform(platform4)
                 .state(StateEnum.SinAbrir)
-                .sold(false)
+                .sold(true)
                 .user(user1)
                 .build();
 
