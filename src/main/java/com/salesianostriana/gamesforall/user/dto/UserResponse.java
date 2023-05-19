@@ -41,7 +41,6 @@ public class UserResponse {
     public User toUser(){
         return User.builder()
                 .id(UUID.fromString(id))
-                //NOSE YO
                 .username(username)
                 .avatar(avatar)
                 .fullName(fullName)

@@ -15,7 +15,7 @@ public class CategoryDTO {
     private String genre;
 
 
-    public CategoryDTO of(Category category) {
+    public static CategoryDTO of(Category category) {
 
         return CategoryDTO.builder()
                 .id(category.getId())

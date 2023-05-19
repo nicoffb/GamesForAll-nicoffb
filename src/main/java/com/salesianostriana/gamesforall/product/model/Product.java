@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Getter
@@ -19,6 +20,26 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
+//@NamedEntityGraph(
+//        name = "product-with-platform-and-categories",
+//        attributeNodes = {
+//                @NamedAttributeNode(value = "categories"),
+//                @NamedAttributeNode(value= "platform")
+//        }
+//
+//)
+//@NamedEntityGraph
+//        (name="categoria-con-productos",
+//                attributeNodes = {
+//                        @NamedAttributeNode(value = "productos",
+//                                subgraph = "imagenes-producto")
+//                }, subgraphs = {
+//                @NamedSubgraph(name="imagenes-producto",
+//                        attributeNodes = {
+//                                @NamedAttributeNode("imagenes")
+//                        })
+//        })
 public class Product {
 
     @Id

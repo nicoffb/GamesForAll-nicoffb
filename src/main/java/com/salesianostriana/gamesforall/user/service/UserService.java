@@ -120,4 +120,10 @@ public class UserService {
         return myProducts.map(EasyProductDTO::of);
     }
 
+    public User buscarPorId(UUID id) {
+        return userRepository.buscarPorId(id).orElseThrow(()->new UserNotFoundException(id));
+        // .orElseThrow(()->new UserNotFoundException(id));
+    }
+
+
 }

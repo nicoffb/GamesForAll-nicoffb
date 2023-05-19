@@ -28,6 +28,26 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
+@NamedEntityGraph(
+        name = "user-with-trades",
+        attributeNodes = {
+                @NamedAttributeNode(value = "trades")
+        }
+)
+
+
+//@NamedEntityGraph
+//        (name="categoria-con-productos",
+//                attributeNodes = {
+//                        @NamedAttributeNode(value = "productos",
+//                                subgraph = "imagenes-producto")
+//                }, subgraphs = {
+//                @NamedSubgraph(name="imagenes-producto",
+//                        attributeNodes = {
+//                                @NamedAttributeNode("imagenes")
+//                        })
+//        })
 public class User implements UserDetails {
 
     // Usamos UUID como ID de los usuarios
@@ -139,6 +159,8 @@ public class User implements UserDetails {
 
     //venta
     @Builder.Default
+    //hacer grafo
+
     @OneToMany(mappedBy = "seller")
     private List<Trade> trades = new ArrayList<>();
 

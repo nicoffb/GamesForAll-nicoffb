@@ -1,5 +1,6 @@
 package com.salesianostriana.gamesforall.product.controller;
 
+import com.salesianostriana.gamesforall.exception.UserNotFoundException;
 import com.salesianostriana.gamesforall.files.service.StorageService;
 import com.salesianostriana.gamesforall.files.utils.MediaTypeUrlResource;
 import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
@@ -12,6 +13,7 @@ import com.salesianostriana.gamesforall.search.util.Extractor;
 import com.salesianostriana.gamesforall.search.util.SearchCriteria;
 
 import com.salesianostriana.gamesforall.user.model.User;
+import com.salesianostriana.gamesforall.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -42,6 +44,8 @@ public class ProductController {
 
     private final ProductService productService;
     private final StorageService storageService;
+
+    private final UserService userService;
 
 
     @Operation(summary = "Obtiene todos los productos de forma paginada y con criterios")
@@ -115,7 +119,10 @@ public class ProductController {
 
 
         Product product =created.toProduct(created);
-        product.setUser(loggedUser);
+        //CARGES LOS TRADES
+        product.setUser(userService.findByUsername(loggedUser.getUsername()).orElseThrow(UserNotFoundException::new));
+        //pasar el dto al metodo del servicio
+        //transformacion del set dto a set producto dentro del servicio
         productService.add(product,files);
 
         URI createdURI = ServletUriComponentsBuilder

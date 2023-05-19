@@ -19,18 +19,20 @@ setear las categorias en el editar producto
 
 
 DUDAS ALV.
-1-Listas infinitas
+1-Gestionar el lazy con el grafo y que se asigne el id de la categoria pasando solo el id
 
-5-linea 43 de UserResponse
 6-LINEA 72 DE BasicDTO userscore inicializacion lazy , le paso un usuarioResponse que no tiene método To
 
 
 6- transformar a go route
 
-7-obtener las categorias de un producto con el DTO
 
 
+MIGUEL
+PASAR A BLOC LA PETICION DE OBTENER PRODUCTOS PARA PODER CONTROLAR LOS ESTADOS POR LOS QUE PASA AL OBTENERLO, CARGARLO...
 
+LUISMI
+Puedo pasarle al productBasic los atributos del usuario obtenidos a partir del producto o le tengo que pasar el Usuario? Respuesta: si
+Puedo pasarle la entidad Categorias o Platform dentro del producBasic en vez del DTO , no mezclar entidades y dto preferiblemente.
 
-DUDAS  COLEGIO
-hacer DTO  de categoria y plataforma o los puedo poner asi directamente pasados a String?
+porque pasandole el id no me obtiene la categoria?

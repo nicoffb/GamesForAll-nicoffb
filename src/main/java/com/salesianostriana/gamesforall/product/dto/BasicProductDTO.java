@@ -5,6 +5,7 @@ import com.salesianostriana.gamesforall.product.model.Category;
 
 import com.salesianostriana.gamesforall.product.model.Product;
 
+import com.salesianostriana.gamesforall.user.dto.UserResponse;
 import lombok.Builder;
 import lombok.Value;
 
@@ -45,17 +46,9 @@ public class BasicProductDTO {
 
     private Set<CategoryDTO> categories;
 
-
+    private UserResponse user;
     public static BasicProductDTO of(Product product){
 
-        Set<String> genres = new HashSet<>();
-
-        if(product.getCategories()!= null){
-
-        for (Category category : product.getCategories()) {
-            genres.add(category.getGenre());
-        }
-        }
 
         return BasicProductDTO.builder()
                 .id(product.getId())
@@ -68,20 +61,20 @@ public class BasicProductDTO {
                 .shipping_available(product.isShipping_available())
                 .sold(product.isSold())
 
-                //cambiar a entidad
-                .platform(product.getPlatform().of)
+                //cambiar a DTOs
+                .platform(PlatformDTO.of(product.getPlatform()))
+                .categories(product.getCategories().stream()
+                        .map(CategoryDTO::of)
+                        .collect(Collectors.toSet())
+                )
+                //USUARIO
+               .user(UserResponse.fromUser(product.getUser()))
 
-                .categories(product.getCategories().stream().map(c-> c.of).collect(Collectors.toSet()))
-
-                //dejar categorias sin dto pero con lazy
-                //.categories(product.getCategories().)
-
-                //.user(product.getUser()) Da lazy
+                //
                 .address(product.getUser().getAddress())
-                //CUIDADO QUE USERNAME ES NUEVO y NO ESTÁ EN EL FRONT
                 .userName(product.getUser().getUsername())
                 //esto pide grafo de entidad si sale a partir del createProduct
-                //.userScore(product.getUser().getTrades().stream().filter(p -> p.getSeller().equals(product.getUser())).mapToDouble(p -> p.getScore()).average().orElse(0))
+                .userScore(product.getUser().getTrades().stream().filter(p -> p.getSeller().equals(product.getUser())).mapToDouble(p -> p.getScore()).average().orElse(0))
                 .build();
     }
 
