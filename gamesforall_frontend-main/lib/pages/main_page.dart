@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gamesforall_frontend/pages/login_page.dart';
+import 'package:gamesforall_frontend/pages/upload_product_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -31,6 +33,12 @@ class _MainPageState extends State<MainPage> {
       SafeArea(minimum: const EdgeInsets.all(2), child: _HomePage()),
       SafeArea(
           minimum: const EdgeInsets.all(2), child: _FavoritePage(user: user)),
+      SafeArea(
+        minimum: const EdgeInsets.all(2),
+        child: Center(
+          child: Text('Upload Page'),
+        ),
+      ),
       SafeArea(minimum: const EdgeInsets.all(2), child: _MyProducts())
     ];
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
@@ -96,6 +104,14 @@ class _MainPageState extends State<MainPage> {
                     iconColor: Colors.red,
                   ),
                   GButton(
+                    icon: Icons.cloud_upload, // Upload icon
+                    text: 'Upload',
+                    onPressed: () {
+                      _navigateToUploadProductPage(
+                          context); // Navigate to the upload page
+                    },
+                  ),
+                  GButton(
                     icon: Icons.person,
                     text: 'Profile',
                     iconColor: Color.fromARGB(255, 15, 70, 179),
@@ -119,6 +135,15 @@ class _MainPageState extends State<MainPage> {
       _selectedIndex = index;
     });
   }
+}
+
+void _navigateToUploadProductPage(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => UploadProductPage(),
+    ),
+  );
 }
 
 class _HomePage extends StatelessWidget {

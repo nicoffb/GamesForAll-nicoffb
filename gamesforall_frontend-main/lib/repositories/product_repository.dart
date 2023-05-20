@@ -1,4 +1,6 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:gamesforall_frontend/blocs/productList/product_bloc.dart';
+import 'package:gamesforall_frontend/models/product_request.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -18,6 +20,7 @@ class ProductRepository {
     server = GetIt.I.get<RestAuthenticatedClient>();
   }
 
+  //OBTENER LAS PAGINAS DE LOS PRODUCTOS DEPENDIENDO DEL LISTADO
   Future<ProductPageResponse> getProductList(int page,
       {ProductType productType = ProductType.search}) async {
     String urlString;
@@ -50,5 +53,14 @@ class ProductRepository {
         ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
 
     return product;
+  }
+
+  Future<ProductDetailsResponse> addProduct(ProductRequest productRequest,
+      PlatformFile file, String accessToken) async {
+    String url = 'http://localhost:8080/product';
+
+    var jsonResponse =
+        await server.postMultiPart(url, productRequest, file, accessToken);
+    return ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
   }
 }

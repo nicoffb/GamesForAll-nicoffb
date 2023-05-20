@@ -6,7 +6,7 @@ class ProductResponse {
   String? publicationDate;
   String? state;
   String? platform;
-  List<String>? category;
+  Set<String>? category;
   String? description;
 
   ProductResponse({
@@ -29,7 +29,8 @@ class ProductResponse {
     publicationDate = json['publicationDate'];
     state = json['state'];
     platform = json['platform'];
-    category = json['category'] != null ? List<String>.from(json['category']) : null;
+    category =
+        json['category'] != null ? Set<String>.from(json['category']) : null;
     description = json['description'];
   }
 
@@ -47,5 +48,3 @@ class ProductResponse {
     return data;
   }
 }
-
-

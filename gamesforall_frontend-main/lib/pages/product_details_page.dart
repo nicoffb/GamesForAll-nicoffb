@@ -47,6 +47,24 @@ class ProductDetailsPage extends StatelessWidget {
                     'ID del producto: $productId',
                     style: TextStyle(fontSize: 10),
                   ),
+
+                  SizedBox(height: 8),
+                  Text(
+                    'Avatar: ${product.user?.avatar}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+
+                  SizedBox(height: 8),
+                  Text(
+                    'Nombre del usuario: ${product.user?.username}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Media del usuario: ${product.user?.userScore}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+
                   SizedBox(height: 16),
                   Text(
                     'Nombre: ${product.title}',
@@ -59,7 +77,7 @@ class ProductDetailsPage extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Plataforma: ${product.platform}',
+                    'Plataforma: ${product.platform?.platformName}',
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 8),
@@ -78,13 +96,14 @@ class ProductDetailsPage extends StatelessWidget {
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 8),
+
+                  // Text(
+                  //   'Categoría: ${product.categories.}',
+                  //   style: TextStyle(fontSize: 16),
+                  // ),
+                  const SizedBox(height: 8),
                   Text(
-                    'Categoría: ${product.category}',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Dirección: ${product.address}',
+                    'Dirección: ${product.user?.address}',
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 8),
@@ -92,10 +111,19 @@ class ProductDetailsPage extends StatelessWidget {
                     'Fecha de subida: ${product.publicationDate}',
                     style: TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 8),
+                  SizedBox(height: 4),
                   Text(
-                    'Media del usuario: ${product.userScore}',
-                    style: TextStyle(fontSize: 16),
+                    'Categorías:',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 4),
+                  Wrap(
+                    spacing: 4,
+                    children: product.categories?.map<Widget>((category) {
+                          String? genre = category.genre;
+                          return Chip(label: Text(genre ?? ''));
+                        }).toList() ??
+                        [],
                   ),
                 ],
               ),
