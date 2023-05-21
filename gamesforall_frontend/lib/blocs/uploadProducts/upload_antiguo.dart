@@ -63,7 +63,7 @@ class ProductForm extends StatelessWidget {
 
           return Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: AppBar(title: const Text('Login')),
+            appBar: AppBar(title: const Text('Subir Producto')),
             body: FormBlocListener<UploadProductBloc, String, String>(
               onSubmitting: (context, state) {
                 LoadingDialog.show(context);

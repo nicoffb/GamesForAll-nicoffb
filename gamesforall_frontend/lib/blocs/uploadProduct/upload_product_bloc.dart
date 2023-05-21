@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:path/path.dart' as path;
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
@@ -25,8 +22,6 @@ class UploadProductBloc extends FormBloc<String, String> {
 
   final showSuccessResponse = BooleanFieldBloc();
 
-  FilePickerResult? selectedImage;
-
   UploadProductBloc() {
     addFieldBlocs(
       fieldBlocs: [
@@ -42,48 +37,17 @@ class UploadProductBloc extends FormBloc<String, String> {
     debugPrint(title.value);
     debugPrint(price.value);
     debugPrint(showSuccessResponse.value.toString());
-    final titleValue = title.value;
-    final priceValue = price.value;
-    final showSuccessValue = showSuccessResponse.value;
 
-    try {
-      if (selectedImage != null) {
-        final filePath = selectedImage!.files.single.path;
-        final file = File(filePath!);
+    //await Future<void>.delayed(const Duration(seconds: 1));
 
-        final request = http.MultipartRequest(
-          'POST',
-          Uri.parse('http://localhost:8080/product'),
-        );
-
-        request.fields['title'] = titleValue;
-        request.fields['price'] = priceValue;
-
-        request.files.add(
-          await http.MultipartFile.fromPath(
-            'image',
-            file.path,
-            filename: path.basename(file.path),
-          ),
-        );
-
-        final response = await request.send();
-
-        if (response.statusCode == 200) {
-          if (showSuccessValue) {
-            emitSuccess();
-          } else {
-            emitFailure(failureResponse: 'This is an awesome error!');
-          }
-        } else {
-          emitFailure(failureResponse: 'Failed to upload the product.');
-        }
-      }
-    } catch (e) {
-      emitFailure(failureResponse: 'Error: $e');
+    if (showSuccessResponse.value) {
+      emitSuccess();
+    } else {
+      emitFailure(failureResponse: 'This is an awesome error!');
     }
   }
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 class ProductForm extends StatelessWidget {
@@ -97,19 +61,9 @@ class ProductForm extends StatelessWidget {
         builder: (context) {
           final productFormBloc = context.read<UploadProductBloc>();
 
-          Future<void> pickImage() async {
-            final result = await FilePicker.platform.pickFiles(
-              type: FileType.image,
-            );
-
-            if (result != null) {
-              productFormBloc.selectedImage = result;
-            }
-          }
-
           return Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: AppBar(title: const Text('Login')),
+            appBar: AppBar(title: const Text('Subir Producto')),
             body: FormBlocListener<UploadProductBloc, String, String>(
               onSubmitting: (context, state) {
                 LoadingDialog.show(context);
@@ -162,15 +116,6 @@ class ProductForm extends StatelessWidget {
                             child: const Text('Show success response'),
                           ),
                         ),
-                      ),
-                      ElevatedButton(
-                        onPressed: pickImage,
-                        child: const Text('Seleccionar imagen'),
-                      ),
-                      Text(
-                        productFormBloc.selectedImage != null
-                            ? 'Archivo seleccionado: ${productFormBloc.selectedImage!.files.single.name}'
-                            : '',
                       ),
                       ElevatedButton(
                         onPressed: productFormBloc.submit,
