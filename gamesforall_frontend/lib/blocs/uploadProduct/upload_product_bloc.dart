@@ -1,13 +1,20 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:gamesforall_frontend/blocs/uploadProduct/upload_product_event.dart';
+import 'package:gamesforall_frontend/blocs/uploadProduct/upload_product_state.dart';
 import 'package:gamesforall_frontend/pages/upload_product_page.dart';
+import 'package:gamesforall_frontend/services/product_service.dart';
 
 import '../../models/product_request.dart';
 
 class UploadProductBloc extends FormBloc<String, String> {
+  late ProductService productService;
+
   final title = TextFieldBloc(
     validators: [
       FieldBlocValidators.required,
@@ -22,7 +29,10 @@ class UploadProductBloc extends FormBloc<String, String> {
 
   final showSuccessResponse = BooleanFieldBloc();
 
-  UploadProductBloc() {
+  File? selectedImage;
+
+  UploadProductBloc() : super() {
+    productService = ProductService();
     addFieldBlocs(
       fieldBlocs: [
         title,
@@ -32,18 +42,45 @@ class UploadProductBloc extends FormBloc<String, String> {
     );
   }
 
+  void selectImage(BuildContext context) async {
+    final file = await FilePicker.platform.pickFiles(
+        type: FileType.custom, allowedExtensions: ['jpg', 'jpeg', 'png']);
+    if (file != null) {
+      selectedImage = File(file.files.single.path!);
+      // Aquí, podrías considerar emitir un evento que cambie el estado de tu aplicación,
+      // posiblemente emitiendo un evento con el Bloc o cambiando el estado de tu FormBloc.
+    }
+  }
+
   @override
   void onSubmitting() async {
-    debugPrint(title.value);
-    debugPrint(price.value);
-    debugPrint(showSuccessResponse.value.toString());
+    try {
+      debugPrint(title.value);
+      debugPrint(price.value);
+      debugPrint(showSuccessResponse.value.toString());
+      debugPrint(selectedImage.toString());
+      if (selectedImage != null) {
+        productService.add(
+          ProductRequest(
+            title: title.value,
+            price: double.parse(price.value),
+          ),
+          PlatformFile(
+            name: selectedImage!.path.split('/').last,
+            bytes: await selectedImage!.readAsBytes(),
+            size: selectedImage!.lengthSync(),
+          ),
+        );
+      }
 
-    //await Future<void>.delayed(const Duration(seconds: 1));
-
-    if (showSuccessResponse.value) {
-      emitSuccess();
-    } else {
-      emitFailure(failureResponse: 'This is an awesome error!');
+      if (showSuccessResponse.value) {
+        emitSuccess();
+      } else {
+        emitFailure(failureResponse: 'This is an awesome error!');
+      }
+    } catch (e) {
+      print('Error: $e');
+      emitFailure(failureResponse: 'Error: $e');
     }
   }
 }
@@ -116,6 +153,14 @@ class ProductForm extends StatelessWidget {
                             child: const Text('Show success response'),
                           ),
                         ),
+                      ),
+                      if (productFormBloc.selectedImage != null)
+                        Image.file(productFormBloc.selectedImage!),
+                      ElevatedButton(
+                        onPressed: () {
+                          productFormBloc.selectImage(context);
+                        },
+                        child: const Text('SELECCIONAR IMAGEN'),
                       ),
                       ElevatedButton(
                         onPressed: productFormBloc.submit,

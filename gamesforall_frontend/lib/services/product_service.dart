@@ -13,6 +13,10 @@ class ProductService {
   late ProductRepository _productRepository;
   late LocalStorageService localStorageService;
 
+  ProductService() {
+    localStorageService = LocalStorageService();
+  }
+
   Future<ProductDetailsResponse> add(
     ProductRequest productRequest,
     PlatformFile file,

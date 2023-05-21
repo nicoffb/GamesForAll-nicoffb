@@ -1,10 +1,7 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 
-abstract class UploadProductEvent extends Equatable {
-  const UploadProductEvent();
+abstract class UploadProductEvent {}
 
-  @override
-  List<Object> get props => [];
-}
-
-class SubmitProductEvent extends UploadProductEvent {}
+class ImageSelected extends UploadProductEvent {}
