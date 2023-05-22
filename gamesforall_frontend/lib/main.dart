@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:provider/provider.dart';
 import 'package:gamesforall_frontend/pages/login_page.dart';
 import 'package:gamesforall_frontend/pages/main_page.dart';
 
 import 'package:gamesforall_frontend/services/authentication_service.dart';
+import 'package:gamesforall_frontend/services/product_service.dart';
 
 import 'blocs/authentication/authentication_bloc.dart';
 import 'blocs/authentication/authentication_event.dart';
@@ -15,11 +16,18 @@ void main() {
   setupAsyncDependencies();
   configureDependencies();
 
-  runApp(BlocProvider<AuthenticationBloc>(
-    create: (context) {
-      final authService = getIt<JwtAuthenticationService>();
-      return AuthenticationBloc(authService)..add(AppLoaded());
-    },
+  runApp(MultiProvider(
+    providers: [
+      BlocProvider<AuthenticationBloc>(
+        create: (context) {
+          final authService = getIt<JwtAuthenticationService>();
+          return AuthenticationBloc(authService)..add(AppLoaded());
+        },
+      ),
+      Provider<ProductService>(
+        create: (context) => getIt<ProductService>(),
+      ),
+    ],
     child: MyApp(),
   ));
 }
