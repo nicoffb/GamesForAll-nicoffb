@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:gamesforall_frontend/blocs/productList/product_bloc.dart';
 import 'package:gamesforall_frontend/models/product_request.dart';
@@ -56,11 +58,39 @@ class ProductRepository {
   }
 
   Future<ProductDetailsResponse> addProduct(ProductRequest productRequest,
-      PlatformFile file, String accessToken) async {
+    PlatformFile file, String accessToken) async {
     String url = 'http://localhost:8080/product';
 
     var jsonResponse =
         await server.postMultiPart(url, productRequest, file, accessToken);
     return ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
   }
+
+
+
+
+
+
+
+
+  Future<void> addToFavorites(int productId, User user) async {
+  String url = 'http://localhost:8080/favorites/$productId';
+
+  var response = await http.post(
+    Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token',
+    },
+  );
+
+  if (response.statusCode != 200) {
+    throw Exception('Failed to add product to favorites');
+  }
+}
+
+
+
+
+
 }
