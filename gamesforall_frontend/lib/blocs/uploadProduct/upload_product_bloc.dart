@@ -47,8 +47,6 @@ class UploadProductBloc extends FormBloc<String, String> {
         type: FileType.custom, allowedExtensions: ['jpg', 'jpeg', 'png']);
     if (file != null) {
       selectedImage = File(file.files.single.path!);
-      // Aquí, podrías considerar emitir un evento que cambie el estado de tu aplicación,
-      // posiblemente emitiendo un evento con el Bloc o cambiando el estado de tu FormBloc.
     }
   }
 

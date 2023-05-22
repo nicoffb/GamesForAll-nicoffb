@@ -40,16 +40,16 @@ public class ProductRequestDTO {
 
     private Set<CategoryDTO> categories;
 
-    private UserResponse user;
+    //private UserResponse user;
 
 
 
     public Product toProduct(ProductRequestDTO productRequestDTO){
 
-          User user = new User();
-          if(this.user != null){
-              user=this.user.toUser();
-          }
+//          User user = new User();
+//          if(this.user != null){
+//              user=this.user.toUser();
+//          }
 
             return Product.builder()
                     .title(productRequestDTO.getTitle())
@@ -58,7 +58,7 @@ public class ProductRequestDTO {
                     .state(StateEnum.fromString(productRequestDTO.getState()))
                     .platform(productRequestDTO.getPlatform().toPlatform())
                     .categories(productRequestDTO.getCategories().stream().map(c -> c.toCategory()).collect(Collectors.toSet()))
-                    .user(user)
+                   // .user(user)
                     .build();
 
 

@@ -1,15 +1,15 @@
-part of 'upload_products_bloc.dart';
+// part of 'upload_products_bloc.dart';
 
-@immutable
-abstract class UploadProductsEvent extends Equatable {
-  const UploadProductsEvent();
+// @immutable
+// abstract class UploadProductsEvent extends Equatable {
+//   const UploadProductsEvent();
 
-  @override
-  List<Object> get props => [];
-}
+//   @override
+//   List<Object> get props => [];
+// }
 
-class AddProduct extends UploadProductsState {
-  AddProduct(this.productRequest, this.file);
-  ProductRequest productRequest;
-  PlatformFile file;
-}
+// class AddProduct extends UploadProductsState {
+//   AddProduct(this.productRequest, this.file);
+//   ProductRequest productRequest;
+//   PlatformFile file;
+// }

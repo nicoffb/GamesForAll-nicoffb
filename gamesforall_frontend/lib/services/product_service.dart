@@ -3,8 +3,10 @@ import 'package:gamesforall_frontend/models/product_detail_response.dart';
 import 'package:gamesforall_frontend/models/product_request.dart';
 import 'package:gamesforall_frontend/repositories/product_repository.dart';
 import 'package:gamesforall_frontend/services/services.dart';
+import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
+import '../config/locator.dart';
 import 'authentication_service.dart';
 
 @Order(5)
@@ -14,7 +16,10 @@ class ProductService {
   late LocalStorageService localStorageService;
 
   ProductService() {
-    localStorageService = LocalStorageService();
+    _productRepository = getIt<ProductRepository>();
+    GetIt.I
+        .getAsync<LocalStorageService>()
+        .then((value) => localStorageService = value);
   }
 
   Future<ProductDetailsResponse> add(
@@ -22,6 +27,6 @@ class ProductService {
     PlatformFile file,
   ) async {
     var token = await localStorageService.getFromDisk("user_token");
-    return _productRepository.addProduct(productRequest, file, token);
+    return await _productRepository.addProduct(productRequest, file, token);
   }
 }

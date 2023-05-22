@@ -97,7 +97,7 @@ class RestClient {
   Future<dynamic> postMultiPart(
       String url, dynamic body, PlatformFile file, String accessToken) async {
     try {
-      Uri uri = Uri.parse(ApiConstants.baseUrl + url);
+      Uri uri = Uri.parse(url);
 
       Map<String, String> headers = Map();
       headers.addAll({

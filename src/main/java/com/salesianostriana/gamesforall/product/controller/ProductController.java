@@ -34,6 +34,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -119,10 +121,10 @@ public class ProductController {
 
 
         Product product =created.toProduct(created);
-        //CARGES LOS TRADES
+        //CARGAR LOS TRADES,hk
+        product.setPublication_date(LocalDateTime.now());
         product.setUser(userService.findByUsername(loggedUser.getUsername()).orElseThrow(UserNotFoundException::new));
-        //pasar el dto al metodo del servicio
-        //transformacion del set dto a set producto dentro del servicio
+
         productService.add(product,files);
 
         URI createdURI = ServletUriComponentsBuilder

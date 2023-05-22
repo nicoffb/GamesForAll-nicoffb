@@ -30,17 +30,10 @@ public class BasicProductDTO {
     private String state;
     private boolean shipping_available;
     private boolean sold;
-    //private String platform;
 
-
-    //private Set<Category> category;
-   // private Set<String> category;
-
-   // private User user;
-
-    private String userName;
-    private String address;
-    private double userScore;
+//    private String userName;
+//    private String address;
+//    private double userScore;
 
     private PlatformDTO platform;
 
@@ -71,10 +64,9 @@ public class BasicProductDTO {
                .user(UserResponse.fromUser(product.getUser()))
 
                 //
-                .address(product.getUser().getAddress())
-                .userName(product.getUser().getUsername())
-                //esto pide grafo de entidad si sale a partir del createProduct
-                .userScore(product.getUser().getTrades().stream().filter(p -> p.getSeller().equals(product.getUser())).mapToDouble(p -> p.getScore()).average().orElse(0))
+//                .address(product.getUser().getAddress())
+//                .userName(product.getUser().getUsername())
+//                .userScore(product.getUser().getTrades().stream().filter(p -> p.getSeller().equals(product.getUser())).mapToDouble(p -> p.getScore()).average().orElse(0))
                 .build();
     }
 
