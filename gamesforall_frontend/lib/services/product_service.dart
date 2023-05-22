@@ -17,15 +17,11 @@ import 'authentication_service.dart';
 class ProductService {
   late ProductRepository _productRepository;
   late LocalStorageService localStorageService;
-  late AuthenticationService authenticationService;
 
   ProductService() {
     _productRepository = getIt<ProductRepository>();
     GetIt.I
         .getAsync<LocalStorageService>()
-        .then((value) => localStorageService = value);
-    GetIt.I
-        .getAsync<AuthenticationService>()
         .then((value) => localStorageService = value);
   }
 
@@ -38,8 +34,6 @@ class ProductService {
   }
 
   Future<void> addToFavorites(int productId) async {
-    // var token = await localStorageService.getFromDisk("user_token");
-    User user = await authenticationService.getCurrentUser();
-    await _productRepository.addToFavorites(productId, user);
+    await _productRepository.addToFavorites(productId);
   }
 }

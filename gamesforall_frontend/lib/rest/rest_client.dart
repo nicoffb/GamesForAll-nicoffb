@@ -103,6 +103,7 @@ class RestClient {
       headers.addAll({
         'Content-Type': 'multipart/form-data',
         'Authorization': 'Bearer ${accessToken}',
+        'connection': 'keep-alive',
       });
       var bodyPart;
       var request = new http.MultipartRequest('POST', uri);

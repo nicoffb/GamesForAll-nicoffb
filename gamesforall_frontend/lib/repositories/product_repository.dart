@@ -58,44 +58,17 @@ class ProductRepository {
   }
 
   Future<ProductDetailsResponse> addProduct(ProductRequest productRequest,
-<<<<<<< HEAD
       PlatformFile file, String accessToken) async {
     String url = 'http://localhost:8080/product/';
-=======
-    PlatformFile file, String accessToken) async {
-    String url = 'http://localhost:8080/product';
->>>>>>> origin/favorites
 
     var jsonResponse =
         await server.postMultiPart(url, productRequest, file, accessToken);
     return ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
   }
 
+  Future<void> addToFavorites(int productId) async {
+    String url = '/favorites/$productId';
 
-
-
-
-
-
-
-  Future<void> addToFavorites(int productId, User user) async {
-  String url = 'http://localhost:8080/favorites/$productId';
-
-  var response = await http.post(
-    Uri.parse(url),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer $token',
-    },
-  );
-
-  if (response.statusCode != 200) {
-    throw Exception('Failed to add product to favorites');
+    var jsonResponse = await server.post(url, null);
   }
-}
-
-
-
-
-
 }
