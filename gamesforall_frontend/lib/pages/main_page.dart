@@ -8,16 +8,18 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../blocs/authentication/authentication_bloc.dart';
 import '../blocs/authentication/authentication_event.dart';
+import '../blocs/favorite/favorite_bloc.dart';
 import '../blocs/productList/product_bloc.dart';
 
+import '../main.dart';
 import '../models/user.dart';
 import '../repositories/product_repository.dart';
 import '../widgets/product_list_widget.dart';
 
 class MainPage extends StatefulWidget {
-  User user;
+  final User user;
 
-  MainPage({super.key, required this.user});
+  MainPage({Key? key, required this.user}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState(user);
@@ -25,8 +27,15 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  User user;
+  final User user;
+
   _MainPageState(this.user);
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<FavoriteBloc>(context).add(FetchFavoritesEvent());
+  }
 
   @override
   Widget build(BuildContext context) {

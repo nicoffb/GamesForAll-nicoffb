@@ -31,6 +31,9 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Query("SELECT u.favorites FROM User u WHERE u.id = :userId")
     Page<Product> findFavoriteProductsByUserId(UUID userId, Pageable pageable);
 
+    @Query("SELECT u.favorites FROM User u WHERE u.id = :userId")
+    List<Product> findFavoriteProductsByUserIdNotPaged(UUID userId);
+
     @Query("SELECT p FROM Product p WHERE p.user.id = :userId")
     Page<Product> findProductsByUser(@Param("userId") UUID userId, Pageable pageable);
 

@@ -72,23 +72,20 @@ class ProductRepository {
     var jsonResponse = await server.post(url, null);
   }
 
-
   Future<void> removeFromFavorites(int productId) async {
     String url = '/favorites/$productId';
 
     var jsonResponse = await server.delete(url);
   }
 
-  Future<ProductDetailsResponse> getUserFavorites() async {
-    String urlString = '/product/$id';
+  Future<List<ProductDetailsResponse>> getUserFavorites() async {
+    String urlString = '/favoritesnotpaged/';
 
     var jsonResponse = await server.get(urlString);
-    ProductDetailsResponse product =
-        ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
+    List<dynamic> jsonList = jsonDecode(jsonResponse);
+    List<ProductDetailsResponse> favList =
+        jsonList.map((item) => ProductDetailsResponse.fromJson(item)).toList();
 
-    return product;
+    return favList;
   }
-
-
-
 }

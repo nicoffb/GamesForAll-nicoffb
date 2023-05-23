@@ -2,6 +2,7 @@ package com.salesianostriana.gamesforall.user.service;
 
 import com.salesianostriana.gamesforall.exception.EmptyProductListException;
 import com.salesianostriana.gamesforall.exception.UserNotFoundException;
+import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
 import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.dto.PageDto;
 import com.salesianostriana.gamesforall.product.model.Product;
@@ -23,6 +24,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -124,6 +126,15 @@ public class UserService {
         return userRepository.buscarPorId(id).orElseThrow(()->new UserNotFoundException(id));
         // .orElseThrow(()->new UserNotFoundException(id));
     }
+
+        //favoritos sin paged
+        public List<BasicProductDTO> getUserFavoriteProductsNotPaged(UUID userId) {
+            List<Product> favoriteProducts = userRepository.findFavoriteProductsByUserIdNotPaged(userId);
+            return favoriteProducts.stream()
+                    .map(BasicProductDTO::of)
+                    .collect(Collectors.toList());
+        }
+
 
 
 }

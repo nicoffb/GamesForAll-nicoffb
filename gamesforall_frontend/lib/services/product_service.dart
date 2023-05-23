@@ -40,4 +40,8 @@ class ProductService {
   Future<void> removeFromFavorites(int productId) async {
     await _productRepository.removeFromFavorites(productId);
   }
+
+  Future<List<ProductDetailsResponse>> getUserFavorites() async {
+    return await _productRepository.getUserFavorites();
+  }
 }

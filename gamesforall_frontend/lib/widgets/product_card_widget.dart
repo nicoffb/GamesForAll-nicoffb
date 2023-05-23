@@ -6,7 +6,6 @@ import '../blocs/favorite/favorite_bloc.dart';
 import '../models/product_response.dart';
 import '../pages/product_details_page.dart';
 
-
 class ProductCard extends StatelessWidget {
   const ProductCard({Key? key, required this.product}) : super(key: key);
 
@@ -15,7 +14,8 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productService = Provider.of<ProductService>(context, listen: false);
-    final favBloc = BlocProvider.of<FavoriteBloc>(context); // Retrieve the FavBloc instance
+    final favBloc =
+        BlocProvider.of<FavoriteBloc>(context); // Retrieve the FavBloc instance
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -138,24 +138,24 @@ class ProductCard extends StatelessWidget {
                 bloc: favBloc, // Use the same FavBloc instance
                 builder: (context, state) {
                   if (state is FavoritesLoaded) {
-                    bool isFavorite = state.favoriteProducts.any((favoriteProduct) => favoriteProduct.id == product.id);
+                    bool isFavorite = state.favoriteProducts.any(
+                        (favoriteProduct) => favoriteProduct.id == product.id);
 
                     return IconButton(
-                      icon: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: Colors.red,
-                      ),
-                      onPressed: () {
-                        if (isFavorite) {
-                          favBloc.add(RemoveFromFavoritesEvent(product.id)); 
-                        } else {
-                          favBloc.add(AddToFavoritesEvent(product.id)); 
-                        }
-                      },
-                    );
+                        icon: Icon(
+                          isFavorite ? Icons.favorite : Icons.favorite_border,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          if (isFavorite) {
+                            favBloc.add(RemoveFromFavoritesEvent(product.id));
+                          } else {
+                            favBloc.add(AddToFavoritesEvent(product.id));
+                          }
+                        }); // Leave onPressed empty so the button is not disabled
                   }
 
-                  // Retorna un botón vacío mientras los favoritos se están cargando o ha ocurrido un error
+                  // Returns an empty button while favorites are loading or an error has occurred
                   return IconButton(
                     icon: Icon(Icons.favorite_border, color: Colors.red),
                     onPressed: null,

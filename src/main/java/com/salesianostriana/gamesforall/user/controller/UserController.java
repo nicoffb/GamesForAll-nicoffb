@@ -36,6 +36,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -197,6 +198,15 @@ public class UserController {
         Page<EasyProductDTO> productspaged =  userService.getUserFavoriteProducts(loggedUser.getId(),pageable);
 
        return  new PageDto<>(productspaged);
+
+    }
+
+    @GetMapping("/favoritesnotpaged")
+    public List<BasicProductDTO> getUserFavoritesNotPaged(@AuthenticationPrincipal User loggedUser, Pageable pageable) {
+
+        List<BasicProductDTO> productsFavList =  userService.getUserFavoriteProductsNotPaged(loggedUser.getId());
+
+        return (productsFavList);
 
     }
 
