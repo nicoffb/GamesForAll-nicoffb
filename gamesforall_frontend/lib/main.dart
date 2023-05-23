@@ -10,8 +10,8 @@ import 'package:gamesforall_frontend/services/product_service.dart';
 import 'blocs/authentication/authentication_bloc.dart';
 import 'blocs/authentication/authentication_event.dart';
 import 'blocs/authentication/authentication_state.dart';
+import 'blocs/favorite/favorite_bloc.dart';
 import 'config/locator.dart';
-
 void main() {
   setupAsyncDependencies();
   configureDependencies();
@@ -23,6 +23,9 @@ void main() {
           final authService = getIt<JwtAuthenticationService>();
           return AuthenticationBloc(authService)..add(AppLoaded());
         },
+      ),
+      BlocProvider<FavBloc>(
+        create: (context) => FavBloc(),
       ),
       Provider<ProductService>(
         create: (context) => getIt<ProductService>(),
@@ -37,8 +40,6 @@ class GlobalContext {
 }
 
 class MyApp extends StatelessWidget {
-  //static late  AuthenticationBloc _authBloc;
-
   static late MyApp _instance;
 
   static Route route() {
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //GlobalContext.ctx = context;
+    GlobalContext.ctx = context;
     return MaterialApp(
       title: 'Authentication Demo',
       theme: ThemeData(
@@ -64,7 +65,6 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          GlobalContext.ctx = context;
           if (state is AuthenticationAuthenticated) {
             // show home page
             return MainPage(user: state.user);
@@ -76,3 +76,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+

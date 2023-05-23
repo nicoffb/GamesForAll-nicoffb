@@ -71,4 +71,13 @@ class ProductRepository {
 
     var jsonResponse = await server.post(url, null);
   }
+
+
+  Future<void> removeFromFavorites(int productId) async {
+    String url = '/favorites/$productId';
+
+    var jsonResponse = await server.delete(url);
+  }
+
+
 }

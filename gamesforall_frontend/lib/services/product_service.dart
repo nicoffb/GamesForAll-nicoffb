@@ -36,4 +36,8 @@ class ProductService {
   Future<void> addToFavorites(int productId) async {
     await _productRepository.addToFavorites(productId);
   }
+
+  Future<void> removeFromFavorites(int productId) async {
+    await _productRepository.removeFromFavorites(productId);
+  }
 }

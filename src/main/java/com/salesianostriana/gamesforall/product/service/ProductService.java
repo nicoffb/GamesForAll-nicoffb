@@ -122,7 +122,7 @@ public class ProductService {
     }
 
     @Transactional
-    public List<Product> removeProductFromFavorites(UUID userId, Long idProduct) {
+    public void removeProductFromFavorites(UUID userId, Long idProduct) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isEmpty()) {
             throw new UserNotFoundException(userId);
@@ -135,7 +135,6 @@ public class ProductService {
                 Product founded2 = product.get();
                 found.getFavorites().remove(founded2);
                 userRepository.save(found);
-                return found.getFavorites();
             }
         }
     }

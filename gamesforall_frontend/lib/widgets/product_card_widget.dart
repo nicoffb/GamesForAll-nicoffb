@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gamesforall_frontend/services/product_service.dart';
 import 'package:provider/provider.dart';
+import '../blocs/favorite/favorite_bloc.dart';
 import '../models/product_response.dart';
 import '../pages/product_details_page.dart';
+
 
 class ProductCard extends StatelessWidget {
   const ProductCard({Key? key, required this.product}) : super(key: key);
 
   final ProductResponse product;
 
-
-
   @override
   Widget build(BuildContext context) {
     final productService = Provider.of<ProductService>(context, listen: false);
+    final favBloc = BlocProvider.of<FavBloc>(context); // Retrieve the FavBloc instance
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: InkWell(
@@ -87,30 +90,32 @@ class ProductCard extends StatelessWidget {
                           Text(
                             '${product.price?.toStringAsFixed(product.price?.truncateToDouble() == product.price ? 0 : 2)} €',
                             style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 51, 124, 183),
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(1.0, 1.0),
-                                    blurRadius: 2.0,
-                                    color: Color.fromARGB(200, 0, 0, 0),
-                                  )
-                                ]),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 51, 124, 183),
+                              shadows: [
+                                Shadow(
+                                  offset: Offset(1.0, 1.0),
+                                  blurRadius: 2.0,
+                                  color: Color.fromARGB(200, 0, 0, 0),
+                                )
+                              ],
+                            ),
                           ),
                           SizedBox(height: 10),
                           Text(
                             '${product.state}',
                             style: TextStyle(
-                                fontSize: 18,
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(1.0, 1.0),
-                                    blurRadius: 2.0,
-                                    color: Color.fromARGB(200, 0, 0, 0),
-                                  )
-                                ]),
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              shadows: [
+                                Shadow(
+                                  offset: Offset(1.0, 1.0),
+                                  blurRadius: 2.0,
+                                  color: Color.fromARGB(200, 0, 0, 0),
+                                )
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -129,13 +134,24 @@ class ProductCard extends StatelessWidget {
             Positioned(
               right: 10,
               top: 10,
-              child: IconButton(
-                icon: Icon(
-                  Icons.favorite_border,
-                  color: Colors.red,
-                ),
-                onPressed: () async {
-                   await productService.addToFavorites(product.id);
+              child: BlocBuilder<FavBloc, FavState>(
+                bloc: favBloc, // Use the same FavBloc instance
+                builder: (context, state) {
+                  return IconButton(
+                    icon: Icon(
+                      state is FavAddedState ? Icons.favorite : Icons.favorite_border,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {
+                      if (state is FavAddedState) {
+                        favBloc.add(RemoveFromFavoritesEvent(product.id)); 
+                        productService.removeFromFavorites(product.id);
+                      } else {
+                        favBloc.add(AddToFavoritesEvent(product.id)); 
+                        productService.addToFavorites(product.id);
+                      }
+                    },
+                  );
                 },
               ),
             ),

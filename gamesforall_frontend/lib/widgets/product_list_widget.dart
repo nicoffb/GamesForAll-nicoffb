@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gamesforall_frontend/widgets/product_card_widget.dart';
 
 import '../blocs/productList/product_bloc.dart';
+import '../blocs/favorite/favorite_bloc.dart'; // Importa el FavBloc
 
 class ProductList extends StatefulWidget {
-  const ProductList({super.key});
+  const ProductList({Key? key}) : super(key: key);
 
   @override
   State<ProductList> createState() => _ProductListState();
@@ -14,77 +15,70 @@ class ProductList extends StatefulWidget {
 class _ProductListState extends State<ProductList> {
   final scrollController = ScrollController();
 
-  //* Metodos de estado
   @override
   void initState() {
     super.initState();
-
     scrollController.addListener(_onScroll);
   }
 
   @override
   void dispose() {
-    scrollController
-      ..removeListener(_onScroll)
-      ..dispose();
+    scrollController.removeListener(_onScroll);
+    scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
-      switch (state.status) {
-        //! Estado de fallo
-        case ProductStatus.failure:
-          return const Center(
-            child: const Text('Failed to get products'),
-          );
-
-        //! Estado de exito
-        case ProductStatus.success:
-          if (state.products.isEmpty) {
-            return const Center(
-              child: Text('There is no products'),
-            );
-          }
-          return GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing:
-                  16.0, // agrega un espacio vertical entre las tarjetas
-              crossAxisSpacing:
-                  16.0, // agrega un espacio horizontal entre las tarjetas
-              childAspectRatio: 1.3, // ajusta el tamaño de las tarjetas
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Expanded(
-                      // Agregamos Expanded aquí
-                      child: ProductCard(product: state.products[index]),
-                    ),
-                  ],
-                ),
+    return BlocProvider(
+      create: (context) => FavBloc(), // Crea e instancia el FavBloc
+      child: BlocBuilder<ProductBloc, ProductState>(
+        builder: (context, state) {
+          switch (state.status) {
+            case ProductStatus.failure:
+              return const Center(
+                child: Text('Failed to get products'),
               );
-            },
-            itemCount: state.hasReachedMax
-                ? state.products.length
-                : state.products.length + 1,
-            controller: scrollController,
-          );
-
-        //! Estado inicial
-        case ProductStatus.initial:
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-      }
-    });
+            case ProductStatus.success:
+              if (state.products.isEmpty) {
+                return const Center(
+                  child: Text('There are no products'),
+                );
+              }
+              return GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 16.0,
+                  crossAxisSpacing: 16.0,
+                  childAspectRatio: 1.3,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ProductCard(product: state.products[index]),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                itemCount: state.hasReachedMax
+                    ? state.products.length
+                    : state.products.length + 1,
+                controller: scrollController,
+              );
+            case ProductStatus.initial:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+          }
+        },
+      ),
+    );
   }
 
-  //* Otros metodos
   void _onScroll() {
     if (_isBottom) context.read<ProductBloc>().add(GetProductsEvent());
   }
