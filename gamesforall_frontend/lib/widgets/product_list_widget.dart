@@ -28,54 +28,51 @@ class _ProductListState extends State<ProductList> {
     super.dispose();
   }
 
-  @override
+   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => FavBloc(), // Crea e instancia el FavBloc
-      child: BlocBuilder<ProductBloc, ProductState>(
-        builder: (context, state) {
-          switch (state.status) {
-            case ProductStatus.failure:
+    return BlocBuilder<ProductBloc, ProductState>(
+      builder: (context, state) {
+        switch (state.status) {
+          case ProductStatus.failure:
+            return const Center(
+              child: Text('Failed to get products'),
+            );
+          case ProductStatus.success:
+            if (state.products.isEmpty) {
               return const Center(
-                child: Text('Failed to get products'),
+                child: Text('There are no products'),
               );
-            case ProductStatus.success:
-              if (state.products.isEmpty) {
-                return const Center(
-                  child: Text('There are no products'),
+            }
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 16.0,
+                crossAxisSpacing: 16.0,
+                childAspectRatio: 1.3,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ProductCard(product: state.products[index]),
+                      ),
+                    ],
+                  ),
                 );
-              }
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16.0,
-                  crossAxisSpacing: 16.0,
-                  childAspectRatio: 1.3,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: ProductCard(product: state.products[index]),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                itemCount: state.hasReachedMax
-                    ? state.products.length
-                    : state.products.length + 1,
-                controller: scrollController,
-              );
-            case ProductStatus.initial:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-          }
-        },
-      ),
+              },
+              itemCount: state.hasReachedMax
+                  ? state.products.length
+                  : state.products.length + 1,
+              controller: scrollController,
+            );
+          case ProductStatus.initial:
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+        }
+      },
     );
   }
 

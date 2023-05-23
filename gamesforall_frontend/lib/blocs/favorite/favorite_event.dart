@@ -1,14 +1,16 @@
 part of 'favorite_bloc.dart';
 
-abstract class FavEvent {}
+abstract class FavoriteEvent {}
 
-class AddToFavoritesEvent extends FavEvent {
+class FetchFavoritesEvent extends FavoriteEvent {}
+
+class AddToFavoritesEvent extends FavoriteEvent {
   final int productId;
 
   AddToFavoritesEvent(this.productId);
 }
 
-class RemoveFromFavoritesEvent extends FavEvent {
+class RemoveFromFavoritesEvent extends FavoriteEvent {
   final int productId;
 
   RemoveFromFavoritesEvent(this.productId);

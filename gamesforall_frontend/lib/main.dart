@@ -24,8 +24,11 @@ void main() {
           return AuthenticationBloc(authService)..add(AppLoaded());
         },
       ),
-      BlocProvider<FavBloc>(
-        create: (context) => FavBloc(),
+       BlocProvider<FavoriteBloc>(
+        create: (context) {
+          final productService = getIt<ProductService>();
+          return FavoriteBloc(productService: productService);
+        },
       ),
       Provider<ProductService>(
         create: (context) => getIt<ProductService>(),

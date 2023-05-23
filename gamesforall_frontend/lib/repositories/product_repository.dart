@@ -79,5 +79,16 @@ class ProductRepository {
     var jsonResponse = await server.delete(url);
   }
 
+  Future<ProductDetailsResponse> getUserFavorites() async {
+    String urlString = '/product/$id';
+
+    var jsonResponse = await server.get(urlString);
+    ProductDetailsResponse product =
+        ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
+
+    return product;
+  }
+
+
 
 }

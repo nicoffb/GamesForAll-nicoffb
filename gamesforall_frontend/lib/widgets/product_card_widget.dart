@@ -15,7 +15,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productService = Provider.of<ProductService>(context, listen: false);
-    final favBloc = BlocProvider.of<FavBloc>(context); // Retrieve the FavBloc instance
+    final favBloc = BlocProvider.of<FavoriteBloc>(context); // Retrieve the FavBloc instance
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -134,23 +134,31 @@ class ProductCard extends StatelessWidget {
             Positioned(
               right: 10,
               top: 10,
-              child: BlocBuilder<FavBloc, FavState>(
+              child: BlocBuilder<FavoriteBloc, FavoriteState>(
                 bloc: favBloc, // Use the same FavBloc instance
                 builder: (context, state) {
+                  if (state is FavoritesLoaded) {
+                    bool isFavorite = state.favoriteProducts.any((favoriteProduct) => favoriteProduct.id == product.id);
+
+                    return IconButton(
+                      icon: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        if (isFavorite) {
+                          favBloc.add(RemoveFromFavoritesEvent(product.id)); 
+                        } else {
+                          favBloc.add(AddToFavoritesEvent(product.id)); 
+                        }
+                      },
+                    );
+                  }
+
+                  // Retorna un botón vacío mientras los favoritos se están cargando o ha ocurrido un error
                   return IconButton(
-                    icon: Icon(
-                      state is FavAddedState ? Icons.favorite : Icons.favorite_border,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {
-                      if (state is FavAddedState) {
-                        favBloc.add(RemoveFromFavoritesEvent(product.id)); 
-                        productService.removeFromFavorites(product.id);
-                      } else {
-                        favBloc.add(AddToFavoritesEvent(product.id)); 
-                        productService.addToFavorites(product.id);
-                      }
-                    },
+                    icon: Icon(Icons.favorite_border, color: Colors.red),
+                    onPressed: null,
                   );
                 },
               ),

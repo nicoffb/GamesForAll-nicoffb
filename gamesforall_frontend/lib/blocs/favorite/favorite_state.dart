@@ -1,7 +1,17 @@
 part of 'favorite_bloc.dart';
 
-abstract class FavState {}
+abstract class FavoriteState {}
 
-class FavAddedState extends FavState {}
+class FavoriteLoading extends FavoriteState {}
 
-class FavRemovedState extends FavState {}
+class FavoritesLoaded extends FavoriteState {
+  final List<Product> favoriteProducts;
+
+  FavoritesLoaded(this.favoriteProducts);
+}
+
+class FavoriteError extends FavoriteState {
+  final String message;
+
+  FavoriteError(this.message);
+}
