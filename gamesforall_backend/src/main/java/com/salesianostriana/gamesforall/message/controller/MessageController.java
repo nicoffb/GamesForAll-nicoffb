@@ -2,7 +2,7 @@ package com.salesianostriana.gamesforall.message.controller;
 
 
 import com.salesianostriana.gamesforall.message.model.Message;
-import com.salesianostriana.gamesforall.message.model.MessagePK;
+
 import com.salesianostriana.gamesforall.message.service.MessageService;
 import com.salesianostriana.gamesforall.product.dto.PageDto;
 
@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -55,11 +56,14 @@ public class MessageController {
                     content = @Content)
     })
     @GetMapping("/{userId}")
-    public PageDto<MessageDTO> getByCriteria(@PathVariable UUID userId, @PageableDefault(size = 3, page = 0) Pageable pageable) {
+    public List<MessageDTO> getByCriteria(@PathVariable UUID userId) {
 
-        Page<MessageDTO> messageList = messageService.findMessagesById(userId,pageable).map(m-> MessageDTO.of(m));
+        List<MessageDTO> messageList = messageService.findMessagesById(userId)
+                .stream()
+                .map(MessageDTO::of)
+                .toList();
 
-        return new PageDto<>(messageList);
+        return (messageList);
 
     }
 
@@ -80,12 +84,10 @@ public class MessageController {
                     content = @Content)
     })
     @PostMapping("/{targetUser}")
-    public ResponseEntity<MessageDTO> createValoration (@RequestBody MessageRequestDTO created, @AuthenticationPrincipal User user, @PathVariable UUID targetUser){
+    public ResponseEntity<MessageDTO> createMessage (@RequestBody MessageRequestDTO created, @AuthenticationPrincipal User user, @PathVariable UUID targetUser){
 
         Message message = created.toMessage(created);
 
-        MessagePK pk = new MessagePK(user.getId(),targetUser);
-        message.setPK(pk);
 
         message.setEmisorUser(user);
         message.setReceptorUser(userService.findById(targetUser));

@@ -19,13 +19,10 @@ import java.util.Set;
 public class Platform {
 
     @Id
-    @GeneratedValue
+   // @GeneratedValue
     private Long id;
 
     private String platformName;
 
-//    @Builder.Default
-//    @OneToMany(mappedBy = "platform", fetch = FetchType.LAZY) //borrado?
-//    private List<Product> productos = new ArrayList<>();
 
 }

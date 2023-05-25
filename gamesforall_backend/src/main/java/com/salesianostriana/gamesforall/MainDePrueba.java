@@ -16,7 +16,6 @@ import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.model.UserRole;
 import com.salesianostriana.gamesforall.user.repo.UserRepository;
 import com.salesianostriana.gamesforall.message.model.Message;
-import com.salesianostriana.gamesforall.message.model.MessagePK;
 import com.salesianostriana.gamesforall.message.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -93,7 +92,6 @@ public class MainDePrueba {
 
 
         Message message1 = Message.builder()
-                .id(new MessagePK(user1.getId(),user2.getId()))
                 .comment("Estoy interesado en tu juego")
                 .message_date(LocalDateTime.of(2023,12,12,12,12))
                 .emisor(user1)
@@ -101,14 +99,27 @@ public class MainDePrueba {
                 .build();
 
         Message message2 = Message.builder()
-                .id(new MessagePK(user2.getId(),user1.getId()))
                 .comment("¿Cuanto estas dispuesto a pagar?")
                 .message_date(LocalDateTime.of(2023,11,11,11,11))
                 .emisor(user2)
                 .receptor(user1)
                 .build();
 
-        messageRepository.saveAll(List.of(message1,message2));
+        Message message3 = Message.builder()
+                .comment("5 euros menos")
+                .message_date(LocalDateTime.of(2024,12,12,12,12))
+                .emisor(user1)
+                .receptor(user2)
+                .build();
+
+        Message message4 = Message.builder()
+                .comment("Por 5 euros desayuno como un rey, lo siento pero no me interesa vendertelo.")
+                .message_date(LocalDateTime.of(2024,12,12,12,11))
+                .emisor(user3)
+                .receptor(user1)
+                .build();
+
+        messageRepository.saveAll(List.of(message1,message2,message3,message4));
 
         Platform platform1 = new Platform(1L,"PS5");
         Platform platform2 = new Platform(2L,"XBOX");

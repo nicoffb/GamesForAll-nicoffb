@@ -18,22 +18,20 @@ import java.time.LocalDateTime;
 @Builder
 public class Message {
 
-    @EmbeddedId
-    @Builder.Default
-    private MessagePK id = new MessagePK();
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private String comment;
 
     private LocalDateTime message_date;
 
     @ManyToOne(fetch = FetchType.LAZY)//eager
-    @MapsId("emisor_id")
-    @JoinColumn(name = "emisor", foreignKey = @ForeignKey(name = "FK_MESSAGE_EMISOR"),columnDefinition = "uuid")
+    @JoinColumn(name = "emisor_id", foreignKey = @ForeignKey(name = "FK_MESSAGE_EMISOR"),columnDefinition = "uuid")
     private User emisor;
 
     @ManyToOne(fetch = FetchType.LAZY)//eager
-    @MapsId("receptor_id")
-    @JoinColumn(name = "receptor", foreignKey = @ForeignKey(name = "FK_MESSAGE_RECEPTOR"),columnDefinition = "uuid")
+    @JoinColumn(name = "receptor_id", foreignKey = @ForeignKey(name = "FK_MESSAGE_RECEPTOR"),columnDefinition = "uuid")
     private User receptor;
 
 
@@ -43,10 +41,6 @@ public class Message {
 
     public void setReceptorUser(User receptorUser) {
         this.receptor = receptorUser;
-    }
-
-    public void setPK(MessagePK messagePK){
-        this.id = messagePK;
     }
 
 }
