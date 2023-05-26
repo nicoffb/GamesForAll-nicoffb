@@ -11,13 +11,16 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:gamesforall_frontend/repositories/authentication_repository.dart'
     as _i4;
-import 'package:gamesforall_frontend/repositories/product_repository.dart'
+import 'package:gamesforall_frontend/repositories/message_repository.dart'
     as _i6;
+import 'package:gamesforall_frontend/repositories/product_repository.dart'
+    as _i7;
 import 'package:gamesforall_frontend/repositories/user_repository.dart' as _i5;
 import 'package:gamesforall_frontend/rest/rest_client.dart' as _i3;
 import 'package:gamesforall_frontend/services/authentication_service.dart'
-    as _i7;
-import 'package:gamesforall_frontend/services/product_service.dart' as _i8;
+    as _i8;
+import 'package:gamesforall_frontend/services/message_service.dart' as _i9;
+import 'package:gamesforall_frontend/services/product_service.dart' as _i10;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
@@ -36,9 +39,11 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i3.RestClient>(_i3.RestClient());
     gh.singleton<_i4.AuthenticationRepository>(_i4.AuthenticationRepository());
     gh.singleton<_i5.UserRepository>(_i5.UserRepository());
-    gh.singleton<_i6.ProductRepository>(_i6.ProductRepository());
-    gh.singleton<_i7.JwtAuthenticationService>(_i7.JwtAuthenticationService());
-    gh.singleton<_i8.ProductService>(_i8.ProductService());
+    gh.singleton<_i6.MessageRepository>(_i6.MessageRepository());
+    gh.singleton<_i7.ProductRepository>(_i7.ProductRepository());
+    gh.singleton<_i8.JwtAuthenticationService>(_i8.JwtAuthenticationService());
+    gh.singleton<_i9.MessageService>(_i9.MessageService());
+    gh.singleton<_i10.ProductService>(_i10.ProductService());
     return this;
   }
 }

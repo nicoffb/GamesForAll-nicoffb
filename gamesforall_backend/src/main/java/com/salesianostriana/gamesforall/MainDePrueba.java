@@ -1,5 +1,8 @@
 package com.salesianostriana.gamesforall;
 
+import com.salesianostriana.gamesforall.chat.model.Chat;
+import com.salesianostriana.gamesforall.chat.model.ChatPK;
+import com.salesianostriana.gamesforall.chat.repository.ChatRepository;
 import com.salesianostriana.gamesforall.product.model.Category;
 import com.salesianostriana.gamesforall.product.model.Platform;
 import com.salesianostriana.gamesforall.product.model.StateEnum;
@@ -42,6 +45,7 @@ public class MainDePrueba {
     private final CategoryRepository categoryRepository;
     private final ShippingRepository shippingRepository;
     private final TradeRepository tradeRepository;
+    private final ChatRepository chatRepository;
 
     @PostConstruct
     public void run() {
@@ -93,29 +97,29 @@ public class MainDePrueba {
 
         Message message1 = Message.builder()
                 .comment("Estoy interesado en tu juego")
-                .message_date(LocalDateTime.of(2023,12,12,12,12))
+                .message_date(LocalDateTime.of(2023,06,06,12,00))
                 .emisor(user1)
                 .receptor(user2)
                 .build();
 
         Message message2 = Message.builder()
                 .comment("¿Cuanto estas dispuesto a pagar?")
-                .message_date(LocalDateTime.of(2023,11,11,11,11))
+                .message_date(LocalDateTime.of(2023,06,06,12,05))
                 .emisor(user2)
                 .receptor(user1)
                 .build();
 
         Message message3 = Message.builder()
                 .comment("5 euros menos")
-                .message_date(LocalDateTime.of(2024,12,12,12,12))
+                .message_date(LocalDateTime.of(2023,06,06,12,15))
                 .emisor(user1)
                 .receptor(user2)
                 .build();
 
         Message message4 = Message.builder()
                 .comment("Por 5 euros desayuno como un rey, lo siento pero no me interesa vendertelo.")
-                .message_date(LocalDateTime.of(2024,12,12,12,11))
-                .emisor(user3)
+                .message_date(LocalDateTime.of(2023,06,06,12,45))
+                .emisor(user2)
                 .receptor(user1)
                 .build();
 
@@ -315,11 +319,11 @@ public class MainDePrueba {
 
         tradeRepository.saveAll(List.of(trade1,trade2,trade3));
 
-        //Puntuacion del vendedor
-       // product1.getUser().getTrades().get().getScore();
-
-        product1.getUser().getAddress();
-
+//        Chat chat = Chat.builder()
+//                .id(new ChatPK(user1.getId(),user2.getId()))
+//                .messages(List.of(message1,message2,message3,message4))
+//                .build();
+//        chatRepository.save(chat);
 
     }
 }

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gamesforall_frontend/pages/conversation_page.dart';
 
+import '../models/message_response.dart';
 import '../models/product_detail_response.dart';
 import '../repositories/product_repository.dart';
+import '../services/message_service.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   final int productId;
+  final MessageService messageService = MessageService();
 
-  const ProductDetailsPage({Key? key, required this.productId})
-      : super(key: key);
+  ProductDetailsPage({Key? key, required this.productId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +50,11 @@ class ProductDetailsPage extends StatelessWidget {
                     'ID del producto: $productId',
                     style: TextStyle(fontSize: 10),
                   ),
-
                   SizedBox(height: 8),
                   Text(
                     'Avatar: ${product.user?.avatar}',
                     style: TextStyle(fontSize: 16),
                   ),
-
                   SizedBox(height: 8),
                   Text(
                     'Nombre del usuario: ${product.user?.username}',
@@ -64,7 +65,6 @@ class ProductDetailsPage extends StatelessWidget {
                     'Media del usuario: ${product.user?.userScore}',
                     style: TextStyle(fontSize: 16),
                   ),
-
                   SizedBox(height: 16),
                   Text(
                     'Nombre: ${product.title}',
@@ -96,11 +96,6 @@ class ProductDetailsPage extends StatelessWidget {
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 8),
-
-                  // Text(
-                  //   'Categoría: ${product.categories.}',
-                  //   style: TextStyle(fontSize: 16),
-                  // ),
                   const SizedBox(height: 8),
                   Text(
                     'Dirección: ${product.user?.address}',
@@ -124,6 +119,22 @@ class ProductDetailsPage extends StatelessWidget {
                           return Chip(label: Text(genre ?? ''));
                         }).toList() ??
                         [],
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      if (product.user != null) {
+                        List<MessageResponse> messages = await messageService
+                            .getMessagesWithUser(product.user!.id!);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ConversationPage(messages: messages),
+                          ),
+                        );
+                      }
+                    },
+                    child: Text('Iniciar conversación'),
                   ),
                 ],
               ),

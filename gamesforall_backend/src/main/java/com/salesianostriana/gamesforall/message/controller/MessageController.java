@@ -55,10 +55,23 @@ public class MessageController {
                     description = "La búsqueda es incorrecta",
                     content = @Content)
     })
-    @GetMapping("/{userId}")
-    public List<MessageDTO> getByCriteria(@PathVariable UUID userId) {
+    @GetMapping("/search/{userId}")
+    public List<MessageDTO> getMessagesById(@PathVariable UUID userId) {
 
         List<MessageDTO> messageList = messageService.findMessagesById(userId)
+                .stream()
+                .map(MessageDTO::of)
+                .toList();
+
+        return (messageList);
+
+    }
+
+    //CONVERSACIOOOOOOOOOOOOOOOOOOOOOOOOOOON
+    @GetMapping("/{userId}")
+    public List<MessageDTO> getMessagesConversation( @AuthenticationPrincipal User loggedUser ,@PathVariable UUID userId) {
+
+        List<MessageDTO> messageList = messageService.findChatMessages(loggedUser.getId(),userId)
                 .stream()
                 .map(MessageDTO::of)
                 .toList();

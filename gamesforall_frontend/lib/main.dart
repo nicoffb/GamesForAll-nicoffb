@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gamesforall_frontend/services/message_service.dart';
 import 'package:provider/provider.dart';
 import 'package:gamesforall_frontend/pages/login_page.dart';
 import 'package:gamesforall_frontend/pages/main_page.dart';
@@ -12,6 +13,7 @@ import 'blocs/authentication/authentication_event.dart';
 import 'blocs/authentication/authentication_state.dart';
 import 'blocs/favorite/favorite_bloc.dart';
 import 'config/locator.dart';
+
 void main() {
   setupAsyncDependencies();
   configureDependencies();
@@ -24,7 +26,7 @@ void main() {
           return AuthenticationBloc(authService)..add(AppLoaded());
         },
       ),
-       BlocProvider<FavoriteBloc>(
+      BlocProvider<FavoriteBloc>(
         create: (context) {
           final productService = getIt<ProductService>();
           return FavoriteBloc(productService: productService);
@@ -32,6 +34,9 @@ void main() {
       ),
       Provider<ProductService>(
         create: (context) => getIt<ProductService>(),
+      ),
+      Provider<MessageService>(
+        create: (context) => getIt<MessageService>(),
       ),
     ],
     child: MyApp(),
@@ -79,4 +84,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

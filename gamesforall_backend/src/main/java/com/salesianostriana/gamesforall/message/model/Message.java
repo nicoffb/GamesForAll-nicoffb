@@ -1,6 +1,7 @@
 package com.salesianostriana.gamesforall.message.model;
 
 
+import com.salesianostriana.gamesforall.chat.model.Chat;
 import com.salesianostriana.gamesforall.user.model.User;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

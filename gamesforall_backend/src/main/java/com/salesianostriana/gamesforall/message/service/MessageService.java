@@ -36,5 +36,11 @@ public class MessageService {
        return repository.findMessagesById(userId);
      }
 
+    public List<Message> findChatMessages (UUID user1Id , UUID user2Id){
+        return repository.findChatMessages(user1Id,user2Id);
+    }
+
+
+
 
 }
