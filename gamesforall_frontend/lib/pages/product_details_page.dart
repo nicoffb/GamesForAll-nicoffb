@@ -128,8 +128,11 @@ class ProductDetailsPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                ConversationPage(messages: messages),
+                            builder: (context) => ConversationPage(
+                              messages: messages,
+                              targetUser: product.user!
+                                  .id!, //PASAMOS EL ID DEL USUARIO DESTINO
+                            ),
                           ),
                         );
                       }

@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:gamesforall_frontend/blocs/productList/product_bloc.dart';
+import 'package:gamesforall_frontend/models/message_request.dart';
 import 'package:gamesforall_frontend/models/message_response.dart';
 import 'package:gamesforall_frontend/models/product_request.dart';
 import 'package:get_it/get_it.dart';
@@ -37,13 +38,25 @@ class MessageRepository {
   // }
 
   Future<List<MessageResponse>> getMessagesWithUser(String userId) async {
-    String urlString = '/messages/$userId';
+    String url = '/messages/$userId';
 
-    var jsonResponse = await server.get(urlString);
+    var jsonResponse = await server.get(url);
     List<dynamic> jsonList = jsonDecode(jsonResponse);
     List<MessageResponse> messages =
         jsonList.map((item) => MessageResponse.fromJson(item)).toList();
 
     return messages;
+  }
+
+  Future<MessageResponse> addMessage(
+      MessageRequest messageRequest, String userId) async {
+    String url = '/messages/$userId';
+
+    final body = messageRequest.toJson();
+
+    final response = await server.post(url, body);
+
+    final responseData = jsonDecode(response);
+    return MessageResponse.fromJson(responseData);
   }
 }

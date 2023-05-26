@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gamesforall_frontend/models/message_request.dart';
+import 'package:gamesforall_frontend/services/message_service.dart';
 
+import '../blocs/message/message_bloc.dart';
 import '../models/message_response.dart';
 
 class ConversationPage extends StatefulWidget {
   final List<MessageResponse> messages;
+  final MessageService messageService = MessageService();
+  final String targetUser;
 
-  ConversationPage({required this.messages});
+  ConversationPage({required this.messages, required this.targetUser});
 
   @override
   _ConversationPageState createState() => _ConversationPageState();
@@ -95,7 +101,23 @@ class _ConversationPageState extends State<ConversationPage> {
                   icon: Icon(Icons.send),
                   onPressed: () {
                     String messageText = _textEditingController.text;
-                    // Enviar el mensaje
+                    MessageRequest messageRequest =
+                        MessageRequest(comment: messageText);
+                    widget.messageService
+                        .addMessage(messageRequest, widget.targetUser)
+                        .then((messageResponse) {
+                      // Aquí puedes realizar acciones adicionales con la respuesta del servicio
+                      print('Mensaje enviado con éxito');
+                      setState(() {
+                        // Añadir el nuevo mensaje a la lista
+                        widget.messages.add(messageResponse);
+                        BlocProvider.of<MessageBloc>(context)
+                            .add(LoadMessages());
+                      });
+                    }).catchError((error) {
+                      print('Error al enviar el mensaje: $error');
+                    });
+
                     _textEditingController.clear();
                   },
                 ),
