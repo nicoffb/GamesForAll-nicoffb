@@ -9,39 +9,45 @@ part 'message_event.dart';
 part 'message_state.dart';
 
 class MessageBloc extends Bloc<MessageEvent, MessageState> {
-  final List<MessageResponse> messages;
-  final MessageService messageService = MessageService();
-  final String targetUser;
+  final MessageService messageService;
 
-  MessageBloc({required this.messages, required this.targetUser})
-      : super(MessageInitial());
+  MessageBloc({required this.messageService}) : super(MessageLoaded([])) {
+    on<LoadMessages>(_mapLoadMessagesToState);
+    on<AddMessage>(_mapAddMessageToState);
+  }
 
-  @override
-  Stream<MessageState> mapEventToState(
-    MessageEvent event,
-  ) async* {
-    if (event is LoadMessages) {
-      yield MessageLoading();
+  Future<void> _mapLoadMessagesToState(
+    LoadMessages event,
+    Emitter<MessageState> emit,
+  ) async {
+    emit(MessageLoading());
+    try {
+      List<MessageResponse> loadedMessages = event.messages;
+      emit(MessageLoaded(loadedMessages));
+    } catch (e) {
+      emit(MessageError());
+    }
+  }
 
-      try {
-        List<MessageResponse> loadedMessages =
-            await messageService.getMessagesWithUser(targetUser);
-        yield MessageLoaded(loadedMessages);
-      } catch (e) {
-        yield MessageInitial();
-      }
-    } else if (event is AddMessage) {
-      yield MessageLoading();
-
+  Future<void> _mapAddMessageToState(
+    AddMessage event,
+    Emitter<MessageState> emit,
+  ) async {
+    if (state is MessageLoaded) {
       try {
         MessageRequest messageRequest =
             MessageRequest(comment: event.messageText);
-        MessageResponse messageResponse =
-            await messageService.addMessage(messageRequest, targetUser);
-        List<MessageResponse> updatedMessages = [...messages, messageResponse];
-        yield MessageLoaded(updatedMessages);
+        await messageService.addMessage(
+          messageRequest,
+          event.targetUser,
+        );
+
+        List<MessageResponse> updatedMessages =
+            await messageService.getMessagesWithUser(event.targetUser);
+
+        emit(MessageLoaded(updatedMessages));
       } catch (e) {
-        yield MessageInitial();
+        emit(MessageError());
       }
     }
   }

@@ -7,8 +7,6 @@ abstract class MessageState extends Equatable {
   List<Object> get props => [];
 }
 
-class MessageInitial extends MessageState {}
-
 class MessageLoading extends MessageState {}
 
 class MessageLoaded extends MessageState {
@@ -19,3 +17,5 @@ class MessageLoaded extends MessageState {
   @override
   List<Object> get props => [messages];
 }
+
+class MessageError extends MessageState {}

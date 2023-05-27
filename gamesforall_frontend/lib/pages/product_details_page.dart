@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gamesforall_frontend/blocs/message/message_bloc.dart';
 import 'package:gamesforall_frontend/pages/conversation_page.dart';
 
 import '../models/message_response.dart';
@@ -123,15 +125,14 @@ class ProductDetailsPage extends StatelessWidget {
                   TextButton(
                     onPressed: () async {
                       if (product.user != null) {
-                        List<MessageResponse> messages = await messageService
+                        final messages = await messageService
                             .getMessagesWithUser(product.user!.id!);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ConversationPage(
+                              targetUser: product.user!.id!,
                               messages: messages,
-                              targetUser: product.user!
-                                  .id!, //PASAMOS EL ID DEL USUARIO DESTINO
                             ),
                           ),
                         );

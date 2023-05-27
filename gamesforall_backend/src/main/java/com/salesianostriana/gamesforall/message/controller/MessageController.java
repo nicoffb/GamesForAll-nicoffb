@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -104,6 +105,8 @@ public class MessageController {
 
         message.setEmisorUser(user);
         message.setReceptorUser(userService.findById(targetUser));
+
+        message.setMessage_date(LocalDateTime.now());
 
         Message saved = messageService.add(message);
 

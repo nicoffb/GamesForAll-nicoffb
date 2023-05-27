@@ -54,7 +54,7 @@ class JwtAuthenticationService extends AuthenticationService {
   Future<User> signInWithEmailAndPassword(String email, String password) async {
     LoginResponse response =
         await _authenticationRepository.doLogin(email, password);
-    //await _localStorageService.saveToDisk('user', jsonEncode(response.toJson()));
+    await _localStorageService.saveToDisk('user_name', response.username);
     await _localStorageService.saveToDisk('user_token', response.token);
     return User.fromLoginResponse(response);
   }

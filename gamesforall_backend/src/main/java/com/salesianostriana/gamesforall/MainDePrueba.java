@@ -1,8 +1,6 @@
 package com.salesianostriana.gamesforall;
 
-import com.salesianostriana.gamesforall.chat.model.Chat;
-import com.salesianostriana.gamesforall.chat.model.ChatPK;
-import com.salesianostriana.gamesforall.chat.repository.ChatRepository;
+
 import com.salesianostriana.gamesforall.product.model.Category;
 import com.salesianostriana.gamesforall.product.model.Platform;
 import com.salesianostriana.gamesforall.product.model.StateEnum;
@@ -45,7 +43,7 @@ public class MainDePrueba {
     private final CategoryRepository categoryRepository;
     private final ShippingRepository shippingRepository;
     private final TradeRepository tradeRepository;
-    private final ChatRepository chatRepository;
+
 
     @PostConstruct
     public void run() {
@@ -97,28 +95,28 @@ public class MainDePrueba {
 
         Message message1 = Message.builder()
                 .comment("Estoy interesado en tu juego")
-                .message_date(LocalDateTime.of(2023,06,06,12,00))
+                .message_date(LocalDateTime.of(2023,05,06,12,00))
                 .emisor(user1)
                 .receptor(user2)
                 .build();
 
         Message message2 = Message.builder()
                 .comment("¿Cuanto estas dispuesto a pagar?")
-                .message_date(LocalDateTime.of(2023,06,06,12,05))
+                .message_date(LocalDateTime.of(2023,05,06,12,05))
                 .emisor(user2)
                 .receptor(user1)
                 .build();
 
         Message message3 = Message.builder()
                 .comment("5 euros menos")
-                .message_date(LocalDateTime.of(2023,06,06,12,15))
+                .message_date(LocalDateTime.of(2023,05,06,12,15))
                 .emisor(user1)
                 .receptor(user2)
                 .build();
 
         Message message4 = Message.builder()
                 .comment("Por 5 euros desayuno como un rey, lo siento pero no me interesa vendertelo.")
-                .message_date(LocalDateTime.of(2023,06,06,12,45))
+                .message_date(LocalDateTime.of(2023,05,06,12,45))
                 .emisor(user2)
                 .receptor(user1)
                 .build();

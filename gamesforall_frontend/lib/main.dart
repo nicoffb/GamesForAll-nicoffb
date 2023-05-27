@@ -12,6 +12,7 @@ import 'blocs/authentication/authentication_bloc.dart';
 import 'blocs/authentication/authentication_event.dart';
 import 'blocs/authentication/authentication_state.dart';
 import 'blocs/favorite/favorite_bloc.dart';
+import 'blocs/message/message_bloc.dart';
 import 'config/locator.dart';
 
 void main() {
@@ -30,6 +31,12 @@ void main() {
         create: (context) {
           final productService = getIt<ProductService>();
           return FavoriteBloc(productService: productService);
+        },
+      ),
+      BlocProvider<MessageBloc>(
+        create: (context) {
+          final messageService = getIt<MessageService>();
+          return MessageBloc(messageService: messageService);
         },
       ),
       Provider<ProductService>(

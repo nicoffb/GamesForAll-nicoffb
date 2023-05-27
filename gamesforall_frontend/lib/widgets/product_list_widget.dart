@@ -28,7 +28,7 @@ class _ProductListState extends State<ProductList> {
     super.dispose();
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
