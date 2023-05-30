@@ -89,9 +89,12 @@ public class ProductService {
                     product.setTitle(productRequestDTO.getTitle());
                     product.setPrice(productRequestDTO.getPrice());
 
-                    if (productRequestDTO != null) {
-                        product.setShipping_available(productRequestDTO.is_shipping_available());
+                    if (productRequestDTO.getDescription() != null) {
+                        product.setDescription(productRequestDTO.getDescription());
                     }
+                    product.setShipping_available(productRequestDTO.is_shipping_available());
+
+                    ////
                     if (productRequestDTO.getState() != null) {
                         product.setState(StateEnum.fromString(productRequestDTO.getState()));
                     }

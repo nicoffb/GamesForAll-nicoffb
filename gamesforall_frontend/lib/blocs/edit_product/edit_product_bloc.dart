@@ -15,34 +15,46 @@ import 'package:gamesforall_frontend/services/product_service.dart';
 import '../../models/product_request.dart';
 
 class EditProductBloc extends FormBloc<String, String> {
-  late ProductService productService;
+  final ProductService productService = ProductService();
 
-  final int productId;
+  final ProductDetailsResponse product;
 
-  TextFieldBloc title = TextFieldBloc(
-    initialValue: '',
-    validators: [FieldBlocValidators.required],
-  );
+  TextFieldBloc title;
+  TextFieldBloc price;
+  TextFieldBloc description;
+  SelectFieldBloc<String, dynamic> producState;  // Nuevo campo
+  BooleanFieldBloc isShippingAvailable;
 
-  TextFieldBloc price = TextFieldBloc(
-    initialValue: '',
-    validators: [FieldBlocValidators.required],
-  );
-
-
-  EditProductBloc({required this.productId}) : super() {
-    productService = ProductService();
+  EditProductBloc({required this.product}) 
+    : title = TextFieldBloc(
+        initialValue: product.title!,
+        validators: [FieldBlocValidators.required],
+      ),
+      price = TextFieldBloc(
+        initialValue: product.price.toString(),
+        validators: [FieldBlocValidators.required],
+      ),
+      description = TextFieldBloc( // Inicialización del nuevo campo
+        initialValue: product.description!,
+      ),
+      producState = SelectFieldBloc( // Inicialización del nuevo campo
+        initialValue: product.state,
+        validators: [FieldBlocValidators.required],
+        items: ['Sin Abrir', 'Como nuevo', 'Usado'],
+      ),
+      isShippingAvailable = BooleanFieldBloc(
+    initialValue: product.shippingAvailable?? false,
+),
+      super() {
     addFieldBlocs(
       fieldBlocs: [
         title,
         price,
+        description,  
+        producState, 
+        isShippingAvailable, 
       ],
     );
-
-    productService.getProductDetails(productId).then((product) {
-      title.updateInitialValue(product.title!);
-      price.updateInitialValue(product.price.toString());
-    });
   }
   
   @override
@@ -50,11 +62,18 @@ void onSubmitting() async {
     try {
       debugPrint(title.value);
       debugPrint(price.value);
+      debugPrint(description.value);
+      debugPrint(producState.value);
+      debugPrint(isShippingAvailable.value.toString());
+
       ProductDetailsResponse result = await productService.edit(
-          productId,
+          product.id!,
           ProductRequest(
             title: title.value,
             price: double.parse(price.value),
+            description: description.value,
+            state: producState.value,
+            shippingAvailable: isShippingAvailable.value,
           )
         );
       
@@ -74,14 +93,14 @@ void onSubmitting() async {
 
 class EditProductForm extends StatelessWidget {
 
-  final int productId;
+  final ProductDetailsResponse product;
 
-  EditProductForm({Key? key, required this.productId}) : super(key: key);
+  EditProductForm({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => EditProductBloc(productId: productId),
+        create: (context) => EditProductBloc(product: product),
       child: Builder(
         builder: (context) {
           final productFormBloc = context.read<EditProductBloc>();
@@ -100,7 +119,7 @@ class EditProductForm extends StatelessWidget {
                 LoadingDialog.hide(context);
 
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => SuccessScreen(productId: productId,)));
+                    MaterialPageRoute(builder: (_) => SuccessScreen(productId: product.id!,)));
               },
               onFailure: (context, state) {
                 LoadingDialog.hide(context);
@@ -132,6 +151,29 @@ class EditProductForm extends StatelessWidget {
                           prefixIcon: Icon(Icons.price_check_rounded),
                         ),
                       ),
+                      TextFieldBlocBuilder(  
+                textFieldBloc: productFormBloc.description,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,  
+                decoration: const InputDecoration(
+                  labelText: 'Descripción',
+                  prefixIcon: Icon(Icons.description),
+                ),
+                ),
+               DropdownFieldBlocBuilder<String>(  //ESTADOOOOS
+                selectFieldBloc: productFormBloc.producState,
+                decoration: const InputDecoration(
+                  labelText: 'Estado',
+                  prefixIcon: Icon(Icons.check_circle),
+                ),
+                 itemBuilder: (context, value) => FieldItem(
+                            child: Text(value),
+                          ),
+                        ),
+              CheckboxFieldBlocBuilder(  // Nuevo campo
+                booleanFieldBloc: productFormBloc.isShippingAvailable,
+                body: const Text('Disponible para envío'),
+              ),
                       ElevatedButton(
                         onPressed: productFormBloc.submit,
                         child: const Text('VENDER PRODUCTO'),

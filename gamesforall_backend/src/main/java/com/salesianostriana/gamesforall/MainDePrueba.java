@@ -175,6 +175,7 @@ public class MainDePrueba {
                 .image("the-last-of-us.jpg")
                 .price(10.00)
                 .publication_date(LocalDateTime.of(2023,2,14,18,30))
+                .shipping_available(true)
                 .categories(Set.of(category1))
                 .platform(platform4)
                 .state(StateEnum.ComoNuevo)

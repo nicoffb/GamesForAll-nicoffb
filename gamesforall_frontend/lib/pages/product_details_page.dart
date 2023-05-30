@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gamesforall_frontend/blocs/message/message_bloc.dart';
 import 'package:gamesforall_frontend/pages/conversation_page.dart';
 
+import '../blocs/edit_product/edit_product_bloc.dart';
 import '../models/message_response.dart';
 import '../models/product_detail_response.dart';
 import '../repositories/product_repository.dart';
@@ -95,7 +96,7 @@ class ProductDetailsPage extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Disponibilidad de envío: ${product.shippingAvailable! ? 'No disponible' : 'Disponible'}',
+                    'Disponibilidad de envío: ${product.shippingAvailable! ? 'Disponible' : 'No disponible'}',
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 8),
@@ -152,7 +153,7 @@ class ProductDetailsPage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EditProductPage(productId: productId),
+        builder: (context) => EditProductPage(product: snapshot.data!),
       ),
     );
   },
