@@ -25,12 +25,22 @@ class ProductService {
         .then((value) => localStorageService = value);
   }
 
+  Future<ProductDetailsResponse> getProductDetails(int productId) async {
+    return await _productRepository.getProductById(productId);
+  }
+
   Future<ProductDetailsResponse> add(
     ProductRequest productRequest,
     PlatformFile file,
   ) async {
     var token = await localStorageService.getFromDisk("user_token");
     return await _productRepository.addProduct(productRequest, file, token);
+  }
+
+    Future<ProductDetailsResponse> edit(int id,
+    ProductRequest productRequest,
+  ) async {
+    return await _productRepository.editProduct(id,productRequest);
   }
 
   Future<void> addToFavorites(int productId) async {

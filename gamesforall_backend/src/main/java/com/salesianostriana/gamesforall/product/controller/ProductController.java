@@ -159,7 +159,7 @@ public class ProductController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public BasicProductDTO editProduct(@PathVariable Long id, @RequestBody BasicProductDTO edited) {
+    public BasicProductDTO editProduct(@PathVariable Long id, @RequestBody ProductRequestDTO edited) {
         return productService.edit(id,edited);
     }
 

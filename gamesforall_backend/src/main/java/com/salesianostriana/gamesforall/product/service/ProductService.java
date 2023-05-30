@@ -7,6 +7,7 @@ import com.salesianostriana.gamesforall.files.service.StorageService;
 import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
 import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
 import com.salesianostriana.gamesforall.product.dto.PageDto;
+import com.salesianostriana.gamesforall.product.dto.ProductRequestDTO;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.model.StateEnum;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
@@ -27,6 +28,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -81,23 +83,34 @@ public class ProductService {
                 .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
-    public BasicProductDTO edit(Long id, BasicProductDTO editBasicProductDTO){
+    public BasicProductDTO edit(Long id, ProductRequestDTO productRequestDTO){
         return repository.findById(id)
                 .map(product -> {
-                    product.setTitle(editBasicProductDTO.getTitle());
-                    product.setDescription(editBasicProductDTO.getDescription());
-                    product.setImage(editBasicProductDTO.getImage());
-                    product.setPrice(editBasicProductDTO.getPrice());
-                   // product.setCategory(editBasicProductDTO.getCategory());
-                    product.setSold(editBasicProductDTO.isSold());
-                    product.setShipping_available(editBasicProductDTO.isShipping_available());
-                    product.setState(StateEnum.fromString(editBasicProductDTO.getState()));
+                    product.setTitle(productRequestDTO.getTitle());
+                    product.setPrice(productRequestDTO.getPrice());
+
+                    if (productRequestDTO != null) {
+                        product.setShipping_available(productRequestDTO.is_shipping_available());
+                    }
+                    if (productRequestDTO.getState() != null) {
+                        product.setState(StateEnum.fromString(productRequestDTO.getState()));
+                    }
+                    if (productRequestDTO.getPlatform() != null) {
+                        product.setPlatform(productRequestDTO.getPlatform().toPlatform());
+                    }
+                    if (productRequestDTO.getCategories() != null) {
+                        product.setCategories(productRequestDTO.getCategories().stream().map(c -> c.toCategory()).collect(Collectors.toSet()));
+                    }
+
+                    //SOLD OPCIONAL
+
                     repository.save(product);
                     BasicProductDTO edited = BasicProductDTO.of(product);
                     return edited;
                 })
                 .orElseThrow(()->new ProductNotFoundException());
     }
+    //NO SE YO CREO QUE NO ES LO MEJOR
 
     @Transactional
     public List<Product> addProductToFavorites(UUID userId, Long idProduct) {

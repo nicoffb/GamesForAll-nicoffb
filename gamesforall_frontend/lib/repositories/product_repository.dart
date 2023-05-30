@@ -47,8 +47,8 @@ class ProductRepository {
   }
 
   // Método para obtener un producto por su ID
-  Future<ProductDetailsResponse> getProductById(int id) async {
-    String urlString = '/product/$id';
+  Future<ProductDetailsResponse> getProductById(int productId) async {
+    String urlString = '/product/$productId';
 
     var jsonResponse = await server.get(urlString);
     ProductDetailsResponse product =
@@ -63,6 +63,14 @@ class ProductRepository {
 
     var jsonResponse =
         await server.postMultiPart(url, productRequest, file, accessToken);
+    return ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
+  }
+
+   Future<ProductDetailsResponse> editProduct(int id,ProductRequest productRequest) async {
+    String url = '/product/$id';
+
+    var jsonResponse =
+        await server.put(url, productRequest);
     return ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
   }
 

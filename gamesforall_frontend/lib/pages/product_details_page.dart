@@ -8,6 +8,7 @@ import '../models/message_response.dart';
 import '../models/product_detail_response.dart';
 import '../repositories/product_repository.dart';
 import '../services/message_service.dart';
+import 'edit_product_page.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   final int productId;
@@ -71,6 +72,11 @@ class ProductDetailsPage extends StatelessWidget {
                   Text(
                     'Nombre: ${product.title}',
                     style: TextStyle(fontSize: 24),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'PRECIO: ${product.price}',
+                    style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 8),
                   Text(
@@ -140,6 +146,17 @@ class ProductDetailsPage extends StatelessWidget {
                     },
                     child: Text('Iniciar conversación'),
                   ),
+                 IconButton(
+  icon: Icon(Icons.edit, color: Colors.yellow),
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditProductPage(productId: productId),
+      ),
+    );
+  },
+),
                 ],
               ),
             );

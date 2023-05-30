@@ -24,12 +24,14 @@ public class ProductRequestDTO {
     @NotBlank
     private String title;
 
-    @NotBlank
+    //@NotBlank
     private String description;
 
     @NotNull
     @Positive
     private double price;
+
+
 
 
     //ANOTACION PERSONALIZADA
@@ -40,17 +42,12 @@ public class ProductRequestDTO {
 
     private Set<CategoryDTO> categories;
 
+    private boolean is_shipping_available;
     //private UserResponse user;
 
 
 
     public Product toProduct(ProductRequestDTO productRequestDTO){
-
-//          User user = new User();
-//          if(this.user != null){
-//              user=this.user.toUser();
-//          }
-
             return Product.builder()
                     .title(productRequestDTO.getTitle())
                     .description(productRequestDTO.getDescription())
@@ -58,10 +55,25 @@ public class ProductRequestDTO {
                     .state(StateEnum.fromString(productRequestDTO.getState()))
                     .platform(productRequestDTO.getPlatform().toPlatform())
                     .categories(productRequestDTO.getCategories().stream().map(c -> c.toCategory()).collect(Collectors.toSet()))
+                    .shipping_available(productRequestDTO.is_shipping_available())
                    // .user(user)
                     .build();
+    }
 
-
+    public static ProductRequestDTO of(Product product) {
+        return ProductRequestDTO.builder()
+                .title(product.getTitle())
+                .description(product.getDescription())
+                //.image(product.getImage())
+                .price(product.getPrice())
+                .state(product.getState().getValue())
+                .is_shipping_available(product.isShipping_available())
+                //.sold(product.isSold())
+                .platform(PlatformDTO.of(product.getPlatform()))
+                .categories(product.getCategories().stream()
+                        .map(CategoryDTO::of)
+                        .collect(Collectors.toSet())).
+                build();
     }
 
 }
