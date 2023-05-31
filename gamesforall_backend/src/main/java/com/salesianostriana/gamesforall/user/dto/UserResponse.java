@@ -1,7 +1,6 @@
 package com.salesianostriana.gamesforall.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.salesianostriana.gamesforall.product.model.Platform;
 import com.salesianostriana.gamesforall.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;

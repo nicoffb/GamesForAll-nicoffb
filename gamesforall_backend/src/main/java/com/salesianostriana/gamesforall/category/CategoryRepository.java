@@ -1,6 +1,6 @@
-package com.salesianostriana.gamesforall.product.repository;
+package com.salesianostriana.gamesforall.category;
 
-import com.salesianostriana.gamesforall.product.model.Category;
+import com.salesianostriana.gamesforall.category.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

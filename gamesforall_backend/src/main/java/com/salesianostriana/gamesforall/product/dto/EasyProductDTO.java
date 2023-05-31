@@ -1,6 +1,6 @@
 package com.salesianostriana.gamesforall.product.dto;
 
-import com.salesianostriana.gamesforall.product.model.Category;
+import com.salesianostriana.gamesforall.category.Category;
 import com.salesianostriana.gamesforall.product.model.Product;
 import lombok.Builder;
 import lombok.Value;

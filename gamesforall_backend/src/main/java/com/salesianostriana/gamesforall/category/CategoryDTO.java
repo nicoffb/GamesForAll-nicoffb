@@ -1,10 +1,7 @@
-package com.salesianostriana.gamesforall.product.dto;
+package com.salesianostriana.gamesforall.category;
 
-import com.salesianostriana.gamesforall.product.model.Category;
 import lombok.Builder;
 import lombok.Value;
-
-import java.util.Set;
 
 @Builder
 @Value

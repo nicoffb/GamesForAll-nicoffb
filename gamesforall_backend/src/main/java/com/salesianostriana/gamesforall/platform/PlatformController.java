@@ -1,25 +1,12 @@
-package com.salesianostriana.gamesforall.product.controller;
+package com.salesianostriana.gamesforall.platform;
 
 
-import com.salesianostriana.gamesforall.exception.UserNotFoundException;
-import com.salesianostriana.gamesforall.product.dto.*;
-import com.salesianostriana.gamesforall.product.model.Platform;
-import com.salesianostriana.gamesforall.product.model.Product;
-import com.salesianostriana.gamesforall.product.service.PlatformService;
-import com.salesianostriana.gamesforall.search.util.Extractor;
-import com.salesianostriana.gamesforall.search.util.SearchCriteria;
-import com.salesianostriana.gamesforall.user.model.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController

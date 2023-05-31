@@ -10,55 +10,69 @@ import 'package:gamesforall_frontend/blocs/uploadProduct/upload_product_state.da
 import 'package:gamesforall_frontend/models/product_detail_response.dart';
 import 'package:gamesforall_frontend/pages/product_details_page.dart';
 import 'package:gamesforall_frontend/pages/upload_product_page.dart';
+import 'package:gamesforall_frontend/services/platform_service.dart';
 import 'package:gamesforall_frontend/services/product_service.dart';
 
+import '../../models/platform_response.dart';
 import '../../models/product_request.dart';
 
 class EditProductBloc extends FormBloc<String, String> {
   final ProductService productService = ProductService();
-
+  final PlatformService platformService = PlatformService();
   final ProductDetailsResponse product;
 
   TextFieldBloc title;
   TextFieldBloc price;
   TextFieldBloc description;
-  SelectFieldBloc<String, dynamic> producState;  // Nuevo campo
+  SelectFieldBloc<String, dynamic> producState;
   BooleanFieldBloc isShippingAvailable;
+  final platform = SelectFieldBloc<int,String>(
+  items: [],
+);
 
-  EditProductBloc({required this.product}) 
-    : title = TextFieldBloc(
-        initialValue: product.title!,
-        validators: [FieldBlocValidators.required],
-      ),
-      price = TextFieldBloc(
-        initialValue: product.price.toString(),
-        validators: [FieldBlocValidators.required],
-      ),
-      description = TextFieldBloc( // Inicialización del nuevo campo
-        initialValue: product.description!,
-      ),
-      producState = SelectFieldBloc( // Inicialización del nuevo campo
-        initialValue: product.state,
-        validators: [FieldBlocValidators.required],
-        items: ['Sin Abrir', 'Como nuevo', 'Usado'],
-      ),
-      isShippingAvailable = BooleanFieldBloc(
-    initialValue: product.shippingAvailable?? false,
-),
-      super() {
+  EditProductBloc({required this.product})
+      : title = TextFieldBloc(
+          initialValue: product.title!,
+          validators: [FieldBlocValidators.required],
+        ),
+        price = TextFieldBloc(
+          initialValue: product.price.toString(),
+          validators: [FieldBlocValidators.required],
+        ),
+        description = TextFieldBloc(
+          initialValue: product.description!,
+        ),
+        producState = SelectFieldBloc(
+          initialValue: product.state,
+          validators: [FieldBlocValidators.required],
+          items: ['Sin Abrir', 'Como Nuevo', 'Usado'],
+        ),
+        isShippingAvailable = BooleanFieldBloc(
+          initialValue: product.shippingAvailable ?? false,
+        ),
+        super() {
+    //  loadPlatforms();
+
     addFieldBlocs(
       fieldBlocs: [
         title,
         price,
-        description,  
-        producState, 
-        isShippingAvailable, 
+        description,
+        producState,
+        isShippingAvailable,
+        platform,
       ],
     );
   }
-  
+
+  void loadPlatforms() async {
+  List<PlatformResponse> platforms = await platformService.getAllPlatforms();
+ // platform.updateItems(platforms.map((p) => FieldItem(p.platformName, value: p.id)).toList());
+}
+
+
   @override
-void onSubmitting() async {
+  void onSubmitting() async {
     try {
       debugPrint(title.value);
       debugPrint(price.value);
@@ -74,9 +88,8 @@ void onSubmitting() async {
             description: description.value,
             state: producState.value,
             shippingAvailable: isShippingAvailable.value,
-          )
-        );
-      
+          ));
+
       if (result != null) {
         emitSuccess();
       } else {
@@ -92,7 +105,6 @@ void onSubmitting() async {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 class EditProductForm extends StatelessWidget {
-
   final ProductDetailsResponse product;
 
   EditProductForm({Key? key, required this.product}) : super(key: key);
@@ -100,7 +112,7 @@ class EditProductForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => EditProductBloc(product: product),
+      create: (context) => EditProductBloc(product: product),
       child: Builder(
         builder: (context) {
           final productFormBloc = context.read<EditProductBloc>();
@@ -118,8 +130,10 @@ class EditProductForm extends StatelessWidget {
               onSuccess: (context, state) {
                 LoadingDialog.hide(context);
 
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => SuccessScreen(productId: product.id!,)));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (_) => SuccessScreen(
+                          productId: product.id!,
+                        )));
               },
               onFailure: (context, state) {
                 LoadingDialog.hide(context);
@@ -151,29 +165,43 @@ class EditProductForm extends StatelessWidget {
                           prefixIcon: Icon(Icons.price_check_rounded),
                         ),
                       ),
-                      TextFieldBlocBuilder(  
-                textFieldBloc: productFormBloc.description,
-                keyboardType: TextInputType.multiline,
-                maxLines: null,  
-                decoration: const InputDecoration(
-                  labelText: 'Descripción',
-                  prefixIcon: Icon(Icons.description),
-                ),
-                ),
-               DropdownFieldBlocBuilder<String>(  //ESTADOOOOS
-                selectFieldBloc: productFormBloc.producState,
-                decoration: const InputDecoration(
-                  labelText: 'Estado',
-                  prefixIcon: Icon(Icons.check_circle),
-                ),
-                 itemBuilder: (context, value) => FieldItem(
-                            child: Text(value),
-                          ),
+                      TextFieldBlocBuilder(
+                        textFieldBloc: productFormBloc.description,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                          labelText: 'Descripción',
+                          prefixIcon: Icon(Icons.description),
                         ),
-              CheckboxFieldBlocBuilder(  // Nuevo campo
-                booleanFieldBloc: productFormBloc.isShippingAvailable,
-                body: const Text('Disponible para envío'),
-              ),
+                      ),
+                      DropdownFieldBlocBuilder<String>(
+                        //ESTADOOOOS
+                        selectFieldBloc: productFormBloc.producState,
+                        decoration: const InputDecoration(
+                          labelText: 'Estado',
+                          prefixIcon: Icon(Icons.check_circle),
+                        ),
+                        itemBuilder: (context, value) => FieldItem(
+                          child: Text(value),
+                        ),
+                      ),
+                      CheckboxFieldBlocBuilder(
+                        booleanFieldBloc: productFormBloc.isShippingAvailable,
+                        body: const Text('Disponible para envío'),
+                      ),
+                      //PLATAFORMAAA
+//                       RadioButtonGroupFieldBlocBuilder<String>(
+//   selectFieldBloc: productFormBloc.platform,
+//   decoration: const InputDecoration(
+//     labelText: 'Plataforma',
+//     prefixIcon: SizedBox(),
+//   ),
+//   itemBuilder: (context, item) => FieldItem(
+//     child: Text(item.value.platformName),
+//     value: item.value.id,
+//   ),
+// )
+
                       ElevatedButton(
                         onPressed: productFormBloc.submit,
                         child: const Text('VENDER PRODUCTO'),
@@ -230,14 +258,14 @@ class SuccessScreen extends StatefulWidget {
 }
 
 class _SuccessScreenState extends State<SuccessScreen> {
-
   @override
   void initState() {
     super.initState();
     // Redirect to the detail page after a delay
     Future.delayed(const Duration(seconds: 1), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => ProductDetailsPage(productId: widget.productId)),
+        MaterialPageRoute(
+            builder: (_) => ProductDetailsPage(productId: widget.productId)),
       );
     });
   }
@@ -269,4 +297,3 @@ class _SuccessScreenState extends State<SuccessScreen> {
     );
   }
 }
-

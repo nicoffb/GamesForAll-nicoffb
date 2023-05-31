@@ -1,12 +1,12 @@
-package com.salesianostriana.gamesforall.product.service;
+package com.salesianostriana.gamesforall.category;
 
 
 import com.salesianostriana.gamesforall.exception.CategoryNotFoundException;
 import com.salesianostriana.gamesforall.exception.EmptyCategoryListException;
-import com.salesianostriana.gamesforall.product.dto.CategoryDTO;
-import com.salesianostriana.gamesforall.product.model.Category;
+import com.salesianostriana.gamesforall.category.CategoryDTO;
+import com.salesianostriana.gamesforall.category.Category;
 import com.salesianostriana.gamesforall.product.model.Product;
-import com.salesianostriana.gamesforall.product.repository.CategoryRepository;
+import com.salesianostriana.gamesforall.category.CategoryRepository;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

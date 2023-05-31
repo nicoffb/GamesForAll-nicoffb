@@ -1,11 +1,9 @@
 package com.salesianostriana.gamesforall.product.dto;
 
-import com.salesianostriana.gamesforall.product.model.Category;
-import com.salesianostriana.gamesforall.product.model.Platform;
+import com.salesianostriana.gamesforall.category.CategoryDTO;
+import com.salesianostriana.gamesforall.platform.PlatformDTO;
 import com.salesianostriana.gamesforall.product.model.StateEnum;
 import com.salesianostriana.gamesforall.product.model.Product;
-import com.salesianostriana.gamesforall.user.dto.UserResponse;
-import com.salesianostriana.gamesforall.user.model.User;
 import lombok.Builder;
 import lombok.Setter;
 import lombok.Value;

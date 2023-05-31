@@ -1,18 +1,11 @@
 package com.salesianostriana.gamesforall.shipping.model;
 
-import com.salesianostriana.gamesforall.product.model.Category;
-import com.salesianostriana.gamesforall.product.model.Platform;
-import com.salesianostriana.gamesforall.product.model.Product;
-import com.salesianostriana.gamesforall.product.model.StateEnum;
 import com.salesianostriana.gamesforall.trade.model.Trade;
-import com.salesianostriana.gamesforall.user.model.User;
 import lombok.*;
-import net.bytebuddy.asm.Advice;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)

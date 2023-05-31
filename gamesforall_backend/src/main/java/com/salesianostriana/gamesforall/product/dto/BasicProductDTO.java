@@ -1,7 +1,8 @@
 package com.salesianostriana.gamesforall.product.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.salesianostriana.gamesforall.product.model.Category;
+import com.salesianostriana.gamesforall.category.CategoryDTO;
+import com.salesianostriana.gamesforall.platform.PlatformDTO;
 
 import com.salesianostriana.gamesforall.product.model.Product;
 
@@ -10,7 +11,6 @@ import lombok.Builder;
 import lombok.Value;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 
 import java.util.Set;
 import java.util.stream.Collectors;

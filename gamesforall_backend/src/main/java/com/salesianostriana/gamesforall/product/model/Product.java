@@ -1,5 +1,7 @@
 package com.salesianostriana.gamesforall.product.model;
 
+import com.salesianostriana.gamesforall.category.Category;
+import com.salesianostriana.gamesforall.platform.Platform;
 import com.salesianostriana.gamesforall.trade.model.Trade;
 import com.salesianostriana.gamesforall.user.model.User;
 import lombok.*;

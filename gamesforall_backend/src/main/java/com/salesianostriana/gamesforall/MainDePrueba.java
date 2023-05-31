@@ -1,12 +1,12 @@
 package com.salesianostriana.gamesforall;
 
 
-import com.salesianostriana.gamesforall.product.model.Category;
-import com.salesianostriana.gamesforall.product.model.Platform;
+import com.salesianostriana.gamesforall.category.Category;
+import com.salesianostriana.gamesforall.platform.Platform;
 import com.salesianostriana.gamesforall.product.model.StateEnum;
 import com.salesianostriana.gamesforall.product.model.Product;
-import com.salesianostriana.gamesforall.product.repository.CategoryRepository;
-import com.salesianostriana.gamesforall.product.repository.PlatformRepository;
+import com.salesianostriana.gamesforall.category.CategoryRepository;
+import com.salesianostriana.gamesforall.platform.PlatformRepository;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import com.salesianostriana.gamesforall.product.service.ProductService;
 import com.salesianostriana.gamesforall.shipping.model.Shipping;

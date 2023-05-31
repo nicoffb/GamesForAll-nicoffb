@@ -1,10 +1,6 @@
-package com.salesianostriana.gamesforall.product.controller;
+package com.salesianostriana.gamesforall.category;
 
 
-import com.salesianostriana.gamesforall.product.dto.CategoryDTO;
-
-import com.salesianostriana.gamesforall.product.model.Category;
-import com.salesianostriana.gamesforall.product.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
@@ -12,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Set;
 
 @RestController

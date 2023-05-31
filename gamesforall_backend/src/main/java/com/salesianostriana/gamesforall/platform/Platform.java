@@ -1,4 +1,4 @@
-package com.salesianostriana.gamesforall.product.model;
+package com.salesianostriana.gamesforall.platform;
 
 
 import lombok.*;
