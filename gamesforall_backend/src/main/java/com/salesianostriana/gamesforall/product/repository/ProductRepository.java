@@ -1,6 +1,8 @@
 package com.salesianostriana.gamesforall.product.repository;
 
 import com.salesianostriana.gamesforall.product.dto.EasyProductDTO;
+import com.salesianostriana.gamesforall.product.model.Category;
+import com.salesianostriana.gamesforall.product.model.Platform;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.search.util.SearchCriteria;
 import org.springframework.data.domain.Page;
@@ -23,4 +25,7 @@ public interface ProductRepository extends JpaRepository<Product,Long>, JpaSpeci
 //    //@EntityGraph("product-with-platform-and-categories")
 //    Optional<Product> findById(Long id);
 
+    List<Product> findByPlatform(Platform platform);
+
+    List<Product> findByCategoriesContains(Category category);
 }
