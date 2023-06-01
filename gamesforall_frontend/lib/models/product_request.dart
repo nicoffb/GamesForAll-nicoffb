@@ -13,8 +13,7 @@ class ProductRequest {
   Set<Categories>? categories;
 
   ProductRequest(
-      {
-      this.title,
+      {this.title,
       this.description,
       this.image,
       this.price,
@@ -61,25 +60,6 @@ class ProductRequest {
     if (this.categories != null) {
       data['categories'] = this.categories!.map((v) => v.toJson()).toList();
     }
-    return data;
-  }
-}
-
-class Platform {
-  int? id;
-  String? platformName;
-
-  Platform({this.id, this.platformName});
-
-  Platform.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    platformName = json['platformName'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['platformName'] = this.platformName;
     return data;
   }
 }

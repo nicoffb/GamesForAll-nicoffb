@@ -13,22 +13,20 @@ import 'package:gamesforall_frontend/pages/upload_product_page.dart';
 import 'package:gamesforall_frontend/services/platform_service.dart';
 import 'package:gamesforall_frontend/services/product_service.dart';
 
-import '../../models/platform_response.dart';
 import '../../models/product_request.dart';
 
 class EditProductBloc extends FormBloc<String, String> {
   final ProductService productService = ProductService();
   final PlatformService platformService = PlatformService();
   final ProductDetailsResponse product;
+  List<Platform> platforms = new List.empty();
 
   TextFieldBloc title;
   TextFieldBloc price;
   TextFieldBloc description;
   SelectFieldBloc<String, dynamic> producState;
   BooleanFieldBloc isShippingAvailable;
-  final platform = SelectFieldBloc<int,String>(
-  items: [],
-);
+  SelectFieldBloc<Platform, dynamic> platform;
 
   EditProductBloc({required this.product})
       : title = TextFieldBloc(
@@ -50,9 +48,22 @@ class EditProductBloc extends FormBloc<String, String> {
         isShippingAvailable = BooleanFieldBloc(
           initialValue: product.shippingAvailable ?? false,
         ),
+        platform = SelectFieldBloc(
+          initialValue: product.platform,
+          validators: [FieldBlocValidators.required],
+          items: new List.empty(),
+        ),
         super() {
-    //  loadPlatforms();
+    loadPlatforms();
+  }
 
+  void loadPlatforms() async {
+    this.platforms = await platformService.getAllPlatforms();
+    platform = SelectFieldBloc(
+      initialValue: product.platform!,
+      validators: [FieldBlocValidators.required],
+      items: platforms,
+    );
     addFieldBlocs(
       fieldBlocs: [
         title,
@@ -64,12 +75,6 @@ class EditProductBloc extends FormBloc<String, String> {
       ],
     );
   }
-
-  void loadPlatforms() async {
-  List<PlatformResponse> platforms = await platformService.getAllPlatforms();
- // platform.updateItems(platforms.map((p) => FieldItem(p.platformName, value: p.id)).toList());
-}
-
 
   @override
   void onSubmitting() async {
@@ -190,18 +195,16 @@ class EditProductForm extends StatelessWidget {
                         body: const Text('Disponible para envío'),
                       ),
                       //PLATAFORMAAA
-//                       RadioButtonGroupFieldBlocBuilder<String>(
-//   selectFieldBloc: productFormBloc.platform,
-//   decoration: const InputDecoration(
-//     labelText: 'Plataforma',
-//     prefixIcon: SizedBox(),
-//   ),
-//   itemBuilder: (context, item) => FieldItem(
-//     child: Text(item.value.platformName),
-//     value: item.value.id,
-//   ),
-// )
-
+                      RadioButtonGroupFieldBlocBuilder<Platform>(
+                        selectFieldBloc: productFormBloc.platform,
+                        decoration: const InputDecoration(
+                          labelText: 'Plataforma',
+                          prefixIcon: SizedBox(),
+                        ),
+                        itemBuilder: (context, item) => FieldItem(
+                          child: Text(item.platformName!),
+                        ),
+                      ),
                       ElevatedButton(
                         onPressed: productFormBloc.submit,
                         child: const Text('VENDER PRODUCTO'),

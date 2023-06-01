@@ -1,9 +1,8 @@
-
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import '../config/locator.dart';
-import '../models/platform_response.dart';
+import '../models/product_detail_response.dart';
 import '../repositories/platform_repository.dart';
 import 'localstorage_service.dart';
 
@@ -20,8 +19,7 @@ class PlatformService {
         .then((value) => localStorageService = value);
   }
 
-  Future<List<PlatformResponse>> getAllPlatforms() async {
+  Future<List<Platform>> getAllPlatforms() async {
     return await platformRepository.getAllPlatforms();
   }
-
 }
