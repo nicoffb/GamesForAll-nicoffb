@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.LazyInitializationException;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -26,15 +27,21 @@ public class UserResponse {
 
     public static UserResponse fromUser(User user) {
 
-        return UserResponse.builder()
+        UserResponse userResponse = UserResponse.builder()
                 .id(user.getId().toString())
                 .username(user.getUsername())
                 .avatar(user.getAvatar())
                 .fullName(user.getFullName())
                 .createdAt(user.getCreatedAt())
                 .address(user.getAddress())
-                .userScore(user.getTrades().stream().filter(p -> p.getSeller().equals(user)).mapToDouble(p -> p.getScore()).average().orElse(0))
                 .build();
+
+        try {
+           double  userScore = user.getTrades().stream().filter(p -> p.getSeller().equals(user)).mapToDouble(p -> p.getScore()).average().orElse(0);
+            userResponse.setUserScore(userScore);
+        }catch (LazyInitializationException e){}
+
+        return  userResponse;
     }
 
     public User toUser(){

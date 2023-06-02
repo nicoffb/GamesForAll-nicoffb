@@ -20,6 +20,6 @@ class UserRepository {
     String url = "/me";
 
     var jsonResponse = await _client.get(url);
-    return UserResponse.fromJson(jsonDecode(jsonResponse));
+    return User.fromJson(jsonDecode(jsonResponse));
   }
 }

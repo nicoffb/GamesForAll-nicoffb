@@ -1,41 +1,12 @@
-los long dan fallo si los asigno yo y se generan automaticamente, y si lo dejo automaticamente no se repiten
-quiero tener listas del 1 al 10 para cada id en cada objeto
-
-
-
-reglas, no mas puntuacion que del 1 al 5
-
-
 
 modificar contraseña
-
-plantearme el se cree un chat nuevo por cada producto distinto
-
-
 validaciones distintas a las que tengo
 
-setear las categorias en el editar producto
 
-
-
-DUDAS ALV.
-1-Gestionar el lazy con el grafo y que se asigne el id de la categoria pasando solo el id
-
-6-LINEA 72 DE BasicDTO userscore inicializacion lazy , le paso un usuarioResponse que no tiene método To
 
 
 6- transformar a go route
 
-
-
-MIGUEL
-PASAR A BLOC LA PETICION DE OBTENER PRODUCTOS PARA PODER CONTROLAR LOS ESTADOS POR LOS QUE PASA AL OBTENERLO, CARGARLO...
-
-LUISMI
-Puedo pasarle al productBasic los atributos del usuario obtenidos a partir del producto o le tengo que pasar el Usuario? Respuesta: si
-Puedo pasarle la entidad Categorias o Platform dentro del producBasic en vez del DTO , no mezclar entidades y dto preferiblemente.
-
-porque pasandole el id no me obtiene la categoria?
 
 
 LUISMI DICE que un dto dentro de un dto esta mal, que sobrecargue  el guardar y ahi coja los campos pertinentes
@@ -43,4 +14,13 @@ que entonces no estoy seteando el objeto en si sino cogiendo un dto con los mism
 byreference
 
 
+ALV
 fallo: el envio siempre lo pone no disponible
+libreria de las estrellitas para la valoracion
+que se abra solo una misma pestaña no nuevas
+
+poner miniatura de la foto
+usar camara para las fotos
+
+
+TODO: VALIDACIONES PARA QUE RELLENE TODOS LOS CAMPOS AL SUBIR, QUE NO SALGA UPLOADPAGE VACIA  CUANDO HAYA SUBIDO EL PRODUCTO

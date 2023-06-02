@@ -7,18 +7,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:gamesforall_frontend/blocs/uploadProduct/upload_product_event.dart';
 import 'package:gamesforall_frontend/blocs/uploadProduct/upload_product_state.dart';
+import 'package:gamesforall_frontend/pages/main_page.dart';
+import 'package:gamesforall_frontend/pages/product_details_page.dart';
 import 'package:gamesforall_frontend/pages/upload_product_page.dart';
+import 'package:gamesforall_frontend/services/localstorage_service.dart';
 import 'package:gamesforall_frontend/services/product_service.dart';
 
+import '../../models/product_detail_response.dart';
 import '../../models/product_request.dart';
+import '../../models/product_response.dart';
+import '../../services/category_service.dart';
+import '../../services/platform_service.dart';
 
 class UploadProductBloc extends FormBloc<String, String> {
-  late ProductService productService;
+  ProductService productService = ProductService();
+  PlatformService platformService = PlatformService();
+  CategoryService categoryService = CategoryService();
+  int? newProductId;
 
   final title = TextFieldBloc(
-    validators: [
-      FieldBlocValidators.required,
-    ],
+    validators: [FieldBlocValidators.required],
   );
 
   final price = TextFieldBloc(
@@ -27,19 +35,52 @@ class UploadProductBloc extends FormBloc<String, String> {
     ],
   );
 
-  final showSuccessResponse = BooleanFieldBloc();
+  final description = TextFieldBloc(
+    validators: [
+      FieldBlocValidators.required,
+    ],
+  );
+
+  final producState = SelectFieldBloc(
+    items: ['Sin Abrir', 'Como Nuevo', 'Usado'],
+    validators: [
+      FieldBlocValidators.required,
+    ],
+  );
+
+  final isShippingAvailable = BooleanFieldBloc(
+    validators: [
+      FieldBlocValidators.required,
+    ],
+  );
+
+  final platform = SelectFieldBloc<Platform, dynamic>();
+  final categoriesSelect = MultiSelectFieldBloc<Categories, dynamic>();
 
   File? selectedImage;
 
   UploadProductBloc() : super() {
     productService = ProductService();
+    loadFields();
     addFieldBlocs(
       fieldBlocs: [
         title,
         price,
-        showSuccessResponse,
+        description,
+        producState,
+        isShippingAvailable,
+        platform,
+        categoriesSelect
       ],
     );
+  }
+
+  void loadFields() async {
+    List<Platform> allPlatforms = await platformService.getAllPlatforms();
+    platform.updateItems(allPlatforms);
+
+    List<Categories> allCategories = await categoryService.getAllCategories();
+    categoriesSelect.updateItems(allCategories);
   }
 
   void selectImage(BuildContext context) async {
@@ -55,26 +96,34 @@ class UploadProductBloc extends FormBloc<String, String> {
     try {
       debugPrint(title.value);
       debugPrint(price.value);
-      debugPrint(showSuccessResponse.value.toString());
+      debugPrint(platform.value!.platformName);
       debugPrint(selectedImage.toString());
       if (selectedImage != null) {
-        productService.add(
+        ProductDetailsResponse result = await productService.add(
           ProductRequest(
             title: title.value,
             price: double.parse(price.value),
-          ),
+            description: description.value,
+            state: producState.value,
+            is_shipping_available: isShippingAvailable.value,
+            platform: platform.value,
+            categories:
+                categoriesSelect.value.map((e) => e as Categories).toSet(),
+          ), //bueno??
           PlatformFile(
-            name: selectedImage!.path.split('/').last,
+            name: selectedImage!.path.split('\\').last,
             bytes: await selectedImage!.readAsBytes(),
             size: selectedImage!.lengthSync(),
           ),
         );
-      }
 
-      if (showSuccessResponse.value) {
-        emitSuccess();
-      } else {
-        emitFailure(failureResponse: 'This is an awesome error!');
+        if (result != null) {
+          newProductId = result.id!;
+          emitSuccess();
+        } else {
+          emitFailure(
+              failureResponse: 'Error al añadir el producto: ${result}');
+        }
       }
     } catch (e) {
       print('Error: $e');
@@ -109,8 +158,9 @@ class ProductForm extends StatelessWidget {
               onSuccess: (context, state) {
                 LoadingDialog.hide(context);
 
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => const SuccessScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (_) => SuccessScreen(
+                        productId: productFormBloc.newProductId!)));
               },
               onFailure: (context, state) {
                 LoadingDialog.hide(context);
@@ -142,14 +192,52 @@ class ProductForm extends StatelessWidget {
                           prefixIcon: Icon(Icons.price_check_rounded),
                         ),
                       ),
-                      SizedBox(
-                        width: 250,
-                        child: CheckboxFieldBlocBuilder(
-                          booleanFieldBloc: productFormBloc.showSuccessResponse,
-                          body: Container(
-                            alignment: Alignment.centerLeft,
-                            child: const Text('Show success response'),
-                          ),
+                      TextFieldBlocBuilder(
+                        textFieldBloc: productFormBloc.description,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                          labelText: 'Descripción',
+                          prefixIcon: Icon(Icons.description),
+                        ),
+                      ),
+                      DropdownFieldBlocBuilder<String>(
+                        //ESTADOOOOS
+                        selectFieldBloc: productFormBloc.producState,
+                        decoration: const InputDecoration(
+                          labelText: 'Estado',
+                          prefixIcon: Icon(Icons.check_circle),
+                        ),
+                        itemBuilder: (context, value) => FieldItem(
+                          child: Text(value),
+                        ),
+                      ),
+                      SwitchFieldBlocBuilder(
+                        booleanFieldBloc: productFormBloc.isShippingAvailable,
+                        body: Container(
+                          alignment: Alignment.centerLeft,
+                          child: const Text('Disponibilidad de envío'),
+                        ),
+                      ),
+                      //PLATAFORMAAA
+                      RadioButtonGroupFieldBlocBuilder<Platform>(
+                        selectFieldBloc: productFormBloc.platform,
+                        decoration: const InputDecoration(
+                          labelText: 'Plataforma',
+                          prefixIcon: SizedBox(),
+                        ),
+                        itemBuilder: (context, item) => FieldItem(
+                          child: Text(item.platformName!),
+                        ),
+                      ),
+                      CheckboxGroupFieldBlocBuilder<Categories>(
+                        multiSelectFieldBloc: productFormBloc.categoriesSelect,
+                        itemBuilder: (context, item) => FieldItem(
+                          child: Text(item.genre!),
+                        ),
+                        decoration: const InputDecoration(
+                          labelText: 'Categorias',
+                          prefixIcon: SizedBox(),
                         ),
                       ),
                       if (productFormBloc.selectedImage != null)
@@ -207,10 +295,20 @@ class LoadingDialog extends StatelessWidget {
 }
 
 class SuccessScreen extends StatelessWidget {
-  const SuccessScreen({Key? key}) : super(key: key);
+  final int productId;
+
+  SuccessScreen({Key? key, required this.productId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    LocalStorageService localStorageService = LocalStorageService();
+
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (_) => ProductDetailsPage(productId: productId),
+      ));
+    });
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -222,13 +320,6 @@ class SuccessScreen extends StatelessWidget {
               'Success',
               style: TextStyle(fontSize: 54, color: Colors.black),
               textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton.icon(
-              onPressed: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => UploadProductPage())),
-              icon: const Icon(Icons.replay),
-              label: const Text('AGAIN'),
             ),
           ],
         ),

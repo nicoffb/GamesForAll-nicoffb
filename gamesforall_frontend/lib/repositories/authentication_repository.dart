@@ -29,7 +29,7 @@ class AuthenticationRepository {
   }
 
   //NUEVAS FUNCIONES
-  Future<UserResponse> registerUser(String username, String password,
+  Future<User> registerUser(String username, String password,
       String verifyPassword, String fullName) async {
     String url = "/auth/register";
 
@@ -41,7 +41,7 @@ class AuthenticationRepository {
             verifyPassword: verifyPassword,
             fullName: fullName));
 
-    return UserResponse.fromJson(jsonDecode(jsonResponse));
+    return User.fromJson(jsonDecode(jsonResponse));
   }
 
   Future<LoginResponse> changePassword(

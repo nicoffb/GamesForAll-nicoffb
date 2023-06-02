@@ -16,7 +16,7 @@ abstract class AuthenticationService {
   Future<User?> getCurrentUser();
   Future<User> signInWithEmailAndPassword(String email, String password);
   Future<void> signOut();
-  Future<UserResponse> registerUser(
+  Future<User> registerUser(
       String username, String password, String verifyPassword, String fullName);
   Future<void> changePassWord(ChangePasswordRequest changePasswordRequest);
   Future<void> deleteAccount();
@@ -44,7 +44,7 @@ class JwtAuthenticationService extends AuthenticationService {
     print("get current user");
     String? token = _localStorageService.getFromDisk("user_token");
     if (token != null) {
-      UserResponse response = await _userRepository.me();
+      User response = await _userRepository.me();
       return response;
     }
     return null;
@@ -68,9 +68,9 @@ class JwtAuthenticationService extends AuthenticationService {
   //NUEVOS  METODOS
 
   @override
-  Future<UserResponse> registerUser(String username, String password,
+  Future<User> registerUser(String username, String password,
       String verifyPassword, String fullName) async {
-    UserResponse response = await _authenticationRepository.registerUser(
+    User response = await _authenticationRepository.registerUser(
         username, password, verifyPassword, fullName);
     return response;
   }

@@ -7,7 +7,7 @@ class ProductRequest {
   double? price;
   String? publicationDate;
   String? state;
-  bool? shippingAvailable;
+  bool? is_shipping_available;
   bool? sold;
   Platform? platform;
   Set<Categories>? categories;
@@ -19,7 +19,7 @@ class ProductRequest {
       this.price,
       this.publicationDate,
       this.state,
-      this.shippingAvailable,
+      this.is_shipping_available,
       this.sold,
       this.platform,
       this.categories});
@@ -31,7 +31,7 @@ class ProductRequest {
     price = json['price'];
     publicationDate = json['publication_date'];
     state = json['state'];
-    shippingAvailable = json['shipping_available'];
+    is_shipping_available = json['is_shipping_available'];
     sold = json['sold'];
     platform = json['platform'] != null
         ? new Platform.fromJson(json['platform'])
@@ -52,7 +52,7 @@ class ProductRequest {
     data['price'] = this.price;
     data['publication_date'] = this.publicationDate;
     data['state'] = this.state;
-    data['shipping_available'] = this.shippingAvailable;
+    data['is_shipping_available'] = this.is_shipping_available;
     data['sold'] = this.sold;
     if (this.platform != null) {
       data['platform'] = this.platform!.toJson();

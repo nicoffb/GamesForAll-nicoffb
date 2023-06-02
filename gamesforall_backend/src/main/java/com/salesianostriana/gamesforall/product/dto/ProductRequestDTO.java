@@ -40,7 +40,7 @@ public class ProductRequestDTO {
 
     private Set<CategoryDTO> categories;
 
-            private boolean is_shipping_available;
+    private boolean is_shipping_available;
     //private UserResponse user;
 
 

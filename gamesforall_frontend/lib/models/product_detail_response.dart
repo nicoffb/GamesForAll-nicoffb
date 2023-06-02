@@ -10,7 +10,7 @@ class ProductDetailsResponse {
   bool? sold;
   Platform? platform;
   Set<Categories>? categories;
-  User? user;
+  UserDetails? user;
 
   ProductDetailsResponse(
       {this.id,
@@ -45,7 +45,7 @@ class ProductDetailsResponse {
         categories!.add(new Categories.fromJson(v));
       });
     }
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? new UserDetails.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -110,7 +110,7 @@ class Categories {
   }
 }
 
-class User {
+class UserDetails {
   String? id;
   String? username;
   Null? avatar;
@@ -119,7 +119,7 @@ class User {
   double? userScore;
   String? createdAt;
 
-  User(
+  UserDetails(
       {this.id,
       this.username,
       this.avatar,
@@ -128,7 +128,7 @@ class User {
       this.userScore,
       this.createdAt});
 
-  User.fromJson(Map<String, dynamic> json) {
+  UserDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     username = json['username'];
     avatar = json['avatar'];

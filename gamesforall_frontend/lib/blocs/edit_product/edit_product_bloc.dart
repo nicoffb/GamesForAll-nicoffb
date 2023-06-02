@@ -93,22 +93,18 @@ class EditProductBloc extends FormBloc<String, String> {
   @override
   void onSubmitting() async {
     try {
-      debugPrint(title.value);
-      debugPrint(price.value);
-      debugPrint(description.value);
-      debugPrint(producState.value);
       debugPrint(isShippingAvailable.value.toString());
-
-      ProductDetailsResponse result = await productService.edit(
-          product.id!,
-          ProductRequest(
-              title: title.value,
-              price: double.parse(price.value),
-              description: description.value,
-              state: producState.value,
-              shippingAvailable: isShippingAvailable.value,
-              platform: platform.value,
-              categories: categoriesSelect.value.toSet()));
+      var createdProduct = ProductRequest(
+          title: title.value,
+          price: double.parse(price.value),
+          description: description.value,
+          state: producState.value,
+          is_shipping_available: isShippingAvailable.value,
+          platform: platform.value,
+          categories: categoriesSelect.value.toSet());
+      debugPrint(createdProduct.is_shipping_available!.toString());
+      ProductDetailsResponse result =
+          await productService.edit(product.id!, createdProduct);
 
       if (result != null) {
         emitSuccess();

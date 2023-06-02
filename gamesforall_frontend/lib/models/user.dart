@@ -30,13 +30,8 @@ class User {
     this.avatar = response.avatar;
     this.fullName = response.fullName;
   }
-}
 
-class UserResponse extends User {
-  UserResponse(id, username, fullName, avatar)
-      : super(id: id, username: username, fullName: fullName, avatar: avatar);
-
-  UserResponse.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     username = json['username'];
     avatar = json['avatar'];
