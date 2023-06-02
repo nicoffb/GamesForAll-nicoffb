@@ -21,8 +21,6 @@ class EditProductBloc extends FormBloc<String, String> {
   final PlatformService platformService = PlatformService();
   final CategoryService categoryService = CategoryService();
   final ProductDetailsResponse product;
-  List<Platform> platforms = List.empty();
-  Set<Categories> chargedCategories = Set<Categories>();
 
   TextFieldBloc title;
   TextFieldBloc price;
@@ -46,40 +44,38 @@ class EditProductBloc extends FormBloc<String, String> {
         ),
         producState = SelectFieldBloc(
           initialValue: product.state,
-          validators: [FieldBlocValidators.required],
           items: ['Sin Abrir', 'Como Nuevo', 'Usado'],
         ),
         isShippingAvailable = BooleanFieldBloc(
           initialValue: product.shippingAvailable ?? false,
         ),
-        platform = SelectFieldBloc(
-          initialValue: product.platform,
-          validators: [FieldBlocValidators.required],
-          items: new List.empty(),
-        ),
-        categoriesSelect = MultiSelectFieldBloc(
-          initialValue: product.categories!.toList(), // leave this as a set
-          validators: [FieldBlocValidators.required],
-          items: new List.empty(), // convert to list here
-        ),
+        platform = SelectFieldBloc(),
+        categoriesSelect = MultiSelectFieldBloc(),
         super() {
     loadFields();
   }
 
   void loadFields() async {
-    this.platforms = await platformService.getAllPlatforms();
-    platform = SelectFieldBloc(
-      initialValue: product.platform!,
-      validators: [FieldBlocValidators.required],
-      items: platforms,
-    );
+    //OBTENER
+    List<Platform> allPlatforms = await platformService.getAllPlatforms();
+    platform.updateItems(allPlatforms);
 
-    this.categoriesSelect = await categoryService.getAllCategories();
-    categoriesSelect = MultiSelectFieldBloc(
-      initialValue: product.categories!.toList(),
-      validators: [FieldBlocValidators.required],
-      items: categoriesSelect,
+    List<Categories> allCategories = await categoryService.getAllCategories();
+    categoriesSelect.updateItems(allCategories);
+
+    //ACTIVOS
+    Platform productPlatform = allPlatforms.firstWhere(
+      (p) => p.id == product.platform!.id,
     );
+    platform.updateInitialValue(productPlatform);
+
+    List<Categories> productCategoriesList = product.categories!.toList();
+
+    List<Categories> matchingCategories = allCategories
+        .where((c) => productCategoriesList.any((pc) => pc.id == c.id))
+        .toList();
+
+    categoriesSelect.updateInitialValue(matchingCategories);
 
     addFieldBlocs(
       fieldBlocs: [
@@ -209,9 +205,12 @@ class EditProductForm extends StatelessWidget {
                           child: Text(value),
                         ),
                       ),
-                      CheckboxFieldBlocBuilder(
+                      SwitchFieldBlocBuilder(
                         booleanFieldBloc: productFormBloc.isShippingAvailable,
-                        body: const Text('Disponible para envío'),
+                        body: Container(
+                          alignment: Alignment.centerLeft,
+                          child: const Text('Disponibilidad de envío'),
+                        ),
                       ),
                       //PLATAFORMAAA
                       RadioButtonGroupFieldBlocBuilder<Platform>(
@@ -225,7 +224,7 @@ class EditProductForm extends StatelessWidget {
                         ),
                       ),
                       CheckboxGroupFieldBlocBuilder<Categories>(
-                        multiSelectFieldBloc: productFormBloc.category.stream,
+                        multiSelectFieldBloc: productFormBloc.categoriesSelect,
                         itemBuilder: (context, item) => FieldItem(
                           child: Text(item.genre!),
                         ),

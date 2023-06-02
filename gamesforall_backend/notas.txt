@@ -36,3 +36,11 @@ Puedo pasarle al productBasic los atributos del usuario obtenidos a partir del p
 Puedo pasarle la entidad Categorias o Platform dentro del producBasic en vez del DTO , no mezclar entidades y dto preferiblemente.
 
 porque pasandole el id no me obtiene la categoria?
+
+
+LUISMI DICE que un dto dentro de un dto esta mal, que sobrecargue  el guardar y ahi coja los campos pertinentes
+que entonces no estoy seteando el objeto en si sino cogiendo un dto con los mismos valores pero no es el mismo objeto
+byreference
+
+
+fallo: el envio siempre lo pone no disponible
