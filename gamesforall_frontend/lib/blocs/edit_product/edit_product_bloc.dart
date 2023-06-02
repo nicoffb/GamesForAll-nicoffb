@@ -10,6 +10,7 @@ import 'package:gamesforall_frontend/blocs/uploadProduct/upload_product_state.da
 import 'package:gamesforall_frontend/models/product_detail_response.dart';
 import 'package:gamesforall_frontend/pages/product_details_page.dart';
 import 'package:gamesforall_frontend/pages/upload_product_page.dart';
+import 'package:gamesforall_frontend/services/category_service.dart';
 import 'package:gamesforall_frontend/services/platform_service.dart';
 import 'package:gamesforall_frontend/services/product_service.dart';
 
@@ -18,8 +19,10 @@ import '../../models/product_request.dart';
 class EditProductBloc extends FormBloc<String, String> {
   final ProductService productService = ProductService();
   final PlatformService platformService = PlatformService();
+  final CategoryService categoryService = CategoryService();
   final ProductDetailsResponse product;
-  List<Platform> platforms = new List.empty();
+  List<Platform> platforms = List.empty();
+  Set<Categories> chargedCategories = Set<Categories>();
 
   TextFieldBloc title;
   TextFieldBloc price;
@@ -27,6 +30,7 @@ class EditProductBloc extends FormBloc<String, String> {
   SelectFieldBloc<String, dynamic> producState;
   BooleanFieldBloc isShippingAvailable;
   SelectFieldBloc<Platform, dynamic> platform;
+  MultiSelectFieldBloc<Categories, dynamic> categoriesSelect;
 
   EditProductBloc({required this.product})
       : title = TextFieldBloc(
@@ -53,17 +57,30 @@ class EditProductBloc extends FormBloc<String, String> {
           validators: [FieldBlocValidators.required],
           items: new List.empty(),
         ),
+        categoriesSelect = MultiSelectFieldBloc(
+          initialValue: product.categories!.toList(), // leave this as a set
+          validators: [FieldBlocValidators.required],
+          items: new List.empty(), // convert to list here
+        ),
         super() {
-    loadPlatforms();
+    loadFields();
   }
 
-  void loadPlatforms() async {
+  void loadFields() async {
     this.platforms = await platformService.getAllPlatforms();
     platform = SelectFieldBloc(
       initialValue: product.platform!,
       validators: [FieldBlocValidators.required],
       items: platforms,
     );
+
+    this.categoriesSelect = await categoryService.getAllCategories();
+    categoriesSelect = MultiSelectFieldBloc(
+      initialValue: product.categories!.toList(),
+      validators: [FieldBlocValidators.required],
+      items: categoriesSelect,
+    );
+
     addFieldBlocs(
       fieldBlocs: [
         title,
@@ -72,6 +89,7 @@ class EditProductBloc extends FormBloc<String, String> {
         producState,
         isShippingAvailable,
         platform,
+        categoriesSelect
       ],
     );
   }
@@ -88,12 +106,13 @@ class EditProductBloc extends FormBloc<String, String> {
       ProductDetailsResponse result = await productService.edit(
           product.id!,
           ProductRequest(
-            title: title.value,
-            price: double.parse(price.value),
-            description: description.value,
-            state: producState.value,
-            shippingAvailable: isShippingAvailable.value,
-          ));
+              title: title.value,
+              price: double.parse(price.value),
+              description: description.value,
+              state: producState.value,
+              shippingAvailable: isShippingAvailable.value,
+              platform: platform.value,
+              categories: categoriesSelect.value.toSet()));
 
       if (result != null) {
         emitSuccess();
@@ -205,6 +224,16 @@ class EditProductForm extends StatelessWidget {
                           child: Text(item.platformName!),
                         ),
                       ),
+                      CheckboxGroupFieldBlocBuilder<Categories>(
+                        multiSelectFieldBloc: productFormBloc.category.stream,
+                        itemBuilder: (context, item) => FieldItem(
+                          child: Text(item.genre!),
+                        ),
+                        decoration: const InputDecoration(
+                          labelText: 'Categorias',
+                          prefixIcon: SizedBox(),
+                        ),
+                      ),
                       ElevatedButton(
                         onPressed: productFormBloc.submit,
                         child: const Text('VENDER PRODUCTO'),
@@ -221,6 +250,8 @@ class EditProductForm extends StatelessWidget {
   }
 }
 
+//ESTADOS
+//////////////////////////////////////////////////////////////////////////////////////
 class LoadingDialog extends StatelessWidget {
   static void show(BuildContext context, {Key? key}) => showDialog<void>(
         context: context,

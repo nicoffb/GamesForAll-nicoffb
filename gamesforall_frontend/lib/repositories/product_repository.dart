@@ -66,11 +66,11 @@ class ProductRepository {
     return ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
   }
 
-   Future<ProductDetailsResponse> editProduct(int id,ProductRequest productRequest) async {
+  Future<ProductDetailsResponse> editProduct(
+      int id, ProductRequest productRequest) async {
     String url = '/product/$id';
 
-    var jsonResponse =
-        await server.put(url, productRequest);
+    var jsonResponse = await server.put(url, productRequest);
     return ProductDetailsResponse.fromJson(jsonDecode(jsonResponse));
   }
 

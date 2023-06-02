@@ -20,14 +20,6 @@ class MessageService {
         .then((value) => localStorageService = value);
   }
 
-  // Future<void> addToFavorites(int productId) async {
-  //   await _productRepository.addToFavorites(productId);
-  // }
-
-  // Future<void> removeFromFavorites(int productId) async {
-  //   await _productRepository.removeFromFavorites(productId);
-  // }
-
   Future<List<MessageResponse>> getMessagesWithUser(String userId) async {
     return await messageRepository.getMessagesWithUser(userId);
   }

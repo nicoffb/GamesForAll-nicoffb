@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gamesforall_frontend/services/category_service.dart';
 import 'package:gamesforall_frontend/services/message_service.dart';
 import 'package:gamesforall_frontend/services/platform_service.dart';
 import 'package:provider/provider.dart';
@@ -46,8 +47,11 @@ void main() {
       Provider<MessageService>(
         create: (context) => getIt<MessageService>(),
       ),
-       Provider<PlatformService>(
+      Provider<PlatformService>(
         create: (context) => getIt<PlatformService>(),
+      ),
+      Provider<CategoryService>(
+        create: (context) => getIt<CategoryService>(),
       ),
     ],
     child: MyApp(),

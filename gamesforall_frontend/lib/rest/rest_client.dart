@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:gamesforall_frontend/models/product_detail_response.dart';
+import 'package:gamesforall_frontend/models/product_request.dart';
 import 'package:http_parser/http_parser.dart';
 
 import '../services/localstorage_service.dart';
@@ -94,8 +96,8 @@ class RestClient {
     }
   }
 
-  Future<dynamic> postMultiPart(
-      String url, dynamic body, PlatformFile file, String accessToken) async {
+  Future<dynamic> postMultiPart(String url, ProductRequest body,
+      PlatformFile file, String accessToken) async {
     try {
       Uri uri = Uri.parse(url);
 
@@ -105,18 +107,26 @@ class RestClient {
         'Authorization': 'Bearer ${accessToken}',
         'connection': 'keep-alive',
       });
-      var bodyPart;
-      var request = new http.MultipartRequest('POST', uri);
-      final httpImage = http.MultipartFile.fromBytes('file', file.bytes!,
+
+      var request = http.MultipartRequest('POST', uri);
+
+      // Add body as MultipartFile
+      final bodyString = jsonEncode(body.toJson());
+      final bodyBytes = utf8.encode(bodyString);
+
+      final bodyPart = http.MultipartFile.fromBytes('body', bodyBytes,
+          contentType: MediaType('application', 'json'), filename: 'body.json');
+
+      request.files.add(bodyPart);
+
+      // Add file as MultipartFile
+      final httpImage = http.MultipartFile.fromBytes('files', file.bytes!,
           contentType: MediaType('image', file.extension!),
           filename: file.name);
+
       request.files.add(httpImage);
+
       request.headers.addAll(headers);
-      if (body != null) {
-        bodyPart = http.MultipartFile.fromString('body', jsonEncode(body),
-            contentType: MediaType('application', 'json'));
-        request.files.add(bodyPart);
-      }
 
       final response = await _httpClient!.send(request);
       var responseJson = response.stream.bytesToString();
@@ -124,6 +134,41 @@ class RestClient {
     } on SocketException catch (ex) {
       throw Exception('No internet connection: ${ex.message}');
     }
+  }
+
+  // Future<dynamic> postMultiPart(String url, ProductRequest body,
+  //     PlatformFile file, String accessToken) async {
+  //   try {
+  //     Uri uri = Uri.parse(url);
+
+  //     Map<String, String> headers = Map();
+  //     headers.addAll({
+  //       'Content-Type': 'multipart/form-data',
+  //       'Authorization': 'Bearer ${accessToken}',
+  //       'connection': 'keep-alive',
+  //     });
+  //     var request = http.MultipartRequest('POST', uri);
+  //     final httpImage = http.MultipartFile.fromBytes('file', file.bytes!,
+  //         contentType: MediaType('image', file.extension!),
+  //         filename: file.name);
+  //     request.files.add(httpImage);
+  //     request.headers.addAll(headers);
+  //     request = jsonToFormData(request, body.toJson());
+
+  //     final response = await _httpClient!.send(request);
+  //     var responseJson = response.stream.bytesToString();
+  //     return responseJson;
+  //   } on SocketException catch (ex) {
+  //     throw Exception('No internet connection: ${ex.message}');
+  //   }
+  // }
+
+  jsonToFormData(http.MultipartRequest request, Map<String, dynamic> data) {
+    for (var key in data.keys) {
+      request.fields[key] = data[key].toString();
+      //si el key es igual a platform u otro llama al json
+    }
+    return request;
   }
 
   dynamic _response(http.Response response) {

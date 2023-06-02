@@ -23,9 +23,10 @@ import 'package:gamesforall_frontend/repositories/user_repository.dart' as _i5;
 import 'package:gamesforall_frontend/rest/rest_client.dart' as _i3;
 import 'package:gamesforall_frontend/services/authentication_service.dart'
     as _i10;
-import 'package:gamesforall_frontend/services/message_service.dart' as _i11;
-import 'package:gamesforall_frontend/services/platform_service.dart' as _i12;
-import 'package:gamesforall_frontend/services/product_service.dart' as _i13;
+import 'package:gamesforall_frontend/services/category_service.dart' as _i11;
+import 'package:gamesforall_frontend/services/message_service.dart' as _i12;
+import 'package:gamesforall_frontend/services/platform_service.dart' as _i13;
+import 'package:gamesforall_frontend/services/product_service.dart' as _i14;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
@@ -50,9 +51,10 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i9.ProductRepository>(_i9.ProductRepository());
     gh.singleton<_i10.JwtAuthenticationService>(
         _i10.JwtAuthenticationService());
-    gh.singleton<_i11.MessageService>(_i11.MessageService());
-    gh.singleton<_i12.PlatformService>(_i12.PlatformService());
-    gh.singleton<_i13.ProductService>(_i13.ProductService());
+    gh.singleton<_i11.CategoryService>(_i11.CategoryService());
+    gh.singleton<_i12.MessageService>(_i12.MessageService());
+    gh.singleton<_i13.PlatformService>(_i13.PlatformService());
+    gh.singleton<_i14.ProductService>(_i14.ProductService());
     return this;
   }
 }
