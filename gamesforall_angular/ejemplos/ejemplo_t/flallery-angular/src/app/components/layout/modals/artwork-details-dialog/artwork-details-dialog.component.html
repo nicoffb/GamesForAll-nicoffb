@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{ artwork.name }}</h2>
+<mat-dialog-content>
+  <p><strong>Creator:</strong> {{ artwork.owner }}</p>
+  <p><strong>Artwork Id:</strong> {{ artwork.uuid }}</p>
+  <p><strong>Category:</strong> {{ artwork.categoryName }}</p>
+  <p><strong>Description:</strong> {{artwork.description}}</p>
+  <p *ngIf="artwork.disponibleParaComprar == true"><strong>Estado:</strong> A la venta</p>
+  <p *ngIf="artwork.disponibleParaComprar == false"><strong>Estado:</strong> No disponible</p>
+  <img src={{artwork.imgUrl|artworkImage}} alt="">
+  <hr>
+  <h3><strong>Comments</strong></h3>
+  <p *ngFor="let comment of artwork.comments">{{comment.writer}}: {{comment.text}}</p>
+  <!-- Add more details as needed -->
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

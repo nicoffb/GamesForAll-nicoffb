@@ -1,0 +1,47 @@
+<div class="profile-container" *ngIf="user">
+  <div class="profile-avatar">
+    <img [src]="user.avatar" alt="Avatar">
+  </div>
+  <div class="profile-details">
+    <h1>{{ user.fullName }}</h1>
+    <p>Username: {{ user.username }}</p>
+    <p>Member since: {{ user.createdAt }}</p>
+  </div>
+</div>
+<hr>
+<div class="grid-container">
+  <div class="grid-item" *ngFor="let artwork of userArtworks">
+    <div class="artwork-card" (click)="openDetailsDialog(artwork)">
+      <div class="artwork-image">
+        <img
+          [src]="artwork.imgUrl | artworkImage"
+          alt=""
+          class="artwork-img"
+        />
+      </div>
+      <div class="artwork-info">
+        <div><strong>Name:</strong> {{ artwork.name }}</div>
+        <div><strong>Category:</strong> {{ artwork.categoryName }}</div>
+        <div><strong>Owner:</strong> {{ artwork.owner }}</div>
+      </div>
+    </div>
+    <div class="artwork-actions">
+      <button
+        mat-raised-button
+        color="primary"
+        class="action-button"
+        (click)="openDetailsDialog(artwork)"
+      >
+        Details
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        class="action-button"
+        (click)="openEditDialog(artwork)"
+      >
+        Edit
+      </button>
+    </div>
+  </div>
+</div>

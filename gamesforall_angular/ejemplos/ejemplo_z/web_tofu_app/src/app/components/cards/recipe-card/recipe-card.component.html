@@ -1,0 +1,40 @@
+<div
+  class="container outlined_box_4px"
+  [ngStyle]="{ backgroundImage: 'url(' + recipeImgData + ')' }"
+  (click)="emitEvent()"
+>
+  <div class="user_row">
+    <img class="outlined_box_4px avatar" src="{{ authorAvatarData }}" alt="" />
+    <div class="user_info">
+      <p
+        class="outlined_text_2px_no_shadow open-sans"
+        style="font-size: 16px; font-weight: 800"
+      >
+        {{ recipe.author.fullname }}
+      </p>
+      <p class="open-sans username" style="font-weight: 800">
+        @{{ recipe.author.username }}
+      </p>
+    </div>
+    <div class="duration outlined_box_4px">
+      <span class="open-sans outlined_text_2px_no_shadow">{{
+        recipe.prepTime
+      }}</span>
+      <p class="open-sans outlined_text_2px_no_shadow">m</p>
+    </div>
+  </div>
+  <div class="recipe_row">
+    <div class="recipe_name open-sans outlined_text_2px">
+      {{ recipe.name }}
+    </div>
+    <div class="favorites">
+      <p
+        class="outlined_text_2px_no_shadow"
+        style="font-weight: 800; font-size: 18px; transform: translateY(10px)"
+      >
+        {{ recipe.nlikes }}
+      </p>
+      <i class="fa-solid fa-heart outlined_text_2px_no_shadow"></i>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<h1 class="sell-history-title">Sell History</h1>
+<hr />
+
+<mat-card style="margin: 20px 40px 40px 40px">
+  <mat-card-content class="dashboard-card-content">
+    <div class="mat-elevation-z2">
+      <table mat-table [dataSource]="ventaDataList">
+        <ng-container matColumnDef="artworkName">
+          <th mat-header-cell *matHeaderCellDef>Artwork Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.artworkName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="precio">
+          <th mat-header-cell *matHeaderCellDef>Price</th>
+          <td mat-cell *matCellDef="let element">{{ element.precio }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaVenta">
+          <th mat-header-cell *matHeaderCellDef>Date Sold</th>
+          <td mat-cell *matCellDef="let element">{{ element.fechaVenta }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="usernameComprador">
+          <th mat-header-cell *matHeaderCellDef>Buyer Username</th>
+          <td mat-cell *matCellDef="let element">{{ element.usernameComprador }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="usernameVendedor">
+          <th mat-header-cell *matHeaderCellDef>Seller Username</th>
+          <td mat-cell *matCellDef="let element">{{ element.usernameVendedor }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnasTable"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnasTable"></tr>
+      </table>
+
+      <mat-paginator
+        [length]="totalElements"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 50]"
+        (page)="onPageChange($event)">
+      </mat-paginator>
+    </div>
+    <button mat-raised-button color="primary" (click)="exportToExcel()">Export to Excel</button>
+
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Rob;
+  background-color: #fcf3dd;
+}
+
+/* FONTS */
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+}
+
+.open-sans {
+  font-family: "Open Sans", sans-serif;
+}
+/* STYLING */
+
+.outlined_text_2px {
+  color: white;
+  paint-order: stroke fill;
+  text-shadow: 2px 2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    -2px -2px 0 black, 2px 0px 0 black, 0px 2px 0 black, -2px 0px 0 black,
+    0px -2px 0 black, 0px 4px 0px black, 1px 4px 0px black, -2px 4px 0px black,
+    2px 4px 0px black, 2px 2px 0px black;
+}
+.outlined_text_2px_no_shadow {
+  color: white;
+  text-shadow: 2px 2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    -2px -2px 0 black, 2px 0px 0 black, 0px 2px 0 black, -2px 0px 0 black,
+    0px -2px 0 black;
+}
+
+.outlined_box_4px {
+  border: 2px solid black;
+  border-radius: 8px;
+  box-shadow: 0px 4px 0px 0px;
+}
+
+.outlined_box_0px {
+  border: 2px solid black;
+  border-radius: 8px;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

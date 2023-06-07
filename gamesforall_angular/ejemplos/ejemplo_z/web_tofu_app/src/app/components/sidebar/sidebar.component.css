@@ -1,0 +1,26 @@
+.overview_button {
+  
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    min-width: 270px;
+    min-height: 84vh;
+}
+.overview_button{
+    margin: 0 20px 30px 20px;
+
+}
+
+.sidebar_header{
+    padding: 1.8em 1.5em;
+    background-color: #C3A26F;
+
+    border-radius: 0px;
+    margin-top: 14%;
+    margin-bottom: 30px;
+
+    border-right: 0px;
+    border-left: 0px;
+}

@@ -1,0 +1,27 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field{
+  font-size: 14px;
+  width: 100%;
+}
+
+.users-title {
+  margin: 20px 0 0 40px;
+  font-size: 32px;
+  font-family: 'Arial', sans-serif;
+  background-image: linear-gradient(45deg, #007bff, #00bcd4);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: bold;
+}
+
+th{
+  text-align: center;
+}
+
+td{
+  text-align: center;
+}

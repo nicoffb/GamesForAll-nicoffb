@@ -1,0 +1,95 @@
+<body class="g-sidenav-show   bg-gray-100">
+    <div class="min-height-300 bg-primary position-absolute w-100"></div>
+    <app-sidenav></app-sidenav>
+    <main class="main-content position-relative border-radius-lg ">
+      <!-- Navbar -->
+      <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+        <div class="container-fluid py-1 px-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+              <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Inicio</a></li>
+              <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Restaurantes</a></li>
+              <li class="breadcrumb-item text-sm text-white active" aria-current="page">Nuevo</li>
+            </ol>
+            <h6 class="font-weight-bolder text-white mb-0">Nuevo restaurante</h6>
+          </nav>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+      <div class="container-fluid py-4">
+        <div class="card">
+          <div class="card-body p-3">
+            <form [formGroup]="restForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                  <label for="nombre" class="form-control-label">Nombre</label>
+                  <input class="form-control" type="text" id="nombre" formControlName="nombre">
+              </div>
+              <div class="form-group">
+                <label for="descripcion">Descripcion</label>
+                <textarea class="form-control" id="descripcion" rows="3" formControlName="descripcion"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="imagen">Imagen</label>
+                <input class="form-control" type="file" id="imagen" formControlName="imagen" (change)="this.onFilechange($event)">
+              </div>
+              <div class="form-group">
+                  <label for="apertura" class="form-control-label">Apertura</label>
+                  <input class="form-control" type="time" id="apertura" formControlName="apertura">
+              </div>
+              <div class="form-group">
+                <label for="cierre" class="form-control-label">Cierre</label>
+                <input class="form-control" type="time" id="cierre" formControlName="cierre">
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="dropdown">
+                  <button class="btn bg-gradient-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Tipos de cocina
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li *ngFor="let cocina of cocinas"><a class="dropdown-item" (click)="toggleCocina(cocina)">{{cocina.nombre}}</a></li>
+                  </ul>
+                </div>
+                <div class="d-flex badges-cocina">
+                  <div *ngFor="let cocina of cocinasSelected" class="cocina-badge">
+                    <img src="data:image/png;base64,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" alt="">
+                    <p>{{cocina.nombre}}</p>
+                    <a (click)="toggleCocina(cocina)"><i class="ni ni-fat-remove"></i></a>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg" [disabled]="!restForm.valid">Guardar</button>
+          </form>
+
+          </div>
+        </div>
+
+
+
+        <app-footer></app-footer>
+        <div *ngIf="showSuccess" class="alert alert-success" role="alert">
+          <strong>Restaurante creado con éxito.</strong> Volviendo a la página de restaurantes.
+        </div>
+      </div>
+    </main>
+
+    <!--   Core JS Files   -->
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/chartjs.min.js"></script>
+    <script>
+      var win = navigator.platform.indexOf('Win') > -1;
+      if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+          damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+      }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+  </body>

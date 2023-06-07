@@ -1,0 +1,10 @@
+.gradient-toolbar {
+  background: linear-gradient(to left, #00a8e8, #0077b5);
+  color: white;
+}
+
+.gradient-toolbar h1 {
+  margin: auto;
+  font-size: 2rem;
+  font-weight: bold;
+}

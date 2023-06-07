@@ -1,0 +1,15 @@
+<button
+  class="open-sans outlined_text_2px"
+  [ngStyle]="{
+    'font-size.px': fontSize,
+    'text-align': btnTextAlign,
+    'padding-top.px': verticalPadding,
+    'padding-bottom.px': verticalPadding
+  }"
+  [ngClass]="isDisabled ? 'disabled' : btnStyle"
+  (click)="emitEvent()"
+  [disabled]="isDisabled"
+  [class.green_focus]="isActive"
+>
+  {{ label }}
+</button>

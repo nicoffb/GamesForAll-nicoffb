@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Create Artwork</h2>
+<div mat-dialog-content>
+  <form>
+    <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="artwork.name" name="name" required>
+    </mat-form-field> <br>
+
+    <mat-form-field>
+      <textarea matInput placeholder="Description" [(ngModel)]="artwork.description" name="description" required></textarea>
+    </mat-form-field><br>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <mat-select [(ngModel)]="artwork.categoryName" name="categoryName">
+        <mat-option
+          *ngFor="let artworkCategory of artworkCategoryList"
+          value="{{artworkCategory.name}}"
+        >
+          {{ artworkCategory.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field><br> 
+
+    <input type="file" (change)="onFileSelected($event)">
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button color="primary" (click)="createArtwork()" [disabled]="!artwork.name || !artwork.description || !artwork.categoryName">Create</button>
+</div>

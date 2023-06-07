@@ -1,0 +1,30 @@
+<div class="container">
+  <div
+    class="img_container outlined_box_4px"
+    [ngStyle]="{ backgroundImage: 'url(' + recipeImgData + ')' }"
+  >
+    <p class="recipe_name montserrat outlined_text_2px">{{ recipe.name }}</p>
+  </div>
+  <div class="user_row">
+    <img class="outlined_box_4px avatar" src="{{authorAvatarData}}" alt="" />
+    <div class="fullname montserrat outlined_text_2px" style="font-size: 18px">
+      {{author.fullname}}
+    </div>
+    <div class="duration outlined_box_4px">
+      <span class="open-sans outlined_text_2px_no_shadow">
+        {{ recipe.prepTime }}
+      </span>
+      <p class="open-sans outlined_text_2px_no_shadow">m</p>
+    </div>
+  </div>
+  <div class="description open-sans">
+    {{ recipe.description }}
+  </div>
+  <div class="steps">
+    <ng-container *ngFor="let step of recipe.steps">
+        <app-step-card
+        [step]="step"
+        />
+    </ng-container>
+  </div>
+</div>

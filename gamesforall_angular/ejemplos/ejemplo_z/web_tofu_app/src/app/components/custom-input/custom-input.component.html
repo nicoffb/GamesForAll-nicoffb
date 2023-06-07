@@ -1,0 +1,26 @@
+<div class="form-control">
+  <div class="input_container">
+    <input
+      [ngClass]="{
+        invalid: control.invalid && control.dirty && control.touched
+      }"
+      [formControl]="control"
+      [type]="inputType"
+      [id]="inputId"
+      [placeholder]="label"
+      class="base_input open-sans"
+    />
+
+    <mat-icon
+      (click)="toggleVisibility()"
+      fontSet="far"
+      fontIcon="{{ visibilityIcon }}"
+      *ngIf="enableVisibility"
+    ></mat-icon>
+  </div>
+  <ng-container *ngIf="control.invalid && control.dirty && control.touched">
+    <div class="error" *ngFor="let err of control.errors | keyvalue">
+      {{ errorMessages[err.key] }}
+    </div>
+  </ng-container>
+</div>

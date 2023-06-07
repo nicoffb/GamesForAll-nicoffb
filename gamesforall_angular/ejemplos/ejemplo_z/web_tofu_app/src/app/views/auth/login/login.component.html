@@ -1,0 +1,32 @@
+<div class="container">
+  <span>
+    <img src="/assets/Original.png" alt="Logo" class="logo" />
+  </span>
+  <div class="login_box outlined_box_4px">
+    <p class="title outlined_text_2px montserrat">Login</p>
+    <form [formGroup]="formGroup" (ngSubmit)="login()" class="input">
+      <app-custom-input
+        inputType="text"
+        [control]="formGroup.controls.username"
+        inputId="username"
+        label="Username"
+        [errorMessages]="usernameErrors"
+      ></app-custom-input>
+      <app-custom-input
+        inputType="password"
+        [control]="formGroup.controls.password"
+        inputId="password"
+        label="Password"
+        [enableVisibility]='true'
+        [errorMessages]="passwordErrors"
+      ></app-custom-input>
+    </form>
+    <app-custom-button
+      label="Login"
+      class="login_button"
+      btnStyle="green"
+      (OnClick)="login()"
+      [isDisabled]="formGroup.untouched || formGroup.invalid"
+    ></app-custom-button>
+  </div>
+</div>

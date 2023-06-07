@@ -1,0 +1,57 @@
+<h1 class="artworks-title">Artworks</h1>
+<hr>
+<mat-card style="margin: 20px 40px 40px 40px">
+  <mat-card-title>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openCreateArtworkDialog()"
+    >
+      <mat-icon mat-list-icon>add</mat-icon>Create Artwork
+    </button>
+  </mat-card-title>
+  <br />
+  <mat-divider></mat-divider>
+  <mat-card-content class="dashboard-card-content">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar</mat-label>
+      <input type="text" matInput (keyup)="applyFilterCard($event)" />
+    </mat-form-field>
+    <div class="grid-container">
+      <div class="grid-item" *ngFor="let artwork of filteredArtworks">
+        <div class="artwork-card" (click)="openDetailsDialog(artwork)">
+          <div class="artwork-image">
+            <img
+              [src]="artwork.imgUrl | artworkImage"
+              alt=""
+              class="artwork-img"
+            />
+          </div>
+          <div class="artwork-info">
+            <div><strong>Name:</strong> {{ artwork.name }}</div>
+            <div><strong>Category:</strong> {{ artwork.categoryName }}</div>
+            <div><strong>Owner:</strong> {{ artwork.owner }}</div>
+          </div>
+        </div>
+        <div class="artwork-actions">
+          <button
+            mat-raised-button
+            color="primary"
+            class="action-button"
+            (click)="commentArtwork(artwork)"
+          >
+            Comment
+          </button>
+          <button
+            mat-raised-button
+            color="accent"
+            class="action-button"
+            (click)="deleteArtwork(artwork)"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

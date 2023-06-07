@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="outlined_box_4px sidebar_header over">
+        <span class="montserrat outlined_text_2px" style="font-size: 30px;">\\ Dashboard</span>
+    </div>
+  <app-custom-button
+    label="Home"
+    class="overview_button"
+    btnStyle="green"
+    [fontSize]='24'
+    btnTextAlign="start"
+    [verticalPadding]="10"
+    [isActive]="isActive('btnHome')"
+    (OnClick)="navigateHome()"
+  ></app-custom-button>
+  <app-custom-button
+    label="Users"
+    class="overview_button"
+    btnStyle="green"
+    [fontSize]='24'
+    btnTextAlign="start"
+    [verticalPadding]="10"
+    [isActive]="isActive('btnUsers')"
+    (OnClick)="navigateUsers()"
+    [isDisabled] =true
+  ></app-custom-button>
+  <app-custom-button
+    label="Recipes"
+    class="overview_button"
+    btnStyle="green"
+    [verticalPadding]="10"
+    [fontSize]='24'
+    btnTextAlign="start"
+    [isActive]="isActive('btnRecipes')"
+    (OnClick)="navigateRecipes()"
+  ></app-custom-button>
+  <app-custom-button
+    label="Ingredients"
+    class="overview_button"
+    btnStyle="green"
+    [verticalPadding]="10"
+    [fontSize]='24'
+    btnTextAlign="start"
+    [isActive]="isActive('btnIngredients')"
+    (OnClick)="navigateIngredient()"
+    [isDisabled] =true
+
+  >
+  </app-custom-button>
+  <app-custom-button
+    label="Logout"
+    class="overview_button"
+    style="margin-top: auto; margin-bottom: 10%;"
+    btnStyle="red"
+    (OnClick)="logout()"
+    [fontSize]='24'
+    btnTextAlign="start"
+
+  >
+  </app-custom-button>
+</div>
