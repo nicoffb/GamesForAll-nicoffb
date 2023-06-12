@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginRequest } from 'src/models/user.interface';
-import { LoginService } from 'src/services/login.service';
-import { UtilService } from 'src/services/util.service';
+import { LoginRequest } from 'src/app/models/user.interface';
+import { LoginService } from 'src/app/services/login.service';
+import { UtilService } from 'src/app/services/util.service';
+
 
 
 
@@ -40,22 +41,9 @@ export class LoginComponent {
       password: this.formularioLogin.value.password
     }
 
-    this._loginService.login(request).subscribe({
-      next: (data) => {
-        if (data) {
-          this._utilService.guardarSesionUsuario(data)
-          this.router.navigate(["pages/dashboard"])
-          localStorage.setItem("auth_token", data.token)
-        } else {
-          this._utilService.mostrarAlerta("No se encontraron coincidencias", "Oops")
-        }
-      },
-      complete:()=>{
-        this.mostrarLoading = false;
-      },
-      error: () =>{
-        this._utilService.mostrarAlerta("Hubo un error", "Oops")
-      }
+    this._loginService.login(request).subscribe(resp=>{
+      localStorage.setItem('token',resp.token);
+      this.router.navigate(['user'])
     })
 
   }

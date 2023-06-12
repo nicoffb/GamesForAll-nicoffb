@@ -14,18 +14,27 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { LoginComponent } from 'src/components/login/login.component';
+import { LoginComponent } from 'src/app/components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserComponent } from './components/user/user.component';
+import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario.component';
+import { authInterceptorProviders } from './general/auth.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    UserComponent,
+    ModalUsuarioComponent
     
   ],
   imports: [
@@ -37,14 +46,19 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,
     MatSelectModule,
     MatIconModule,
+    MatDividerModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
+    MatGridListModule,
+    MatDialogModule
+    
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

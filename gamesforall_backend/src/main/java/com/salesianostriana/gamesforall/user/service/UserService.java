@@ -10,6 +10,7 @@ import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import com.salesianostriana.gamesforall.search.specifications.GSBuilder;
 import com.salesianostriana.gamesforall.search.util.SearchCriteria;
 import com.salesianostriana.gamesforall.user.dto.CreateUserRequest;
+import com.salesianostriana.gamesforall.user.dto.EditUserRequest;
 import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.model.UserRole;
 import com.salesianostriana.gamesforall.user.repo.UserRepository;
@@ -67,7 +68,7 @@ public class UserService {
         return userRepository.findFirstByUsername(username);
     }
 
-    public Optional<User> edit(User user) {
+    public Optional<User> edit(EditUserRequest user) {
 
         // El username no se puede editar
         // La contraseña se edita en otro método

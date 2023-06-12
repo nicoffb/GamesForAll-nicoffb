@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserResponse } from 'src/models/user.interface';
+import { UserResponse } from 'src/app/models/user.interface';
 
 
 @Injectable({
@@ -20,7 +20,7 @@ export class UtilService {
 
 
  guardarSesionUsuario(userResponse: UserResponse){
-  localStorage.setItem("user",JSON.stringify(userResponse));
+  localStorage.setItem("user", userResponse.token);
  }
 
 

@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>{{tituloAccion}} Usuario</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="createUserForm">
+    <mat-grid-list cols="1" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput autocomplete="off" formControlName="username">
+          <mat-icon matSuffix>account-box</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="tituloAccion!='Editar'" >
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput  [type]="ocultarPassword ? 'password': 'text'" formControlName="password">
+          <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword" type="button">
+            <mat-icon matSuffix>{{ocultarPassword ? 'visibility_off':'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="tituloAccion!='Editar'" >
+        <mat-form-field appearance="outline">
+          <mat-label>Verify Password</mat-label>
+          <input matInput [type]="ocultarVerifyPassword ? 'password': 'text'" formControlName="verifyPassword">
+          <button mat-icon-button matSuffix (click)="ocultarVerifyPassword = !ocultarVerifyPassword" type="button">
+            <mat-icon matSuffix>{{ocultarVerifyPassword ? 'visibility_off':'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Avatar</mat-label>
+          <input matInput autocomplete="off" formControlName="avatar">
+          <mat-icon matSuffix>account-box</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>FullName</mat-label>
+          <input matInput autocomplete="off" formControlName="fullName">
+          <mat-icon matSuffix>account-box</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="warm">Volver</button>
+  <button mat-raised-button color="primary" [disabled]="createUserForm.invalid" (click)="guardarEditar_Usuario()">{{botonAccion}}</button>
+</mat-dialog-actions>

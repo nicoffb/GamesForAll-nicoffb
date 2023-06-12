@@ -85,7 +85,9 @@ public class SecurityConfig {
                                 .authorizeRequests()
                                 .antMatchers("/product/download/**").permitAll()
                                 .antMatchers("/**").hasRole("USER")
+                //CUIDAO
                                 .antMatchers("/auth/register/admin").hasRole("ADMIN")
+                                .antMatchers("/auth/**").hasRole("ADMIN")
                                 .anyRequest().authenticated();
 
 
@@ -104,6 +106,7 @@ public class SecurityConfig {
                 "/swagger-ui/**",
                 "/swagger-ui.html",
                 "/swagger-resources/**"
+                //,"/auth/users"
         ));
     }
 

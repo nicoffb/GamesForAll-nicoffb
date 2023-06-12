@@ -12,6 +12,7 @@ import com.salesianostriana.gamesforall.security.jwt.refresh.RefreshTokenRequest
 import com.salesianostriana.gamesforall.security.jwt.refresh.RefreshTokenService;
 import com.salesianostriana.gamesforall.user.dto.*;
 import com.salesianostriana.gamesforall.user.model.User;
+import com.salesianostriana.gamesforall.user.model.UserRole;
 import com.salesianostriana.gamesforall.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -35,9 +36,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -260,5 +263,42 @@ public class UserController {
 
     }
 
+
+    @GetMapping("/auth/users")
+    public ResponseEntity<List<UserResponse>>getAllUSers(){
+
+            List<UserResponse> responseList = userService.findAll().stream().map(UserResponse::fromUser).toList();
+            if (responseList.isEmpty())
+                return ResponseEntity.notFound().build();
+
+            return ResponseEntity.ok(responseList);
+
+    }
+
+
+    @Operation(summary = "Delete an User")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "No content",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = User.class))
+                    )})
+    })
+    @Transactional
+    @DeleteMapping("auth/user/{id}")
+    public ResponseEntity<?> deleteOtherUser(@AuthenticationPrincipal User user, @PathVariable UUID id){
+        if (user.getRoles().contains(UserRole.ADMIN)){
+            userService.deleteById(id);
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+
+    @PutMapping("/auth/user")
+    public ResponseEntity<UserResponse> editMyUser(@RequestBody EditUserRequest editUserRequest) {
+        Optional<User> userResponse= userService.edit(editUserRequest);
+
+        return userResponse.map(user -> ResponseEntity.status(HttpStatus.OK).body(UserResponse.fromUser(user))).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
 }

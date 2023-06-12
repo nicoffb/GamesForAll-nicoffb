@@ -1,4 +1,5 @@
 //RESPONSES 
+export type UserList = UserResponse[]
 export interface UserResponse {
   id: string
   username: string
@@ -31,19 +32,18 @@ export interface LoginRequest {
 }
 
 export interface EditUserRequest {
-  email: string;
-  fullname: string;
-  birthday: string;
-  description: string;
+  id: string
+  avatar: string
+  fullName: string
 }
 
 export interface CreateUserRequest {
   username: string;
   password: string;
   verifyPassword: string;
-  email: string;
-  verifyEmail: string;
-  fullname: string;
+  adress: string;
+  avatar: string;
+  fullName: string;
 }
 
 export interface ChangePasswordRequest {
