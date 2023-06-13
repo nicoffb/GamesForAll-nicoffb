@@ -19,10 +19,13 @@ import java.util.Set;
 public class Platform {
 
     @Id
-   // @GeneratedValue
+    @GeneratedValue
     private Long id;
 
     private String platformName;
 
 
+    public Platform(String platformName) {
+        this.platformName = platformName;
+    }
 }

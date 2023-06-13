@@ -1,6 +1,7 @@
 package com.salesianostriana.gamesforall.platform;
 
 
+import com.salesianostriana.gamesforall.category.CategoryDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +26,6 @@ public class PlatformController {
 
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePlatform(@PathVariable Long id) {
-        platformService.deletePlatform(id);
-
-        return ResponseEntity.noContent().build();
-    }
-
     @PostMapping("/")
     public ResponseEntity<PlatformDTO> createNewPlatform(@RequestBody PlatformDTO created) {
 
@@ -52,6 +46,17 @@ public class PlatformController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePlatform(@PathVariable Long id) {
+        platformService.deletePlatform(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public PlatformDTO editPlatform(@PathVariable Long id, @RequestBody PlatformDTO edited) {
+        return platformService.edit(id,edited);
+    }
 
 
 }

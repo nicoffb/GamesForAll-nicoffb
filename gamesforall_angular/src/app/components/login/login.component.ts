@@ -43,7 +43,7 @@ export class LoginComponent {
 
     this._loginService.login(request).subscribe(resp=>{
       localStorage.setItem('token',resp.token);
-      this.router.navigate(['user'])
+      this.router.navigate(['platforms'])
     })
 
   }

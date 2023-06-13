@@ -1,6 +1,8 @@
 package com.salesianostriana.gamesforall.category;
 
 
+import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
+import com.salesianostriana.gamesforall.product.dto.ProductRequestDTO;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
@@ -52,6 +54,11 @@ public class CategoryController {
         categoryService.deleteCategory(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public CategoryDTO editCategory(@PathVariable Long id, @RequestBody CategoryDTO edited) {
+        return categoryService.edit(id,edited);
     }
 
 

@@ -28,13 +28,17 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserComponent } from './components/user/user.component';
 import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario.component';
 import { authInterceptorProviders } from './general/auth.interceptor';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { PlatformsComponent } from './components/platforms/platforms.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     UserComponent,
-    ModalUsuarioComponent
+    ModalUsuarioComponent,
+    CategoriesComponent,
+    PlatformsComponent
     
   ],
   imports: [

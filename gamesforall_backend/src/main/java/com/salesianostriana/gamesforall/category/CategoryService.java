@@ -5,8 +5,12 @@ import com.salesianostriana.gamesforall.exception.CategoryNotFoundException;
 import com.salesianostriana.gamesforall.exception.EmptyCategoryListException;
 import com.salesianostriana.gamesforall.category.CategoryDTO;
 import com.salesianostriana.gamesforall.category.Category;
+import com.salesianostriana.gamesforall.exception.ProductNotFoundException;
+import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
+import com.salesianostriana.gamesforall.product.dto.ProductRequestDTO;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.category.CategoryRepository;
+import com.salesianostriana.gamesforall.product.model.StateEnum;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,6 +60,17 @@ public class CategoryService {
         categoryRepository.delete(category);
     }
 
+
+    public CategoryDTO edit(Long id, CategoryDTO categoryDTO){
+        return categoryRepository.findById(id)
+                .map(category -> {
+                    category.setGenre(categoryDTO.getGenre());
+                    categoryRepository.save(category);
+                    CategoryDTO edited = CategoryDTO.of(category);
+                    return edited;
+                })
+                .orElseThrow(()->new CategoryNotFoundException());
+    }
 
 
 }

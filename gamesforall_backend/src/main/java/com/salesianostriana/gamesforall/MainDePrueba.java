@@ -123,10 +123,10 @@ public class MainDePrueba {
 
         messageRepository.saveAll(List.of(message1,message2,message3,message4));
 
-        Platform platform1 = new Platform(1L,"PS5");
-        Platform platform2 = new Platform(2L,"XBOX");
-        Platform platform3 = new Platform(3L,"SWITCH");
-        Platform platform4 = new Platform(4L,"PC");
+        Platform platform1 = new Platform("PS5");
+        Platform platform2 = new Platform("XBOX");
+        Platform platform3 = new Platform("SWITCH");
+        Platform platform4 = new Platform("PC");
 
         platformRepository.saveAll(List.of(platform1,platform2,platform3,platform4));
 

@@ -1,5 +1,6 @@
 package com.salesianostriana.gamesforall.platform;
 
+import com.salesianostriana.gamesforall.category.CategoryDTO;
 import com.salesianostriana.gamesforall.exception.*;
 import com.salesianostriana.gamesforall.product.model.Product;
 import com.salesianostriana.gamesforall.product.repository.ProductRepository;
@@ -45,6 +46,17 @@ public class PlatformService {
             productRepository.save(product);
         });
         platformRepository.delete(platform);
+    }
+
+    public PlatformDTO edit(Long id, PlatformDTO platformDTO){
+        return platformRepository.findById(id)
+                .map(platform -> {
+                    platform.setPlatformName(platformDTO.getPlatformName());
+                    platformRepository.save(platform);
+                    PlatformDTO edited = platformDTO.of(platform);
+                    return edited;
+                })
+                .orElseThrow(()->new PlatformNotFoundException());
     }
 
 

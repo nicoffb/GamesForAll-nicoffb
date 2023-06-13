@@ -26,4 +26,4 @@ usar camara para las fotos
 TODO: VALIDACIONES PARA QUE RELLENE TODOS LOS CAMPOS AL SUBIR, QUE NO SALGA UPLOADPAGE VACIA  CUANDO HAYA SUBIDO EL PRODUCTO
 
 
-borrar usuario? se borran los productos y los trades?
+borrar usuario? se borran los productos y los trades? se pueden borrar los usuarios que no tienen trades
