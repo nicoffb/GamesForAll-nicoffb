@@ -1,31 +1,41 @@
-.contenedor-principal{
-    background-color: #2E9CBF;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    border-top-right-radius: 20px;
-    height: 100%;
-    width: 200px;
-  }
-  #title{
-    text-decoration: none;
-    color: white;
-    margin-top: 10%;
-  }
-  .title{
-     text-align: center;
-     padding: 5%;
-  }
-  button:last-child{
-    margin-top: auto;
-    margin-bottom: 25%;
-  }
-  .icon-button {
-    display: flex;
-    align-items: center;
-  }
-  
-  .button-icon {
-    margin-right: 8px; /* Ajusta el valor según tus necesidades */
-  }
-  
+.contenedor-principal {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 200px;
+  height: 100vh;
+  background-color: #38b6ff ;
+  padding: 20px;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.icon-button:hover {
+  background-color: black;
+}
+
+.icon-button mat-icon {
+  margin-right: 10px;
+}
+
+.title {
+  font-size: 1.5em;
+  color: black;
+  text-shadow: 1px 1px 5px #000000;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  margin-left: 5px;
+  font-weight: bold;
+  font-family: 'Orbitron', sans-serif; /* usa la fuente Orbitron */
+}

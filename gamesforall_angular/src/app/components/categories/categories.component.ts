@@ -44,7 +44,7 @@ export class CategoriesComponent implements OnInit {
 
         this.categoryService.deleteCategory(category.id!).subscribe(
           () => {
-            Swal.fire('Category Deleted!', 'The category has been deleted successfully.', 'success');
+            Swal.fire('Categoría eliminada', 'La categoría ha sido eliminada con éxito', 'success');
             this.loadCategories();
           },
         );
@@ -55,8 +55,8 @@ export class CategoriesComponent implements OnInit {
 
   createCategory(): void {
     Swal.fire({
-      title: "Create New Category",
-      text: "Enter the name of the category",
+      title: "Crear una nueva Categoría",
+      text: "Introduzca el nombre de la categoría",
       input: 'text',
       showCancelButton: true
     }).then((result) => {
@@ -67,12 +67,12 @@ export class CategoriesComponent implements OnInit {
         if (result.value.trim()!=''){
           this.categoryService.createCategory(category as Category).subscribe(
             () => {
-              Swal.fire('Category Created!', 'Your new category has been created successfully.', 'success');
+              Swal.fire('Categoría creada', 'Categoría creada exitosamente', 'success');
               this.loadCategories();
             },
           );
         } else {
-          Swal.fire('Error', 'You can not create an empty name category. Please try again.', 'error');
+          Swal.fire('Error', 'No se puede introducir el campo vacío', 'error');
         }
       }
     });
@@ -81,8 +81,8 @@ export class CategoriesComponent implements OnInit {
 
   editCategory(categoryToEdit: Category): void {
     Swal.fire({
-      title: "Edit Category Name",
-      text: "Enter the new name",
+      title: "Editar nombre de la Categoría",
+      text: "Introduzca el nuevo nombre",
       input: 'text',
       inputValue: categoryToEdit.genre,
       showCancelButton: true
@@ -95,12 +95,12 @@ export class CategoriesComponent implements OnInit {
           };
           this.categoryService.editCategory(category.id!, category).subscribe(
             () => {
-              Swal.fire('Name changed!', 'Your category has been edited successfully.', 'success');
+              Swal.fire('Nombre cambiado', 'La categoría ha sido editada exitosamente', 'success');
               this.loadCategories();
             },
           );
         } else {
-          Swal.fire('Error', 'You can not submit a empty name. Please try again.', 'error');
+          Swal.fire('Error', 'No se puede introducir el campo vacío', 'error');
         }
       }
     });

@@ -38,7 +38,7 @@ export class UserComponent implements OnInit/*, AfterViewInit*/ {
         if (data)
           this.dataListaUsuarios.data = data.filter(data => data.username != this.user?.username);
         else
-          this._utilService.mostrarAlerta("No se encontraron datos", "Vaya!")
+          this._utilService.mostrarAlerta("No se encontraron datos", "Error")
       },
       error: (e) => { }
     })
@@ -83,7 +83,7 @@ export class UserComponent implements OnInit/*, AfterViewInit*/ {
 
   eliminarUsuario(userResponse: UserResponse) {
     Swal.fire({
-      title: '¿Desea eliminar el usuario?',
+      title: '¿Seguro que quiere eliminar el usuario?',
       text: userResponse.fullName,
       icon: "warning",
       confirmButtonColor: '#3085d6',
@@ -96,7 +96,7 @@ export class UserComponent implements OnInit/*, AfterViewInit*/ {
 
         this._usuarioService.eliminar(userResponse.id).subscribe({
           next: (data) => {
-            this._utilService.mostrarAlerta("El usuario fue eliminado", "Listo!");
+            this._utilService.mostrarAlerta("El usuario ha sido eliminado", "Hecho");
             this.obtenerUsuarios();
           },
         })

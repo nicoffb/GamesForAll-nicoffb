@@ -1,19 +1,21 @@
 
 <div class="contenedor-principal">
-    <a routerLink="/login" id="title"><h1 class="title">GAMESFORALL</h1></a>
-    <button mat-button class="icon-button" routerLink="/user">
-      <mat-icon class="button-icon">people</mat-icon>Usuarios
-    </button>
-    <button mat-button class="icon-button" routerLink="/categories">
-      <mat-icon class="button-icon">home</mat-icon>Categorias
-    </button>
-    <button mat-button class="icon-button" routerLink="/platforms">
-      <mat-icon class="button-icon">desktop_windows</mat-icon>Plataformas
-    </button>
-    <button mat-button class="icon-button" (click)="doLogOut()">
-        <mat-icon class="button-icon">exit_to_app</mat-icon>Cerrar sesión
-      </button>
+  <h1 class="title">GAMESFORALL</h1>
+  <button mat-button class="icon-button" routerLink="/dashboard">
+    <mat-icon class="button-icon">dashboard</mat-icon>Panel principal
+  </button>
+  <button mat-button class="icon-button" routerLink="/user">
+    <mat-icon class="button-icon">group</mat-icon>Usuarios<mat-icon>arrow_forward</mat-icon>
+  </button>
+  <button mat-button class="icon-button" routerLink="/categories">
+    <mat-icon class="button-icon">category</mat-icon>Categorias
+  </button>
+  <button mat-button class="icon-button" routerLink="/platforms">
+    <mat-icon class="button-icon">games</mat-icon>Plataformas
+  </button>
+  <button mat-button class="icon-button" (click)="doLogOut()">
+      <mat-icon class="button-icon">exit_to_app</mat-icon>Cerrar sesión
+  </button>
 </div>
-
 
 

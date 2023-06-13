@@ -68,3 +68,7 @@ mat-progress-bar {
   height: 4px;
   background-color: #FFAD5C;
 }
+.boton-negro {
+  background-color: black;
+  color: #38b6ff ;
+}

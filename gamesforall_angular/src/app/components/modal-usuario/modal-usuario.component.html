@@ -4,7 +4,7 @@
   <form [formGroup]="createUserForm">
     <mat-grid-list cols="1" rowHeight="100px">
 
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="tituloAccion!='Editar'" >
         <mat-form-field appearance="outline">
           <mat-label>Username</mat-label>
           <input matInput autocomplete="off" formControlName="username">
@@ -47,6 +47,14 @@
           <mat-icon matSuffix>account-box</mat-icon>
         </mat-form-field>
       </mat-grid-tile>
+
+      <!-- <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Dirección</mat-label>
+          <input matInput autocomplete="off" formControlName="adress">
+          <mat-icon matSuffix>account-box</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile> -->
 
     </mat-grid-list>
   </form>

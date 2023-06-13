@@ -48,7 +48,7 @@ export class PlatformsComponent implements OnInit {
 
         this.platformService.deletePlatform(platform.id!).subscribe(
           () => {
-            Swal.fire('Platform Deleted!', 'The platform has been deleted successfully.', 'success');
+            Swal.fire('Plataforma eliminada', 'La plataforma ha sido eliminada con éxtio', 'success');
             this.loadPlatforms();
           },
         );
@@ -59,8 +59,8 @@ export class PlatformsComponent implements OnInit {
 
   createPlatform(): void {
     Swal.fire({
-      title: "Create New Platform",
-      text: "Enter the name of the platform",
+      title: "Crear una nueva plataforma",
+      text: "Introduzca el nombre de la plataforma",
       input: 'text',
       showCancelButton: true
     }).then((result) => {
@@ -71,12 +71,12 @@ export class PlatformsComponent implements OnInit {
         if (result.value.trim()!=''){
           this.platformService.createPlatform(platform as Platform).subscribe(
             () => {
-              Swal.fire('Platform Created!', 'Your new platform has been created successfully.', 'success');
+              Swal.fire('Plataforma creada', 'Plataforma creada exitosamente', 'success');
               this.loadPlatforms();
             },
           );
         } else {
-          Swal.fire('Error', 'You can not create an empty name platform. Please try again.', 'error');
+          Swal.fire('Error', 'Error creando la plataforma, ¿ha introducido campos vacios?', 'error');
         }
       }
     });
@@ -85,8 +85,8 @@ export class PlatformsComponent implements OnInit {
 
   editPlatform(platformToEdit: Platform): void {
     Swal.fire({
-      title: "Edit Platform Name",
-      text: "Enter the new name",
+      title: "Editar Plataforma",
+      text: "Introduzca el nuevo nombre",
       input: 'text',
       inputValue: platformToEdit.platformName,
       showCancelButton: true
@@ -99,12 +99,12 @@ export class PlatformsComponent implements OnInit {
           };
           this.platformService.editPlatform(platform.id!, platform).subscribe(
             () => {
-              Swal.fire('Name changed!', 'Your platform has been edited successfully.', 'success');
+              Swal.fire('Nombre cambiado', 'La plataforma ha sido editada con éxito', 'success');
               this.loadPlatforms();
             },
           );
         } else {
-          Swal.fire('Error', 'You can not submit a empty name. Please try again.', 'error');
+          Swal.fire('Error', 'Error editando la plataforma, ¿ha introducido campos vacios?', 'error');
         }
       }
     });
