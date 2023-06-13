@@ -18,7 +18,7 @@ import { ModalUsuarioComponent } from '../modal-usuario/modal-usuario.component'
 })
 export class UserComponent implements OnInit/*, AfterViewInit*/ {
 
-  columnasTable: string[] = ['id', 'username','role', 'fullName', 'createdAt','ediciones', 'acciones'];
+  columnasTable: string[] = ['id', 'username', 'fullName', 'createdAt','ediciones', 'acciones'];
 
   user: UserResponse | null = null;
   dataInicio: UserResponse[] = [];

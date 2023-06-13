@@ -1,3 +1,5 @@
+
+
 <h1 class="users-title">Usuarios</h1>
 <hr />
 <mat-card style="margin: 20px 40px 40px 40px">
@@ -34,12 +36,6 @@
           <td mat-cell *matCellDef="let element">{{ element.id }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="role">
-          <th style="text-align: center" mat-header-cell *matHeaderCellDef>
-            Role
-          </th>
-          <td mat-cell *matCellDef="let element">{{ element.role }}</td>
-        </ng-container>
 
         <ng-container matColumnDef="createdAt">
           <th mat-header-cell *matHeaderCellDef>Fecha Creación</th>
@@ -69,7 +65,7 @@
               color="accent"
               (click)="eliminarUsuario(element)"
             >
-              <mat-icon>check_circle</mat-icon>
+              <!-- <mat-icon>check_circle</mat-icon> -->
             </button>
           </td>
         </ng-container>
@@ -89,7 +85,6 @@
               color="primary"
               (click)="eliminarUsuario(element)"
             >
-              <mat-icon> change_circle </mat-icon>
             </button>
           </td>
         </ng-container>
@@ -97,12 +92,10 @@
         <tr mat-header-row *matHeaderRowDef="columnasTable"></tr>
         <tr mat-row *matRowDef="let row; columns: columnasTable"></tr>
 
-        <!--
-                  <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No hay datos que coincidan con el filtro"{{input.value}}"</td>
-        </tr>
-        -->
       </table>
     </div>
   </mat-card-content>
+  <div class="card-footer">
+    <button mat-raised-button [routerLink]="['/platforms']" color="primary">Volver</button>
+  </div>
 </mat-card>

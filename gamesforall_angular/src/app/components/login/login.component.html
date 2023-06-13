@@ -7,14 +7,14 @@
       <form [formGroup]="formularioLogin" (ngSubmit)="iniciarSesion()">
         <mat-form-field class="full-width" appearance="outline">
 
-          <mat-label>Username</mat-label>
+          <mat-label>Nombre de usuario</mat-label>
           <input formControlName="username" matInput autocomplete="off">
 
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="outline">
 
-          <mat-label>Password</mat-label>
+          <mat-label>Contraseña</mat-label>
           <input [type]="ocultarPassword ? 'password' : 'text'" formControlName="password" matInput autocomplete="off">
           <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword" type="button">
             <mat-icon matSuffix>{{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -22,7 +22,7 @@
         </mat-form-field>
 
         <button class="full-width" mat-raised-button color="primary" type="submit" [disabled]="formularioLogin.invalid">
-          Ingresar <mat-icon matSuffix>login</mat-icon>
+          Entrar<mat-icon matSuffix>login</mat-icon>
         </button>
 
       </form>

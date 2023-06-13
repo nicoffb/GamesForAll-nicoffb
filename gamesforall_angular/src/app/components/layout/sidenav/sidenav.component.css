@@ -1,0 +1,31 @@
+.contenedor-principal{
+    background-color: #2E9CBF;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 20px;
+    height: 100%;
+    width: 200px;
+  }
+  #title{
+    text-decoration: none;
+    color: white;
+    margin-top: 10%;
+  }
+  .title{
+     text-align: center;
+     padding: 5%;
+  }
+  button:last-child{
+    margin-top: auto;
+    margin-bottom: 25%;
+  }
+  .icon-button {
+    display: flex;
+    align-items: center;
+  }
+  
+  .button-icon {
+    margin-right: 8px; /* Ajusta el valor según tus necesidades */
+  }
+  

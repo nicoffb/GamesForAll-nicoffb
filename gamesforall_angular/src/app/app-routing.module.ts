@@ -11,7 +11,6 @@ const routes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'categories', component: CategoriesComponent },
   { path: 'platforms', component: PlatformsComponent },
- // { path: 'pages', loadChildren: () => import('./components/layout/layout.module').then(x => x.LayoutModule) },
   {path:'**',redirectTo:'login',pathMatch:'full'}
 ];
 

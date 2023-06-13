@@ -18,4 +18,10 @@ export class LoginService {
     return this.http.post<UserResponse>(`${this.urlApi}`, request)
     
   }
+
+  logOut(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('isLoggedIn');
+  }
 }

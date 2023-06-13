@@ -11,7 +11,7 @@ table {
   margin: 20px 0 0 40px;
   font-size: 32px;
   font-family: 'Arial', sans-serif;
-  background-image: linear-gradient(45deg, #007bff, #00bcd4);
+  background-image: linear-gradient(45deg,  #38b6ff, #00bcd4);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -24,4 +24,9 @@ th{
 
 td{
   text-align: center;
+}
+
+.mat-header-cell{
+  text-align: center;
+
 }

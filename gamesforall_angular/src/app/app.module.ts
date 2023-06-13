@@ -30,6 +30,8 @@ import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario.
 import { authInterceptorProviders } from './general/auth.interceptor';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { PlatformsComponent } from './components/platforms/platforms.component';
+import { SidenavComponent } from './components/layout/sidenav/sidenav.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { PlatformsComponent } from './components/platforms/platforms.component';
     UserComponent,
     ModalUsuarioComponent,
     CategoriesComponent,
-    PlatformsComponent
+    PlatformsComponent,
+    SidenavComponent,
+    FooterComponent
     
   ],
   imports: [
@@ -59,7 +63,8 @@ import { PlatformsComponent } from './components/platforms/platforms.component';
     MatSnackBarModule,
     MatTableModule,
     MatGridListModule,
-    MatDialogModule
+    MatDialogModule,
+
     
   ],
   providers: [authInterceptorProviders],

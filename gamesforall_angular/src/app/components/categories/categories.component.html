@@ -1,43 +1,47 @@
-<h1 class="users-title">Categories</h1>
-<hr />
-<mat-card style="margin: 20px 40px 40px 40px">
-  <mat-card-title>
-    <button mat-raised-button color="primary" (click)="createCategory()">
-      <mat-icon mat-list-icon>add</mat-icon>New Category
-    </button>
-  </mat-card-title>
-  <br />
-  <mat-divider></mat-divider>
+<div class="app-container">
+  <app-sidenav></app-sidenav>
 
-  <mat-card-content class="dashboard-card-content">
-    <div class="mat-elevation-z2">
-      
-      <table mat-table [dataSource]="dataListaCategorias">
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef>Id</th>
-          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-        </ng-container>
+  <div class="content">
+    <mat-card class="m-3">
+      <div class="card-header">
+        <h1 class="title-text">Categorias</h1>
+      </div>
+      <div class="add-platform">
+        <button mat-raised-button (click)="createCategory()" class="add-button">
+          <mat-icon mat-list-icon>add</mat-icon>Añadir Categoria
+        </button>
+      </div>
 
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Categories</th>
-          <td mat-cell *matCellDef="let element">{{ element.genre}}</td>
-        </ng-container>
+      <mat-card-content class="dashboard-card-content">
+        <div class="mat-elevation-z2">
+          <table mat-table [dataSource]="dataListaCategorias" class="table table-striped table-bordered" style="width: 100%;">
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">Id</th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.id }}</td>
+            </ng-container>
 
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef style="width: 80px"></th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="primary" (click)="editCategory(element)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" (click)="deleteCategory(element)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">Género</th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.genre }}</td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="columnasTable"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnasTable"></tr>
-      </table>
-    </div>
-  </mat-card-content>
-</mat-card>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;"></th>
+              <td mat-cell *matCellDef="let element" >
+                <button mat-icon-button color="warning" (click)="editCategory(element)" style="margin-right: 15px;">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteCategory(element)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnasTable" style="text-align: center;"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnasTable" style="text-align: center;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
