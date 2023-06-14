@@ -75,7 +75,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
   FormBlocStep _personalStep(RegisterFormBloc registerFormBloc) {
     return FormBlocStep(
-      title: const Text('Datos personales'),
+      title: const Text('Formulario de Registro'),
       content: Column(
         children: <Widget>[
           TextFieldBlocBuilder(
@@ -112,6 +112,15 @@ class _RegisterFormState extends State<RegisterForm> {
             decoration: const InputDecoration(
               labelText: 'Nombre completo',
               prefixIcon: Icon(Icons.person_2_outlined),
+            ),
+          ),
+          TextFieldBlocBuilder(
+            textStyle: textBaseStyle,
+            textFieldBloc: registerFormBloc.address,
+            keyboardType: TextInputType.name,
+            decoration: const InputDecoration(
+              labelText: 'Dirección',
+              prefixIcon: Icon(Icons.location_on),
             ),
           ),
         ],

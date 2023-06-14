@@ -49,23 +49,38 @@ class User {
 
 //REQUEST
 class UserRequest {
-  String username;
-  String password;
-  String verifyPassword;
-  String fullName;
+  String? username;
+  String? password;
+  String? verifyPassword;
+  String? fullName;
+  String? avatar;
+  String? address;
 
   UserRequest(
-      {required this.username,
-      required this.password,
-      required this.verifyPassword,
-      required this.fullName});
+      {this.username,
+      this.password,
+      this.verifyPassword,
+      this.fullName,
+      this.avatar,
+      this.address});
+
+  UserRequest.fromJson(Map<String, dynamic> json) {
+    username = json['username'];
+    password = json['password'];
+    verifyPassword = json['verifyPassword'];
+    fullName = json['fullName'];
+    avatar = json['avatar'];
+    address = json['address'];
+  }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['username'] = username;
-    data['password'] = password;
-    data['verifyPassword'] = verifyPassword;
-    data['nombre'] = fullName;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['username'] = this.username;
+    data['password'] = this.password;
+    data['verifyPassword'] = this.verifyPassword;
+    data['fullName'] = this.fullName;
+    data['avatar'] = this.avatar;
+    data['address'] = this.address;
     return data;
   }
 }

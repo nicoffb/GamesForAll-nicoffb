@@ -49,9 +49,7 @@ class UploadProductBloc extends FormBloc<String, String> {
   );
 
   final isShippingAvailable = BooleanFieldBloc(
-    validators: [
-      FieldBlocValidators.required,
-    ],
+    validators: [],
   );
 
   final platform = SelectFieldBloc<Platform, dynamic>();

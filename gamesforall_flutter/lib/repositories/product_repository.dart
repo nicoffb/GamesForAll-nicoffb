@@ -59,7 +59,8 @@ class ProductRepository {
 
   Future<ProductDetailsResponse> addProduct(ProductRequest productRequest,
       PlatformFile file, String accessToken) async {
-    String url = 'http://localhost:8080/product/';
+    String url = 'http://10.0.2.2:8080/product/';
+    //String url = 'http://localhost:8080/product/';
 
     var jsonResponse =
         await server.postMultiPart(url, productRequest, file, accessToken);

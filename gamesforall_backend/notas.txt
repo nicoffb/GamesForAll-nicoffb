@@ -15,8 +15,7 @@ byreference
 
 
 ALV
-fallo: el envio siempre lo pone no disponible
-libreria de las estrellitas para la valoracion
+
 que se abra solo una misma pestaña no nuevas
 
 poner miniatura de la foto
@@ -28,7 +27,10 @@ TODO: VALIDACIONES PARA QUE RELLENE TODOS LOS CAMPOS AL SUBIR, QUE NO SALGA UPLO
 
 borrar usuario? se borran los productos y los trades? se pueden borrar los usuarios que no tienen trades
 
-color: #38b6ff 56 182 255
+color de la empresa: #38b6ff RGB: 56 182 255
 
 
 borrar productos
+
+
+cuando entra un usuario por primera vez carga las paginas sobre el login

@@ -71,7 +71,7 @@ class _MainPageState extends State<MainPage> {
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w900,
                     fontSize: 20,
-                    color: Color.fromARGB(255, 31, 127, 131)),
+                    color: Color(0xFF38B6FF)),
               ),
             ),
           ),
@@ -100,7 +100,7 @@ class _MainPageState extends State<MainPage> {
                 backgroundColor: Color.fromARGB(255, 51, 124, 183),
                 color: Color.fromARGB(150, 255, 255, 255),
                 activeColor: Colors.white,
-                gap: 10,
+                gap: 5,
                 tabBackgroundColor: Color.fromARGB(120, 255, 255, 255),
                 padding: EdgeInsets.all(10),
                 tabs: [
@@ -114,11 +114,10 @@ class _MainPageState extends State<MainPage> {
                     iconColor: Colors.red,
                   ),
                   GButton(
-                    icon: Icons.cloud_upload, // Upload icon
+                    icon: Icons.cloud_upload,
                     text: 'Upload',
                     onPressed: () {
-                      _navigateToUploadProductPage(
-                          context); // Navigate to the upload page
+                      _navigateToUploadProductPage(context);
                     },
                   ),
                   GButton(

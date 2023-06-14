@@ -7,7 +7,6 @@ import '../models/login.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../models/register_model.dart';
 import '../rest/rest.dart';
 
 @Order(-1)
@@ -30,7 +29,7 @@ class AuthenticationRepository {
 
   //NUEVAS FUNCIONES
   Future<User> registerUser(String username, String password,
-      String verifyPassword, String fullName) async {
+      String verifyPassword, String fullName, String address) async {
     String url = "/auth/register";
 
     var jsonResponse = await _client.post(
@@ -39,7 +38,8 @@ class AuthenticationRepository {
             username: username,
             password: password,
             verifyPassword: verifyPassword,
-            fullName: fullName));
+            fullName: fullName,
+            address: address));
 
     return User.fromJson(jsonDecode(jsonResponse));
   }

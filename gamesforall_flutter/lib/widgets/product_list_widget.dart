@@ -40,26 +40,23 @@ class _ProductListState extends State<ProductList> {
           case ProductStatus.success:
             if (state.products.isEmpty) {
               return const Center(
-                child: Text('There are no products'),
+                child: Text('¡No tienes productos favoritos!¿A qué esperas?'),
               );
             }
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisSpacing: 16.0,
-                crossAxisSpacing: 16.0,
-                childAspectRatio: 1.3,
+                mainAxisSpacing: 10.0,
+                //16
+                crossAxisSpacing: 9.0,
+                //16
+                childAspectRatio: 0.55,
+                //1.3
               ),
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: ProductCard(product: state.products[index]),
-                      ),
-                    ],
-                  ),
+                  padding: const EdgeInsets.all(5.0),
+                  child: ProductCard(product: state.products[index]),
                 );
               },
               itemCount: state.hasReachedMax

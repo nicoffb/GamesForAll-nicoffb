@@ -40,7 +40,7 @@ class _ConversationPageState extends State<ConversationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Messages with User'),
+        title: Text('Mensajes'),
       ),
       body: BlocConsumer<MessageBloc, MessageState>(
         listener: (context, state) {

@@ -27,10 +27,14 @@ class RegisterFormBloc extends FormBloc<String, String> {
     validators: [FieldBlocValidators.required],
   );
 
+  final address = TextFieldBloc(
+    validators: [FieldBlocValidators.required],
+  );
+
   RegisterFormBloc() {
     _authenticationService = getIt<JwtAuthenticationService>();
     addFieldBlocs(
-      fieldBlocs: [username, password, verifyPassword, fullName],
+      fieldBlocs: [username, password, verifyPassword, fullName, address],
     );
   }
 
@@ -41,8 +45,12 @@ class RegisterFormBloc extends FormBloc<String, String> {
       emitFailure();
     } else {
       try {
-        final result = await _authenticationService.registerUser(username.value,
-            password.value, verifyPassword.value, fullName.value);
+        final result = await _authenticationService.registerUser(
+            username.value,
+            password.value,
+            verifyPassword.value,
+            fullName.value,
+            address.value);
         emitSuccess();
       } on Exception catch (e) {
         emitFailure();
