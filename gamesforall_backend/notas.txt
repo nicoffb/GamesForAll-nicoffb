@@ -29,3 +29,6 @@ TODO: VALIDACIONES PARA QUE RELLENE TODOS LOS CAMPOS AL SUBIR, QUE NO SALGA UPLO
 borrar usuario? se borran los productos y los trades? se pueden borrar los usuarios que no tienen trades
 
 color: #38b6ff 56 182 255
+
+
+borrar productos

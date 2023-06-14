@@ -4,6 +4,7 @@ import { LoginComponent } from 'src/app/components/login/login.component';
 import { UserComponent } from './components/user/user.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { PlatformsComponent } from './components/platforms/platforms.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path:'',redirectTo:'login',pathMatch:'full'},
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'categories', component: CategoriesComponent },
   { path: 'platforms', component: PlatformsComponent },
+  { path: 'dashboard', component: DashboardComponent },
   {path:'**',redirectTo:'login',pathMatch:'full'}
 ];
 

@@ -77,5 +77,16 @@
     margin-left: 1em;
     margin-top: 1em;
   }
+
+  .action-buttons {
+    display: flex;
+    justify-content: space-between; /* O cualquier otra propiedad que se ajuste a tus necesidades */
+  }
+  
+  .edit-button, .delete-button {
+    flex: 1;
+  }
+    
+  
   
   

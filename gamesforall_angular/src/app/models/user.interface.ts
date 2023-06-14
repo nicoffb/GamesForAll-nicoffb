@@ -10,7 +10,7 @@ export interface UserResponse {
   token: string
   refreshToken: string
   enabled: boolean
-  //role: string
+  address: string
 }
 
 export interface UserDetailsResponse {

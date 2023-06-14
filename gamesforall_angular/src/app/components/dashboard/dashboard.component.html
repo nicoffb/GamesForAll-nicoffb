@@ -1,0 +1,29 @@
+<div class="app-container">
+  <app-sidenav></app-sidenav>
+
+  <div class="content">
+    <mat-card class="m-3">
+      <div class="card-header">
+        <h1 class="title-text">Ficha del Usuario</h1>
+      </div>
+
+      <mat-card-content class="dashboard-card-content">
+        <div class="mat-elevation-z2 user-card">
+          <div class="user-avatar">
+            <img [src]="user?.avatar ? user?.avatar : 'assets/gamesforall_logo.png'" alt="Avatar del usuario">
+          </div>
+          <div class="username-container">
+            <h2>{{ user?.username }}</h2>
+          </div>
+
+          <div class="user-info">
+            <p><strong>Nombre completo:</strong> {{ user?.fullName}}</p>
+            <p><strong>Dirección:</strong> {{ user?.address}}</p>
+            <p><strong>Puntuación:</strong> {{ user?.userScore }}</p>
+            <p><strong>Fecha de registro:</strong> {{ user?.createdAt }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -32,6 +32,7 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { PlatformsComponent } from './components/platforms/platforms.component';
 import { SidenavComponent } from './components/layout/sidenav/sidenav.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { FooterComponent } from './components/layout/footer/footer.component';
     CategoriesComponent,
     PlatformsComponent,
     SidenavComponent,
-    FooterComponent
+    FooterComponent,
+    DashboardComponent
     
   ],
   imports: [
