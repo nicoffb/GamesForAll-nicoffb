@@ -154,6 +154,10 @@ favoritos, o únicamente los que tiene dicho cliente en venta o ha vendido
 
 ![Listados](https://i.imgur.com/EOfeEhL.gif)
 
+Otras funcionalidades disponibles son subir y editar tus productos.
+
+![Subir y editar producto](https://imgur.com/QzkCpFX.gif)
+
 
 También ofrecerá la posibilidad de de ver los detalles de los productos para
 saber más acerca de ellos o del vendedor, pudiendo iniciar una conversación
@@ -161,8 +165,6 @@ con estos para aclarar los precios o el sitio de encuentro para la venta.
 
 ![Conversación](https://i.imgur.com/PtbXjT8.gif)
 
-Otras funcionalidades disponibles son subir y editar tus productos.
 
-![Subir y editar producto](https://imgur.com/QzkCpFX.gif)
 
 
