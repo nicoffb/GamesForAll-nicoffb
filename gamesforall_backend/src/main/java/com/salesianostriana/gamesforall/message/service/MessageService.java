@@ -27,10 +27,6 @@ public class MessageService {
         repository.delete(message);
     }
 
-//    public void deleteById(Long id) {
-//        repository.deleteById(id); //no va porque validation no tiene id, sino clave compuesta
-//    }
-
 
      public List<Message> findMessagesById (UUID userId){
        return repository.findMessagesById(userId);

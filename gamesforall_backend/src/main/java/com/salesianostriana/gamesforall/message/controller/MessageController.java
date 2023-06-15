@@ -4,7 +4,6 @@ package com.salesianostriana.gamesforall.message.controller;
 import com.salesianostriana.gamesforall.message.model.Message;
 
 import com.salesianostriana.gamesforall.message.service.MessageService;
-import com.salesianostriana.gamesforall.product.dto.PageDto;
 
 import com.salesianostriana.gamesforall.user.model.User;
 import com.salesianostriana.gamesforall.user.service.UserService;
@@ -18,9 +17,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +36,7 @@ public class MessageController {
     private final UserService userService;
 
 
-    @Operation(summary = "Obtiene todos los mensajes de un usuario de forma paginada a partir de su uuid")
+    @Operation(summary = "Obtiene todos los mensajes de un usuario a partir de su uuid")
     @PageableAsQueryParam
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -68,7 +64,22 @@ public class MessageController {
 
     }
 
-    //CONVERSACIOOOOOOOOOOOOOOOOOOOOOOOOOOON
+    @Operation(summary = "Se obtienen los mensajes que tiene el usuario logado con el usuario objetivo")
+    @PageableAsQueryParam
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado los mensajes",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = MessageDTO.class)))
+                    }),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado el usuario",
+                    content = @Content(schema = @Schema(implementation = com.salesianostriana.gamesforall.exception.UserNotFoundException.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "La búsqueda es incorrecta",
+                    content = @Content)
+    })
     @GetMapping("/{userId}")
     public List<MessageDTO> getMessagesConversation( @AuthenticationPrincipal User loggedUser ,@PathVariable UUID userId) {
 
@@ -82,10 +93,10 @@ public class MessageController {
     }
 
 
-    @Operation(summary = "Se crea una valoración del usuario registrado hacia el usuario dado")
+    @Operation(summary = "Se crea un mensaje desde el usuario logado hacia el usuario dado.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
-                    description = "Se ha creado la valoración",
+                    description = "Se ha creado el mensaje",
                     content = {@Content(schema = @Schema(implementation = MessageDTO.class))}),
             @ApiResponse(responseCode = "400",
                     description = "Los datos no son válidos",

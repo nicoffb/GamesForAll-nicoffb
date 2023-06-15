@@ -34,3 +34,6 @@ borrar productos
 
 
 cuando entra un usuario por primera vez carga las paginas sobre el login
+
+
+el servicio de mensajes no devuelve una excepcion y por lo tanto la documentacion estrá mal al no devolver un userexception, o no?

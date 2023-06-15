@@ -311,9 +311,6 @@ public class MainDePrueba {
                 .review("regulero")
                 .sending(true)
                 .product(product3)
-               //esto da error
-                // al tener dos trades con el mismo shipping
-                //al tener dos trades con el mismo producto
                 .build();
 
         tradeRepository.saveAll(List.of(trade1,trade2,trade3));
