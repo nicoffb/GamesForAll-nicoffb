@@ -142,9 +142,9 @@ DELETE /category/{id} -> Se elimina una categoría.
 - [Nicolás Fernández de la Fuente](https://github.com/nicoffb)
 
 
-Login
+Login:https://imgur.com/pCgxM6t
 ![Login](https://i.imgur.com/pCgxM6t.gif)
-ruta:https://imgur.com/pCgxM6t
+
 
 El producto por tanto ofrece la capacidad de registrarse con un usuario, este
 usuario tendrá la capacidad de marcar los videojuegos que tenga en su punto
