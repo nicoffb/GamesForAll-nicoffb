@@ -143,7 +143,7 @@ DELETE /category/{id} -> Se elimina una categoría.
 
 
 Login
-![Login]([https://i.imgur.com/pCgxM6t.gif](https://i.imgur.com/pCgxM6t.gif))
+![Login](https://i.imgur.com/pCgxM6t.gif))
 ruta:https://imgur.com/pCgxM6t
 
 El producto por tanto ofrece la capacidad de registrarse con un usuario, este
