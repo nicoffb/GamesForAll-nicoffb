@@ -34,6 +34,12 @@ Una vez instalado haremos "ng serve -o" para ver el front en una pestaña del na
 Desde ahí podremos acceder al panel de control de la aplicación y solo realizar los cambios si el usuario logado tiene perfil de Admiministrador.
 
 
+
+### DATOS DE ADMIN Y USUARIOS
+
+Perfil de Administrador : user - 1234
+Perfil de Usuario: user2 - password2
+
 ## URL base
 
 - http://localhost:8080
@@ -129,14 +135,15 @@ PUT /category/{id} -> Se edita una categoría.
 DELETE /category/{id} -> Se elimina una categoría.
 ```
 
-### DATOS DE ADMIN Y USUARIOS
 
-Perfil de Administrador : user - 1234
-Perfil de Usuario: user2 - password2
 
 ## Créditos
 
 - [Nicolás Fernández de la Fuente](https://github.com/nicoffb)
+
+
+Login
+![Login](https://imgur.com/pCgxM6t)
 
 
 El producto por tanto ofrece la capacidad de registrarse con un usuario, este
@@ -145,17 +152,17 @@ de mira con los favoritos. Al entrar verá la lista principal con todos los
 videojuegos disponibles, pero podrá alternar para ver únicamente sus
 favoritos, o únicamente los que tiene dicho cliente en venta o ha vendido
 
-![Listados](https://i.imgur.com/EOfeEhL.gifv)
+![Listados](https://imgur.com/EOfeEhL)
 
 
 También ofrecerá la posibilidad de de ver los detalles de los productos para
 saber más acerca de ellos o del vendedor, pudiendo iniciar una conversación
 con estos para aclarar los precios o el sitio de encuentro para la venta.
 
-![Conversación](https://i.imgur.com/PtbXjT8.gifv)
+![Conversación](https://imgur.com/PtbXjT8)
 
 Otras funcionalidades disponibles son subir y editar tus productos.
 
-![Subir y editar producto](https://i.imgur.com/QzkCpFX.gifv)
+![Subir y editar producto](https://imgur.com/QzkCpFX)
 
 
