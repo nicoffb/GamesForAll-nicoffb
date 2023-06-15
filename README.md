@@ -143,7 +143,7 @@ DELETE /category/{id} -> Se elimina una categoría.
 
 
 Login
-![Login](https://i.imgur.com/pCgxM6t.gif)
+![Login]([https://i.imgur.com/pCgxM6t.gif](https://i.imgur.com/pCgxM6t.gif))
 ruta:https://imgur.com/pCgxM6t
 
 El producto por tanto ofrece la capacidad de registrarse con un usuario, este
@@ -152,7 +152,7 @@ de mira con los favoritos. Al entrar verá la lista principal con todos los
 videojuegos disponibles, pero podrá alternar para ver únicamente sus
 favoritos, o únicamente los que tiene dicho cliente en venta o ha vendido
 
-[![Listados](https://i.imgur.com/EOfeEhL.gif)](url)
+![Listados](https://i.imgur.com/EOfeEhL.gif)
 
 También ofrecerá la posibilidad de de ver los detalles de los productos para
 saber más acerca de ellos o del vendedor, pudiendo iniciar una conversación
