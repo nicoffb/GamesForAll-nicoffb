@@ -4,7 +4,7 @@ services:
     container_name: GamesForAll
     restart: always
     environment:
-      - POSTGRES_DB=games
+      - POSTGRES_DB=gamesforall
       - POSTGRES_USER=sa
       - POSTGRES_PASSWORD=1234
     ports:
