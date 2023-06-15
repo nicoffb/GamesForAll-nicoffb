@@ -141,9 +141,8 @@ DELETE /category/{id} -> Se elimina una categoría.
 
 - [Nicolás Fernández de la Fuente](https://github.com/nicoffb)
 
-
-Login:https://imgur.com/pCgxM6t
-![Login](https://i.imgur.com/pCgxM6t.gif)
+Ejemplo de subida Multipart (imagen) con éxito : https://imgur.com/QzkCpFX
+![Subir y editar](https://i.imgur.com/QzkCpFX.gif)
 
 
 El producto por tanto ofrece la capacidad de registrarse con un usuario, este
@@ -151,6 +150,9 @@ usuario tendrá la capacidad de marcar los videojuegos que tenga en su punto
 de mira con los favoritos. Al entrar verá la lista principal con todos los
 videojuegos disponibles, pero podrá alternar para ver únicamente sus
 favoritos, o únicamente los que tiene dicho cliente en venta o ha vendido
+
+Login:https://imgur.com/pCgxM6t
+![Login](https://i.imgur.com/pCgxM6t.gif)
 
 ![Listados](https://i.imgur.com/EOfeEhL.gif)
 
@@ -160,10 +162,7 @@ con estos para aclarar los precios o el sitio de encuentro para la venta.
 
 ![Conversación](https://i.imgur.com/PtbXjT8.gif)
 
-Otras funcionalidades disponibles son subir y editar tus productos.
 
-![Subir y editar](https://i.imgur.com/QzkCpFX.gif)
-Ruta: https://imgur.com/QzkCpFX
 
 
 
