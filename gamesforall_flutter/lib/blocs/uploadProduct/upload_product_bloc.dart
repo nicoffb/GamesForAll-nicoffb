@@ -107,7 +107,7 @@ class UploadProductBloc extends FormBloc<String, String> {
             platform: platform.value,
             categories:
                 categoriesSelect.value.map((e) => e as Categories).toSet(),
-          ), //bueno??
+          ),
           PlatformFile(
             name: selectedImage!.path.split('\\').last,
             bytes: await selectedImage!.readAsBytes(),
@@ -119,8 +119,7 @@ class UploadProductBloc extends FormBloc<String, String> {
           newProductId = result.id!;
           emitSuccess();
         } else {
-          emitFailure(
-              failureResponse: 'Error al añadir el producto: ${result}');
+          emitFailure(failureResponse: 'Error al añadir el producto');
         }
       }
     } catch (e) {

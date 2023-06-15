@@ -112,7 +112,6 @@ class RestClient {
 
       var request = http.MultipartRequest('POST', uri);
 
-      // Add body as MultipartFile
       final bodyString = jsonEncode(body.toJson());
       final bodyBytes = utf8.encode(bodyString);
 
@@ -121,7 +120,6 @@ class RestClient {
 
       request.files.add(bodyPart);
 
-      // Add file as MultipartFile
       final httpImage = http.MultipartFile.fromBytes('files', file.bytes!,
           contentType: MediaType('image', file.extension!),
           filename: file.name);
@@ -138,37 +136,9 @@ class RestClient {
     }
   }
 
-  // Future<dynamic> postMultiPart(String url, ProductRequest body,
-  //     PlatformFile file, String accessToken) async {
-  //   try {
-  //     Uri uri = Uri.parse(url);
-
-  //     Map<String, String> headers = Map();
-  //     headers.addAll({
-  //       'Content-Type': 'multipart/form-data',
-  //       'Authorization': 'Bearer ${accessToken}',
-  //       'connection': 'keep-alive',
-  //     });
-  //     var request = http.MultipartRequest('POST', uri);
-  //     final httpImage = http.MultipartFile.fromBytes('file', file.bytes!,
-  //         contentType: MediaType('image', file.extension!),
-  //         filename: file.name);
-  //     request.files.add(httpImage);
-  //     request.headers.addAll(headers);
-  //     request = jsonToFormData(request, body.toJson());
-
-  //     final response = await _httpClient!.send(request);
-  //     var responseJson = response.stream.bytesToString();
-  //     return responseJson;
-  //   } on SocketException catch (ex) {
-  //     throw Exception('No internet connection: ${ex.message}');
-  //   }
-  // }
-
   jsonToFormData(http.MultipartRequest request, Map<String, dynamic> data) {
     for (var key in data.keys) {
       request.fields[key] = data[key].toString();
-      //si el key es igual a platform u otro llama al json
     }
     return request;
   }
