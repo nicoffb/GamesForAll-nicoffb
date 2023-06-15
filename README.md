@@ -152,7 +152,7 @@ de mira con los favoritos. Al entrar verá la lista principal con todos los
 videojuegos disponibles, pero podrá alternar para ver únicamente sus
 favoritos, o únicamente los que tiene dicho cliente en venta o ha vendido
 
-![Listados](https://i.imgur.com/EOfeEhL.gif)
+[![Listados](https://i.imgur.com/EOfeEhL.gif)](url)
 
 Otras funcionalidades disponibles son subir y editar tus productos.
 
