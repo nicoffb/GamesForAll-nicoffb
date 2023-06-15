@@ -20,25 +20,7 @@ import java.util.*;
 @AllArgsConstructor
 @Builder
 
-//@NamedEntityGraph(
-//        name = "product-with-platform-and-categories",
-//        attributeNodes = {
-//                @NamedAttributeNode(value = "categories"),
-//                @NamedAttributeNode(value= "platform")
-//        }
-//
-//)
-//@NamedEntityGraph
-//        (name="categoria-con-productos",
-//                attributeNodes = {
-//                        @NamedAttributeNode(value = "productos",
-//                                subgraph = "imagenes-producto")
-//                }, subgraphs = {
-//                @NamedSubgraph(name="imagenes-producto",
-//                        attributeNodes = {
-//                                @NamedAttributeNode("imagenes")
-//                        })
-//        })
+
 public class Product {
 
     @Id
@@ -64,12 +46,12 @@ public class Product {
     private boolean sold;
 
 
-    @ManyToOne //eager
+    @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_USER"))
     private User user;
 
 
-    @ManyToOne //eager
+    @ManyToOne
     @JoinColumn(name = "platform_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_PLATAFORM"))
     private Platform platform;
 
@@ -87,34 +69,6 @@ public class Product {
     private Trade trade;
 
 
-    //HELPERS PLATAFORMAS
-//
-//    public void addToPlatform(Platform p) {
-//        this.platform = p;
-//        p.getProductos().add(this);
-//    }
-//
-//    public void removeFromPlatform(Platform p) {
-//        this.platform = null;
-//        p.getProductos().remove(this);
-//    }
-//
-//
-//
-//    //HELPERS CATEGORIAS
-//    public void addCategory(Category c) {
-//        if (this.getCategories() == null)
-//            this.setCategories(new HashSet<>());
-//        this.getCategories().add(c);
-//        if (c.getCategorizedProducts() == null)
-//            c.setCategorizedProducts(new ArrayList<>());
-//        c.getCategorizedProducts().add(this);
-//    }
-//
-//    public void removeCategory(Category c) {
-//        c.getCategorizedProducts().remove(this);
-//        this.getCategories().remove(c);
-//    }
 
 
     @Override

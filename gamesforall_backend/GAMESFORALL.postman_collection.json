@@ -7,493 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Productos",
-			"item": [
-				{
-					"name": "GET Todos Search",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/product/search?search=price<35",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"product",
-								"search"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0",
-									"disabled": true
-								},
-								{
-									"key": "size",
-									"value": "3",
-									"disabled": true
-								},
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "search",
-									"value": "id>0",
-									"disabled": true
-								},
-								{
-									"key": "search",
-									"value": "price<35"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Uno",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/product/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"product",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Image/Download",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/product/download/smash-bros.jpg",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"product",
-								"download",
-								"smash-bros.jpg"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST Nuevo producto",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "body\n",
-									"value": "{\n    \"title\": \"Super Smash Bros Ultimate\",\n    \"description\": \"vendo este juego porque ya lo he quemado de jugarlo tanto\",\n    \"price\": 25,\n    \"category\":\"Lucha\",\n\"platform\":\"Playstation 5\"\n}",
-									"contentType": "application/vnd.api+json",
-									"type": "text"
-								},
-								{
-									"key": "files\n",
-									"type": "file",
-									"src": "Isib-nUhQ/coloi.JPG"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{baseUrl}}/product/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"product",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PUT Editar producto",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"title\": \"editado correctamente\",\n    \"description\": \"SUUU\",\n    \"image\": \"ver foto\",\n    \"price\": 0.0,\n    \"category\":\"Genérico\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/product/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"product",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DELETE Borrar producto",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/product/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"product",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ProductosUsuario",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/myproducts",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"myproducts"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"auth": {
-				"type": "bearer",
-				"bearer": [
-					{
-						"key": "token",
-						"value": "{{token}}",
-						"type": "string"
-					}
-				]
-			},
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			]
-		},
-		{
-			"name": "Users",
-			"item": [
-				{
-					"name": "POST Nuevo usuario",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"user4\",\n    \"password\": \"12345678\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/register",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PUT Modificar contraseña",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"oldPassword\": \"12345678\",\n    \"newPassword\": \"asdfg\",\n    \"verifyPassword\": \"asdfg\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/user/changePassword",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"user",
-								"changePassword"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PUT Modificar contraseña Copy",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"oldPassword\": \"12345678\",\n    \"newPassword\": \"asdfg\",\n    \"verifyPassword\": \"asdfg\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/user/deleteAccount",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"user",
-								"deleteAccount"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST bad refreshtoken",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var json = pm.response.json();",
-									"pm.collectionVariables.set(\"token\", json.token);",
-									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"refreshToken\": \"1a75e095-4491-4ad9-ab51-d24c9f869dfa\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/refreshtoken",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"refreshtoken"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST refreshtoken",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var json = pm.response.json();",
-									"pm.collectionVariables.set(\"token\", json.token);",
-									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);",
-									"",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"refreshToken\": \"{{refresh_token}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/refreshtoken",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"refreshtoken"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST Login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var json = pm.response.json();",
-									"pm.collectionVariables.set(\"token\", json.token);",
-									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);",
-									"",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"user\",\n    \"password\": \"1234\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET USER",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/me",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"me"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			]
-		},
-		{
 			"name": "Admin",
 			"item": [
 				{
@@ -625,20 +138,120 @@
 			]
 		},
 		{
-			"name": "Valoraciones",
+			"name": "Productos",
 			"item": [
 				{
-					"name": "GET Valoraciones de un user",
+					"name": "GET Todos Search",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/valoration/",
+							"raw": "{{baseUrl}}/product/search?page=0&size=5&search=sold:false",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"valoration",
+								"product",
+								"search"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "id>0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5"
+								},
+								{
+									"key": "search",
+									"value": "sold:false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Uno",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/product/15",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"product",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Image/Download",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/product/download/smash-bros.jpg",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"product",
+								"download",
+								"smash-bros.jpg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Nuevo producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body\n",
+									"value": "{\n    \"title\": \"Producto inventado\",\n    \"description\": \"vendo este juego porque ya lo he quemado de jugarlo tanto\",\n    \"price\": 25,\n\"state\":\"Sin abrir\",\n\"platform\": {\n\"id\": 1,\"platformName\":\"PS5\"},\n\"categories\" : [\n {\n\"id\": 5\n}\n\n]\n}",
+									"contentType": "application/vnd.api+json",
+									"type": "text"
+								},
+								{
+									"key": "files\n",
+									"type": "file",
+									"src": "6p8x8DBq7/twitch.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/product/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"product",
 								""
 							]
 						}
@@ -646,7 +259,454 @@
 					"response": []
 				},
 				{
-					"name": "POST Nueva valoracion",
+					"name": "PUT Editar producto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"editado correctamente\",\n    \"price\": 0.0,\n    \"description\": \"SUUU\",\n    \"state\": \"Usado\"\n    //\"image\": \"ver foto\",\n    \n    // \"state\":\"Usado\",\n    // \"sold\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/product/15",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"product",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Borrar producto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/product/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Productos Usuario Logado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/myproducts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"myproducts"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "POST Nuevo usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"user7\",\n    \"password\": \"12345678\",\n    \"verifyPassword\":\"12345678\",\n    \"avatar\": \"icono\",\n    \"fullName\":\"Willy Wonka\",\n    \"address\":\"Calle de la piruleta\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Modificar contraseña",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\": \"12345678\",\n    \"newPassword\": \"asdfg\",\n    \"verifyPassword\": \"asdfg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/changePassword",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"changePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST bad refreshtoken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();",
+									"pm.collectionVariables.set(\"token\", json.token);",
+									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"1a75e095-4491-4ad9-ab51-d24c9f869dfa\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/refreshtoken",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"refreshtoken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST refreshtoken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();",
+									"pm.collectionVariables.set(\"token\", json.token);",
+									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"{{refresh_token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/refreshtoken",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"refreshtoken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", json.token);\r",
+									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET TODOS USUARIOS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET LOGGED USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/user/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Modificar Usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"0cd6ec9b-9d8e-4d44-a127-2de42ccf0ecd\",\n    \"avatar\": \"asdfg\",\n    \"fullName\": \"nombre completo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Mensajes",
+			"item": [
+				{
+					"name": "GET Conversation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/messages/6c4e4450-5252-417e-bb30-a28a240effba",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"messages",
+								"6c4e4450-5252-417e-bb30-a28a240effba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Nuevo mensaje",
 					"event": [
 						{
 							"listen": "test",
@@ -663,7 +723,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"score\": 8.9,\n    \"review\": \"Lorem Ipsum Dolor Sit Amet....\"\n}",
+							"raw": "{\n    \"comment\": \"prefiero que me rebajes el precio\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -671,13 +731,31 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/valoration/49e3d674-828a-412e-88a9-55c07a8d7298",
+							"raw": "{{baseUrl}}/messages/b848f0ca-29d8-4a1c-99c6-4432a98cffea",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"valoration",
-								"49e3d674-828a-412e-88a9-55c07a8d7298"
+								"messages",
+								"b848f0ca-29d8-4a1c-99c6-4432a98cffea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/messages/67b22b54-c388-40fd-af4b-0a3de5d86192",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"messages",
+								"67b22b54-c388-40fd-af4b-0a3de5d86192"
 							]
 						}
 					},
@@ -736,18 +814,35 @@
 					"response": []
 				},
 				{
+					"name": "ProductosFavoritos not paged",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/favoritesnotpaged",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"favoritesnotpaged"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Añadir favorito",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/favorites/1",
+							"raw": "{{baseUrl}}/favorites/22",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"favorites",
-								"1"
+								"22"
 							]
 						}
 					},
@@ -771,7 +866,330 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
 			]
+		},
+		{
+			"name": "Platform",
+			"item": [
+				{
+					"name": "GET Platforms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/platform/list",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"platform",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Platform",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\": \"5\",\r\n\"platformName\": \"PS6\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/platform/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"platform",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EDIT Platform",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"platformName\": \"PS6\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/platform/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"platform",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Platforms Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/platform/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"platform",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "GET Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/category/list",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"genre\": \"AVENTURAS INOLVIDABLES\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/category/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EDIT Category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"genre\": \"editando\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/category/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/category/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "POST Login Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var json = pm.response.json();\r",
+							"pm.collectionVariables.set(\"token\", json.token);\r",
+							"pm.collectionVariables.set(\"refresh_token\", json.refreshToken)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"user\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/auth/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [

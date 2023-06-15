@@ -28,7 +28,7 @@ class LoginPage extends StatelessWidget {
               children: <Widget>[
                 SizedBox(height: 10.0),
                 Text(
-                  'Cualquier juego, al alcance de todos',
+                  'De uno para todos y de todos para uno',
                   style: TextStyle(
                       fontSize: 18.0,
                       color: Color(0xFF38B6FF),

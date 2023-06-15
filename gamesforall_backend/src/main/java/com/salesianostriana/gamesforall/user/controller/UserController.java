@@ -53,7 +53,7 @@ public class UserController {
     private final RefreshTokenService refreshTokenService;
     private final ProductService productService;
 
-
+    @Operation(summary = "Se registra un usuario con el perfil de User")
     @PostMapping("/auth/register")
     public ResponseEntity<UserResponse> createUserWithUserRole(@RequestBody CreateUserRequest createUserRequest) {
         User user = userService.createUserWithUserRole(createUserRequest);
@@ -61,8 +61,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.fromUser(user));
     }
 
-    // Más adelante podemos manejar la seguridad de acceso a esta petición
 
+    @Operation(summary = "Se registra un usuario con el perfil de admin")
     @PostMapping("/auth/register/admin")
     public ResponseEntity<UserResponse> createUserWithAdminRole(@RequestBody CreateUserRequest createUserRequest) {
         User user = userService.createUserWithAdminRole(createUserRequest);
@@ -72,6 +72,7 @@ public class UserController {
 
 
 //    @Transactional
+    @Operation(summary = "Realiza el login")
     @PostMapping("/auth/login")
     public ResponseEntity<JwtUserResponse> login(@RequestBody LoginRequest loginRequest) {
 
@@ -103,6 +104,7 @@ public class UserController {
 
     }
 
+    @Operation(summary = "Actualiza el token")
     @PostMapping("/refreshtoken")
     public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         String refreshToken = refreshTokenRequest.getRefreshToken();
@@ -125,7 +127,7 @@ public class UserController {
     }
 
 
-
+    @Operation(summary = "modifica la contraseña")
     @PutMapping("/user/changePassword")
     public ResponseEntity<UserResponse> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest,
                                                        @AuthenticationPrincipal User loggedUser) {
@@ -204,6 +206,8 @@ public class UserController {
 
     }
 
+
+    @Operation(summary = "Obtiene todos los productos favoritos de forma NO paginada del usuario registrado")
     @GetMapping("/favoritesnotpaged")
     public List<BasicProductDTO> getUserFavoritesNotPaged(@AuthenticationPrincipal User loggedUser, Pageable pageable) {
 
@@ -236,7 +240,7 @@ public class UserController {
     }
 
 
-    @Operation(summary = "Borra un favorito dado del usuario registrado a partir de un id dado")
+    @Operation(summary = "Borra el favorito del usuario registrado a partir de un id dado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "Se ha borrado el producto con éxito",
@@ -254,7 +258,7 @@ public class UserController {
     }
 
 
-
+    @Operation(summary = "Devuelve los detalles del usuario logado")
     @GetMapping("/me")
     public UserResponse getUser (@AuthenticationPrincipal User loggedUser, HttpServletRequest request){
         String authToken = request.getHeader("Authorization");
@@ -264,6 +268,7 @@ public class UserController {
     }
 
 
+    @Operation(summary = "Obtiene todos los usuarios")
     @GetMapping("/auth/users")
     public ResponseEntity<List<UserResponse>>getAllUSers(){
 
@@ -294,6 +299,7 @@ public class UserController {
     }
 
 
+    @Operation(summary = "Edita al usuario logado")
     @PutMapping("/auth/user")
     public ResponseEntity<UserResponse> editMyUser(@RequestBody EditUserRequest editUserRequest) {
         Optional<User> userResponse= userService.edit(editUserRequest);

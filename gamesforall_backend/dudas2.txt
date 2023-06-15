@@ -44,7 +44,7 @@ la otra como atributo si lapongo bidireccional, sino puedo acceder mediante cons
 --cada producto tendra una valoracion al usuario
 
 
-dudas alvaro
+dudas a
 hacer: aplicar validación
 -hacer más excepciones?como usa la criteria general en vez de la de product?
 -tengo tipo lazy pero sin grafo de entidad, lo  aplico?

@@ -114,7 +114,7 @@ class _MainPageState extends State<MainPage> {
                     iconColor: Colors.red,
                   ),
                   GButton(
-                    icon: Icons.cloud_upload,
+                    icon: Icons.cloud_upload_sharp,
                     text: 'Upload',
                     onPressed: () {
                       _navigateToUploadProductPage(context);

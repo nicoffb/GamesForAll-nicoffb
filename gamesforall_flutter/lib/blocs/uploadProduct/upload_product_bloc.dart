@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -24,6 +25,7 @@ class UploadProductBloc extends FormBloc<String, String> {
   PlatformService platformService = PlatformService();
   CategoryService categoryService = CategoryService();
   int? newProductId;
+  final imageController = StreamController<File>.broadcast();
 
   final title = TextFieldBloc(
     validators: [FieldBlocValidators.required],
@@ -86,11 +88,16 @@ class UploadProductBloc extends FormBloc<String, String> {
         type: FileType.custom, allowedExtensions: ['jpg', 'jpeg', 'png']);
     if (file != null) {
       selectedImage = File(file.files.single.path!);
+      imageController.add(selectedImage!);
     }
   }
 
   @override
   void onSubmitting() async {
+    if (selectedImage == null) {
+      emitFailure(failureResponse: 'Selecciona una imagen por favor');
+      return;
+    }
     try {
       debugPrint(title.value);
       debugPrint(price.value);
@@ -109,7 +116,7 @@ class UploadProductBloc extends FormBloc<String, String> {
                 categoriesSelect.value.map((e) => e as Categories).toSet(),
           ),
           PlatformFile(
-            name: selectedImage!.path.split('\\').last,
+            name: selectedImage!.path.split('/').last,
             bytes: await selectedImage!.readAsBytes(),
             size: selectedImage!.lengthSync(),
           ),
@@ -237,8 +244,22 @@ class ProductForm extends StatelessWidget {
                           prefixIcon: SizedBox(),
                         ),
                       ),
-                      if (productFormBloc.selectedImage != null)
-                        Image.file(productFormBloc.selectedImage!),
+                      StreamBuilder<File>(
+                        stream: productFormBloc.imageController.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Text('');
+                          } else {
+                            final imageFile = snapshot.data;
+                            if (imageFile != null) {
+                              return Image.file(imageFile);
+                            } else {
+                              return Text('Selecciona una imagen por favor');
+                            }
+                          }
+                        },
+                      ),
                       ElevatedButton(
                         onPressed: () {
                           productFormBloc.selectImage(context);
@@ -314,7 +335,7 @@ class SuccessScreen extends StatelessWidget {
             const Icon(Icons.tag_faces, size: 100),
             const SizedBox(height: 10),
             const Text(
-              'Success',
+              'Éxito',
               style: TextStyle(fontSize: 54, color: Colors.black),
               textAlign: TextAlign.center,
             ),

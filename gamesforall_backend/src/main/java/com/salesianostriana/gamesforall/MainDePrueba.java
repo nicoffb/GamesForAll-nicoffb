@@ -204,7 +204,7 @@ public class MainDePrueba {
                 .platform(platform4)
                 .state(StateEnum.SinAbrir)
                 .sold(false)
-                .user(user2)
+                .user(user3)
                 .build();
 
         Product product6 = Product.builder()
@@ -216,7 +216,7 @@ public class MainDePrueba {
                 .platform(platform4)
                 .state(StateEnum.SinAbrir)
                 .sold(false)
-                .user(user1)
+                .user(user3)
                 .build();
 
         Product product7 = Product.builder()

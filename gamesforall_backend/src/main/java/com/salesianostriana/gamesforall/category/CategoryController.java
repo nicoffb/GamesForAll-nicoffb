@@ -3,6 +3,7 @@ package com.salesianostriana.gamesforall.category;
 
 import com.salesianostriana.gamesforall.product.dto.BasicProductDTO;
 import com.salesianostriana.gamesforall.product.dto.ProductRequestDTO;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    @Operation(summary = "Obtiene todos las categorias")
     @GetMapping("/list")
     public Set<CategoryDTO> getCategorys( ) {
 
@@ -28,6 +30,7 @@ public class CategoryController {
 
     }
 
+    @Operation(summary = "Crea una categoria")
     @PostMapping("/")
     public ResponseEntity<CategoryDTO> createNewCategory(@RequestBody CategoryDTO created) {
 
@@ -48,7 +51,7 @@ public class CategoryController {
 
     }
 
-
+    @Operation(summary = "Elimina una categoria")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
@@ -56,6 +59,8 @@ public class CategoryController {
         return ResponseEntity.noContent().build();
     }
 
+
+    @Operation(summary = "Edita una categoria")
     @PutMapping("/{id}")
     public CategoryDTO editCategory(@PathVariable Long id, @RequestBody CategoryDTO edited) {
         return categoryService.edit(id,edited);

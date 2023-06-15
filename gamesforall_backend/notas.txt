@@ -37,3 +37,26 @@ cuando entra un usuario por primera vez carga las paginas sobre el login
 
 
 el servicio de mensajes no devuelve una excepcion y por lo tanto la documentacion estrá mal al no devolver un userexception, o no?
+
+
+
+//grafo entidad encima de producto:
+//@NamedEntityGraph(
+//        name = "product-with-platform-and-categories",
+//        attributeNodes = {
+//                @NamedAttributeNode(value = "categories"),
+//                @NamedAttributeNode(value= "platform")
+//        }
+//
+//)
+//@NamedEntityGraph
+//        (name="categoria-con-productos",
+//                attributeNodes = {
+//                        @NamedAttributeNode(value = "productos",
+//                                subgraph = "imagenes-producto")
+//                }, subgraphs = {
+//                @NamedSubgraph(name="imagenes-producto",
+//                        attributeNodes = {
+//                                @NamedAttributeNode("imagenes")
+//                        })
+//        })
