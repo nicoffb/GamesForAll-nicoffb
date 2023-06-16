@@ -1,6 +1,13 @@
 # GAMES FOR ALL
 En este repositorio podeís encontrar el desarollo de una aplicación llamada Games For All, cuyo propósito es crear una plataforma de compra/venta de videojuegos de segunda mano.
 
+## BUGS DE ARRANQUE
+1.Al parecer, correr la aplicación con Docker solo funcionará la primera vez. Además a veces da problemas con la petición de subida multipart.
+Si pasa esto, recomendamos ir a application.properties y borrar la primera línea para ejecutar sin Docker y que no haya problemas de arranque.
+
+2.Al parecer, puede pasar que a veces con usuarios nuevos la primera vez que se introduzcan en la app, la visualización en Flutter sea errónea.
+Esto se soluciona hacinedo log out y login o usando las otras opciones de navegación. Debería verse como los gis que he dejado abajo.
+
 
 ## BACKEND
 La API se ha programada con Spring Boot y JAVA 
