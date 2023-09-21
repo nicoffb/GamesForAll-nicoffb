@@ -1,5 +1,5 @@
 # GAMES FOR ALL
-En este repositorio podeís encontrar el desarollo de una aplicación llamada Games For All, cuyo propósito es crear una plataforma de compra/venta de videojuegos de segunda mano.
+En este repositorio podeís encontrar el desarollo de una aplicación llamada Games For All, cuyo propósito es crear una plataforma de compra/venta de videojuegos de segunda mano.El back-end se ha realizado con Springboot/Java , mientras que el front-end en la parte web se ha realizado con Angular/Typescript y en la parte móvil con Flutter/Dart.
 
 ## BUGS DE ARRANQUE
 1.Al parecer, correr la aplicación con Docker solo funcionará la primera vez. Además a veces da problemas con la petición de subida multipart.
